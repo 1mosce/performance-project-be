@@ -1,3 +1,3 @@
 ﻿<Project>
-  <Import Project="../build/PeopleManagmentSystem-API.props" />
+  <Import Project="..\build\PeopleManagmentSystem-API.props" />
 </Project>
