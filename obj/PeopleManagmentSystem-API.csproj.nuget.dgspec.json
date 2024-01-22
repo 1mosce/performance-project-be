@@ -1,26 +1,33 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mykolashuliak/Desktop/perfomance-workflow/BE/performance-project-be/PeopleManagmentSystem-API.csproj": {}
+    "D:\\StaffFlow\\PeopleManagmentSystem-API.csproj": {}
   },
   "projects": {
-    "/Users/mykolashuliak/Desktop/perfomance-workflow/BE/performance-project-be/PeopleManagmentSystem-API.csproj": {
+    "D:\\StaffFlow\\PeopleManagmentSystem-API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mykolashuliak/Desktop/perfomance-workflow/BE/performance-project-be/PeopleManagmentSystem-API.csproj",
+        "projectUniqueName": "D:\\StaffFlow\\PeopleManagmentSystem-API.csproj",
         "projectName": "PeopleManagmentSystem-API",
-        "projectPath": "/Users/mykolashuliak/Desktop/perfomance-workflow/BE/performance-project-be/PeopleManagmentSystem-API.csproj",
-        "packagesPath": "/Users/mykolashuliak/.nuget/packages/",
-        "outputPath": "/Users/mykolashuliak/Desktop/perfomance-workflow/BE/performance-project-be/obj/",
+        "projectPath": "D:\\StaffFlow\\PeopleManagmentSystem-API.csproj",
+        "packagesPath": "C:\\Users\\Alyona\\.nuget\\packages\\",
+        "outputPath": "D:\\StaffFlow\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "/Users/mykolashuliak/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Alyona\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -39,9 +46,21 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "AspNetCore.Identity.MongoDbCore": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.15, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.5, )"
+            },
+            "MongoDB.Driver": {
+              "target": "Package",
+              "version": "[2.23.1, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
@@ -67,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.203/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
