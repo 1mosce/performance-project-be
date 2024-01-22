@@ -12,5 +12,15 @@ namespace PeopleManagmentSystem_API.Models
         public string Name { get; set; } = String.Empty;
         [BsonElement("company_email")]
         public string Email { get; set; } = String.Empty;
+        [BsonElement("company_description")]
+        public string Description { get; set; } = String.Empty;
+
+        [BsonElement("company_employees")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public List<string> EmployeeIds { get; set; }
+
+        [BsonElement("company_projects")]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public List<string> ProjectIds { get; set; }
     }
 }

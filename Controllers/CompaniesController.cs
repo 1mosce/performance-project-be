@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PeopleManagmentSystem_API.Models;
-using PeopleManagmentSystem_API.Services;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using PeopleManagmentSystem_API.Services.Interfaces;
 
 namespace PeopleManagmentSystem_API.Controllers
 {
@@ -18,6 +17,7 @@ namespace PeopleManagmentSystem_API.Controllers
         }
         // GET: api/<CompanysController>
         [HttpGet]
+        [Authorize]
         public ActionResult<List<Company>> Get()
         {
             return companyService.Get();

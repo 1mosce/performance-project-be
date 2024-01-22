@@ -1,6 +1,6 @@
 ﻿using PeopleManagmentSystem_API.Models;
 
-namespace PeopleManagmentSystem_API.Services
+namespace PeopleManagmentSystem_API.Services.Interfaces
 {
     public interface ICompanyService
     {

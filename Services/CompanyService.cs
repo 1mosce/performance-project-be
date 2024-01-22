@@ -1,5 +1,7 @@
 ﻿using MongoDB.Driver;
 using PeopleManagmentSystem_API.Models;
+using PeopleManagmentSystem_API.Models.Database;
+using PeopleManagmentSystem_API.Services.Interfaces;
 
 namespace PeopleManagmentSystem_API.Services
 {
