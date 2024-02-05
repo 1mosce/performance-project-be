@@ -1,13 +1,14 @@
-﻿using PeopleManagmentSystem_API.Models;
+﻿using MongoDB.Bson;
+using PeopleManagmentSystem_API.Models;
 
 namespace PeopleManagmentSystem_API.Services
 {
-    public interface IEmployeeService
+    public interface IUserService
     {
-        List<Employee> Get();
-        Employee Get(string id);
-        Employee Create(Employee employee);
-        void Update(string id, Employee employee);
-        void Remove(string id);
+        List<User> Get();
+        User Get(ObjectId id);
+        User Create(User employee);
+        void Update(ObjectId id, User employee);
+        void Remove(ObjectId id);
     }
 }

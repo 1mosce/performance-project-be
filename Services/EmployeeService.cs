@@ -1,42 +1,43 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Models.Database;
 
 namespace PeopleManagmentSystem_API.Services
 {
-    public class EmployeeService : IEmployeeService
+    public class UserService : IUserService
     {
-        private readonly IMongoCollection<Employee> _employees;
+        private readonly IMongoCollection<User> _employees;
 
-        public EmployeeService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
+        public UserService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
 
-            _employees = database.GetCollection<Employee>(settings.EmployeeCollectionName);
+            _employees = database.GetCollection<User>(settings.UserCollectionName);
         }
 
-        public Employee Create(Employee employee)
+        public User Create(User employee)
         {
             _employees.InsertOne(employee);
             return employee;
         }
 
-        public List<Employee> Get()
+        public List<User> Get()
         {
             return _employees.Find(c => true).ToList();
         }
 
-        public Employee Get(string id)
+        public User Get(ObjectId id)
         {
             return _employees.Find(c => c.Id == id).FirstOrDefault();
         }
 
-        public void Remove(string id)
+        public void Remove(ObjectId id)
         {
             _employees.DeleteOne(c => c.Id == id);
         }
 
-        public void Update(string id, Employee employee)
+        public void Update(ObjectId id, User employee)
         {
             _employees.ReplaceOne(c => c.Id == id, employee);
         }

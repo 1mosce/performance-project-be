@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Services.Interfaces;
@@ -17,7 +18,7 @@ namespace PeopleManagmentSystem_API.Controllers
         }
         // GET: api/<CompanysController>
         [HttpGet]
-        [Authorize]
+        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult<List<Company>> Get()
         {
             return companyService.Get();
