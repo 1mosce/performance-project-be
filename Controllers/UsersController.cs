@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Services;
@@ -11,55 +9,54 @@ namespace PeopleManagmentSystem_API.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly IUserService employeeService;
+        private readonly IUserService userService;
 
-        public UsersController(IUserService employeeService)
+        public UsersController(IUserService userService)
         {
-            this.employeeService = employeeService;
+            this.userService = userService;
         }
         // GET: api/<UsersController>
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult<List<User>> Get()
         {
-            return employeeService.Get();
+            return userService.Get();
         }
 
         // GET api/<UsersController>/5
         [HttpGet("{id}")]
         public ActionResult<User> Get(ObjectId id)
         {
-            var employee = employeeService.Get(id);
+            var user = userService.Get(id);
 
-            if (employee == null)
+            if (user == null)
             {
                 return NotFound($"User with Id = {id} not found");
             }
 
-            return employee;
+            return user;
         }
 
         // POST api/<UsersController>
         [HttpPost]
-        public ActionResult<User> Post([FromBody] User employee)
+        public ActionResult<User> Post([FromBody] User user)
         {
-            employeeService.Create(employee);
+            userService.Create(user);
 
-            return CreatedAtAction(nameof(Get), new { id = employee.Id }, employee);
+            return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
         }
 
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(ObjectId id, [FromBody] User employee)
+        public ActionResult Put(ObjectId id, [FromBody] User user)
         {
-            var existingUser = employeeService.Get(id);
+            var existingUser = userService.Get(id);
 
             if (existingUser == null)
             {
                 return NotFound($"User with Id = {id} not found");
             }
 
-            employeeService.Update(id, employee);
+            userService.Update(id, user);
 
             return NoContent();
         }
@@ -68,14 +65,14 @@ namespace PeopleManagmentSystem_API.Controllers
         [HttpDelete("{id}")]
         public ActionResult Delete(ObjectId id)
         {
-            var employee = employeeService.Get(id);
+            var user = userService.Get(id);
 
-            if (employee == null)
+            if (user == null)
             {
                 return NotFound($"User with Id = {id} not found");
             }
 
-            employeeService.Remove(employee.Id);
+            userService.Remove(user.Id);
 
             return Ok($"User with Id = {id} deleted");
         }

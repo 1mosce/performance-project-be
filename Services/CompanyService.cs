@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Models.Database;
 using PeopleManagmentSystem_API.Services.Interfaces;
@@ -7,7 +8,7 @@ namespace PeopleManagmentSystem_API.Services
 {
     public class CompanyService : ICompanyService
     {
-        private readonly IMongoCollection<Company> _companies;
+        private IMongoCollection<Company> _companies;
 
         public CompanyService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
         {
@@ -26,17 +27,17 @@ namespace PeopleManagmentSystem_API.Services
             return _companies.Find(c => true).ToList();
         }
 
-        public Company Get(string id)
+        public Company Get(ObjectId id)
         {
             return _companies.Find(c => c.Id == id).FirstOrDefault();
         }
 
-        public void Remove(string id)
+        public void Remove(ObjectId id)
         {
             _companies.DeleteOne(c => c.Id == id);
         }
 
-        public void Update(string id, Company company)
+        public void Update(ObjectId id, Company company)
         {
             _companies.ReplaceOne(c => c.Id == id, company);
         }

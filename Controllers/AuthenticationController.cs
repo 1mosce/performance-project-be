@@ -8,6 +8,7 @@ using System.Security.Claims;
 
 namespace PeopleManagmentSystem_API.Controllers
 {
+    [Route("api/")]
     public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<User> _userManager;

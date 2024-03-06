@@ -1,6 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MongoDB.Bson;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Services.Interfaces;
 
@@ -18,7 +17,7 @@ namespace PeopleManagmentSystem_API.Controllers
         }
         // GET: api/<CompanysController>
         [HttpGet]
-        [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+        //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
         public ActionResult<List<Company>> Get()
         {
             return companyService.Get();
@@ -26,7 +25,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         // GET api/<CompanysController>/5
         [HttpGet("{id}")]
-        public ActionResult<Company> Get(string id)
+        public ActionResult<Company> Get(ObjectId id)
         {
             var company = companyService.Get(id);
 
@@ -49,7 +48,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         // PUT api/<CompanysController>/5
         [HttpPut("{id}")]
-        public ActionResult Put(string id, [FromBody] Company company)
+        public ActionResult Put(ObjectId id, [FromBody] Company company)
         {
             var existingCompany = companyService.Get(id);
 
@@ -65,7 +64,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         // DELETE api/<CompanysController>/5
         [HttpDelete("{id}")]
-        public ActionResult Delete(string id)
+        public ActionResult Delete(ObjectId id)
         {
             var company = companyService.Get(id);
 

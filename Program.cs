@@ -97,8 +97,11 @@ builder.Services.AddAuthorization(auth =>
 
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICompanyUserService, CompanyUserService>();
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(
+    options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
