@@ -45,6 +45,19 @@ namespace PeopleManagmentSystem_API.Controllers
             return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
         }
 
+        [HttpGet("{id}/companies")]
+        public ActionResult<List<Company>> GetCompanies(ObjectId id)
+        {
+            var user = userService.Get(id);
+
+            if (user == null)
+            {
+                return NotFound($"User with Id = {id} not found");
+            }
+
+            return userService.GetCompanies(id);
+        }
+
         // PUT api/<UsersController>/5
         [HttpPut("{id}")]
         public ActionResult Put(ObjectId id, [FromBody] User user)

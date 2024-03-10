@@ -7,7 +7,10 @@ namespace PeopleManagmentSystem_API.Services.Interfaces
     {
         List<Company> Get();
         Company Get(ObjectId id);
-        Company Create(Company company);
+        List<User> GetUsers(ObjectId id);
+        void UpdateUser(ObjectId companyId, ObjectId userId);
+        List<Project> GetProjects(ObjectId id);
+        Company Create(Company company); 
         void Update(ObjectId id, Company company);
         void Remove(ObjectId id);
     }
