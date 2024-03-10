@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Services;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace PeopleManagmentSystem_API.Controllers
 {
@@ -15,15 +16,16 @@ namespace PeopleManagmentSystem_API.Controllers
         {
             this.userService = userService;
         }
-        // GET: api/<UsersController>
+
         [HttpGet]
+        [SwaggerOperation(Summary = "Get all Users")]
         public ActionResult<List<User>> Get()
         {
             return userService.Get();
         }
 
-        // GET api/<UsersController>/5
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get User by Id")]
         public ActionResult<User> Get(ObjectId id)
         {
             var user = userService.Get(id);
@@ -36,16 +38,8 @@ namespace PeopleManagmentSystem_API.Controllers
             return user;
         }
 
-        // POST api/<UsersController>
-        [HttpPost]
-        public ActionResult<User> Post([FromBody] User user)
-        {
-            userService.Create(user);
-
-            return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
-        }
-
         [HttpGet("{id}/companies")]
+        [SwaggerOperation(Summary = "Get User's Companies")]
         public ActionResult<List<Company>> GetCompanies(ObjectId id)
         {
             var user = userService.Get(id);
@@ -58,8 +52,17 @@ namespace PeopleManagmentSystem_API.Controllers
             return userService.GetCompanies(id);
         }
 
-        // PUT api/<UsersController>/5
+        [HttpPost]
+        [SwaggerOperation(Summary = "Create a New User")]
+        public ActionResult<User> Post([FromBody] User user)
+        {
+            userService.Create(user);
+
+            return CreatedAtAction(nameof(Get), new { id = user.Id }, user);
+        }
+
         [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Modify a User")]
         public ActionResult Put(ObjectId id, [FromBody] User user)
         {
             var existingUser = userService.Get(id);
@@ -74,8 +77,8 @@ namespace PeopleManagmentSystem_API.Controllers
             return NoContent();
         }
 
-        // DELETE api/<UsersController>/5
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Remove a User")]
         public ActionResult Delete(ObjectId id)
         {
             var user = userService.Get(id);

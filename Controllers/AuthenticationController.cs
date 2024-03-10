@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Models.DTO;
+using Swashbuckle.AspNetCore.Annotations;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
@@ -22,6 +23,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPost]
         [Route("roles/add")]
+        [SwaggerOperation(Summary = "Create a New Role")]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleRequest request)
         {
             var appRole = new Role { Name = request.Role };
@@ -31,6 +33,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPost]
         [Route("register")]
+        [SwaggerOperation(Summary = "Register")]
         public async Task<IActionResult> Register([FromBody] RegisterRequest request)
         {
             var result = await RegisterAsync(request);
@@ -74,6 +77,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPost]
         [Route("login")]
+        [SwaggerOperation(Summary = "Login")]
         [ProducesResponseType((int)HttpStatusCode.OK, Type = typeof(LoginResponse))]
         public async Task<IActionResult> Login([FromBody] LoginRequest request)
         {

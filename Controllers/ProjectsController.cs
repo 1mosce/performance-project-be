@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Services.Interfaces;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace PeopleManagmentSystem_API.Controllers
 {
@@ -17,13 +18,14 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Get all Projects")]
         public ActionResult<List<Project>> Get()
         {
             return projectService.Get();
         }
 
-        // GET api/<ProjectsController>/5
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get Project by Id")]
         public ActionResult<Project> Get(ObjectId id)
         {
             var project = projectService.Get(id);
@@ -36,8 +38,8 @@ namespace PeopleManagmentSystem_API.Controllers
             return project;
         }
 
-        // POST api/<ProjectsController>
         [HttpPost]
+        [SwaggerOperation(Summary = "Create a New Project")]
         public ActionResult<Project> Post([FromBody] Project project)
         {
             projectService.Create(project);
@@ -45,8 +47,8 @@ namespace PeopleManagmentSystem_API.Controllers
             return CreatedAtAction(nameof(Get), new { id = project.Id }, project);
         }
 
-        // PUT api/<ProjectsController>/5
         [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Modify a Project")]
         public ActionResult Put(ObjectId id, [FromBody] Project project)
         {
             var existingProject = projectService.Get(id);
@@ -61,8 +63,8 @@ namespace PeopleManagmentSystem_API.Controllers
             return NoContent();
         }
 
-        // DELETE api/<ProjectsController>/5
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Remove a Project")]
         public ActionResult Delete(ObjectId id)
         {
             var project = projectService.Get(id);

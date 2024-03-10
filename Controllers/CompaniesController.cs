@@ -2,6 +2,7 @@
 using MongoDB.Bson;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Services.Interfaces;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace PeopleManagmentSystem_API.Controllers
 {
@@ -17,12 +18,14 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation(Summary = "Get all Companies")]
         public ActionResult<List<Company>> Get()
         {
             return companyService.Get();
         }
 
         [HttpGet("{id}")]
+        [SwaggerOperation(Summary = "Get Company by Id")]
         public ActionResult<Company> Get(ObjectId id)
         {
             var company = companyService.Get(id);
@@ -36,6 +39,7 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
         [HttpGet("{id}/users")]
+        [SwaggerOperation(Summary = "Get Company's Users")]
         public ActionResult<List<User>> GetUsers(ObjectId id)
         {
             var company = companyService.Get(id);
@@ -49,6 +53,7 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
         [HttpPut("{companyId}/{userId}")]
+        [SwaggerOperation(Summary = "Update a User's Company Membership")]
         public ActionResult UpdateUser(ObjectId companyId, ObjectId userId)
         {
             companyService.UpdateUser(companyId, userId);
@@ -57,6 +62,7 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
         [HttpGet("{id}/projects")]
+        [SwaggerOperation(Summary = "Get Company's Projects")]
         public ActionResult<List<Project>> GetProjects(ObjectId id)
         {
             var company = companyService.Get(id);
@@ -70,6 +76,7 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(Summary = "Create a New Company")]
         public ActionResult<Company> Post([FromBody] Company company)
         {
             companyService.Create(company);
@@ -78,6 +85,7 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
         [HttpPut("{id}")]
+        [SwaggerOperation(Summary = "Modify a Company")]
         public ActionResult Put(ObjectId id, [FromBody] Company company)
         {
             var existingCompany = companyService.Get(id);
@@ -93,6 +101,7 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
         [HttpDelete("{id}")]
+        [SwaggerOperation(Summary = "Remove a Company")]
         public ActionResult Delete(ObjectId id)
         {
             var company = companyService.Get(id);
