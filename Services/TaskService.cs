@@ -11,11 +11,13 @@ namespace PeopleManagmentSystem_API.Services
     public class TaskService : ITaskService
     {
         private IMongoCollection<Task> _tasks;
+        private IMongoCollection<Comment> _comments;
 
         public TaskService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _tasks = database.GetCollection<Task>(settings.TaskCollectionName);
+            _comments = database.GetCollection<Comment>(settings.CommentCollectionName);
         }
 
         //add ID existence check based on relationships
@@ -27,22 +29,30 @@ namespace PeopleManagmentSystem_API.Services
 
         public List<Task> Get()
         {
-            return _tasks.Find(p => true).ToList();
+            return _tasks.Find(t => true).ToList();
         }
 
         public Task Get(ObjectId id)
         {
-            return _tasks.Find(p => p.Id == id).FirstOrDefault();
+            return _tasks.Find(t => t.Id == id).FirstOrDefault();
+        }
+        public List<Comment> GetComments(ObjectId id)
+        {
+            _tasks.Find(c => c.Id == id).FirstOrDefault();
+
+            return _comments
+                .Find(c => c.TaskId == id.ToString())
+                .ToList();
         }
 
         public void Remove(ObjectId id)
         {
-            _tasks.DeleteOne(p => p.Id == id);
+            _tasks.DeleteOne(t => t.Id == id);
         }
 
         public void Update(ObjectId id, Task task)
         {
-            _tasks.ReplaceOne(p => p.Id == id, task);
+            _tasks.ReplaceOne(t => t.Id == id, task);
         }
     }
 }

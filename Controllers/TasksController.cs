@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
+using PeopleManagmentSystem_API.Models;
+using PeopleManagmentSystem_API.Services;
 using PeopleManagmentSystem_API.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -38,6 +40,21 @@ namespace PeopleManagmentSystem_API.Controllers
 
             return task;
         }
+
+        [HttpGet("{id}/comments")]
+        [SwaggerOperation(Summary = "Get Task's Comments")]
+        public ActionResult<List<Comment>> GetProjects(ObjectId id)
+        {
+            var company = taskService.Get(id);
+
+            if (company == null)
+            {
+                return NotFound($"Task with Id = {id} not found");
+            }
+
+            return taskService.GetComments(id);
+        }
+
 
         [HttpPost]
         [SwaggerOperation(Summary = "Create a New Task")]
