@@ -3,43 +3,56 @@ using MongoDB.Driver;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Models.Database;
 using PeopleManagmentSystem_API.Services.Interfaces;
+using Task = PeopleManagmentSystem_API.Models.Task;
 
 namespace PeopleManagmentSystem_API.Services
 {
     public class ProjectService : IProjectService
     {
-        private IMongoCollection<Project> _companies;
+        private IMongoCollection<Project> _projects;
+        private IMongoCollection<Task> _tasks;
 
         public ProjectService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
-            _companies = database.GetCollection<Project>(settings.ProjectCollectionName);
+            _projects = database.GetCollection<Project>(settings.ProjectCollectionName);
+            _tasks = database.GetCollection<Task>(settings.TaskCollectionName);
         }
 
         public Project Create(Project project)
         {
-            _companies.InsertOne(project);
+            _projects.InsertOne(project);
             return project;
         }
 
         public List<Project> Get()
         {
-            return _companies.Find(p => true).ToList();
+            return _projects.Find(p => true).ToList();
         }
 
         public Project Get(ObjectId id)
         {
-            return _companies.Find(p => p.Id == id).FirstOrDefault();
+            return _projects.Find(p => p.Id == id).FirstOrDefault();
+        }
+
+        public List<Task> GetTasks(ObjectId id)
+        {
+            _projects.Find(c => c.Id == id).FirstOrDefault();
+
+            return _tasks
+                .Find(t => t.ProjectId == id.ToString())
+                .ToList();
         }
 
         public void Remove(ObjectId id)
         {
-            _companies.DeleteOne(p => p.Id == id);
+            _projects.DeleteOne(p => p.Id == id);
         }
 
         public void Update(ObjectId id, Project project)
         {
-            _companies.ReplaceOne(p => p.Id == id, project);
+            project.Id = id;
+            _projects.ReplaceOne(p => p.Id == id, project);
         }
     }
 }

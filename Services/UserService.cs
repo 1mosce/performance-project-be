@@ -50,9 +50,10 @@ namespace PeopleManagmentSystem_API.Services
             _users.DeleteOne(u => u.Id == id);
         }
 
-        public void Update(ObjectId id, User employee)
+        public void Update(ObjectId id, User user)
         {
-            _users.ReplaceOne(u => u.Id == id, employee);
+            user.Id = id;
+            _users.ReplaceOne(u => u.Id == id, user);
         }
     }
 }

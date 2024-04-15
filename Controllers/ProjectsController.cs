@@ -4,6 +4,8 @@ using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
+using Task = PeopleManagmentSystem_API.Models.Task;
+
 namespace PeopleManagmentSystem_API.Controllers
 {
     [Route("api/[controller]")]
@@ -36,6 +38,21 @@ namespace PeopleManagmentSystem_API.Controllers
             }
 
             return project;
+        }
+
+
+        [HttpGet("{id}/projects")]
+        [SwaggerOperation(Summary = "Get Project's Tasks")]
+        public ActionResult<List<Task>> GetProjects(ObjectId id)
+        {
+            var company = projectService.Get(id);
+
+            if (company == null)
+            {
+                return NotFound($"Project with Id = {id} not found");
+            }
+
+            return projectService.GetTasks(id);
         }
 
         [HttpPost]
