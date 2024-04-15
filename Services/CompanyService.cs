@@ -86,6 +86,7 @@ namespace PeopleManagmentSystem_API.Services
 
         public void Update(ObjectId id, Company company)
         {
+            company.Id = id;
             _companies.ReplaceOne(c => c.Id == id, company);
         }
     }

@@ -52,6 +52,7 @@ namespace PeopleManagmentSystem_API.Services
 
         public void Update(ObjectId id, Task task)
         {
+            task.Id = id;
             _tasks.ReplaceOne(t => t.Id == id, task);
         }
     }

@@ -10,9 +10,9 @@ namespace PeopleManagmentSystem_API.Models
 
         public string SerializedId { get => Id.ToString(); }
 
-       public string Name { get; set; } = String.Empty;
+        public string Name { get; set; } = String.Empty;
 
-       public string Description { get; set; } = String.Empty;
+        public string Description { get; set; } = String.Empty;
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string CompanyId { get; set; } = String.Empty;

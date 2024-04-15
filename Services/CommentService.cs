@@ -40,6 +40,7 @@ namespace PeopleManagmentSystem_API.Services
 
         public void Update(ObjectId id, Comment comment)
         {
+            comment.Id = id;
             _comments.ReplaceOne(c => c.Id == id, comment);
         }
     }
