@@ -41,9 +41,9 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
 
-        [HttpGet("{id}/projects")]
+        [HttpGet("{id}/tasks")]
         [SwaggerOperation(Summary = "Get Project's Tasks")]
-        public ActionResult<List<Task>> GetProjects(ObjectId id)
+        public ActionResult<List<Task>> GetTasks(ObjectId id)
         {
             var company = projectService.Get(id);
 

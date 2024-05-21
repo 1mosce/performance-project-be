@@ -37,11 +37,12 @@ namespace PeopleManagmentSystem_API.Services
 
         public List<Task> GetTasks(ObjectId id)
         {
-            _projects.Find(c => c.Id == id).FirstOrDefault();
+            //_projects.Find(p => p.Id == id).FirstOrDefault();
+            //var tas = _tasks
+            //    .Find(t => t.ProjectId == id.ToString())
+            //    .ToList();
 
-            return _tasks
-                .Find(t => t.ProjectId == id.ToString())
-                .ToList();
+            return _tasks.Find(t => true).ToList().FindAll(t => t.ProjectId == id.ToString());
         }
 
         public void Remove(ObjectId id)

@@ -26,7 +26,7 @@ namespace PeopleManagmentSystem_API.Models
         [BsonIgnoreIfNull]
         public string PriorityId { get; set; } = String.Empty;
         public DateTime DueDate { get; set; }
-        public TimeSpan TimeSpent { get; set; }
-        public double Rating { get; set; }
+        //public TimeSpan TimeSpent { get; set; }
+        //public double Rating { get; set; }
     }
 }

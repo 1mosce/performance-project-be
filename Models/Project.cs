@@ -14,6 +14,10 @@ namespace PeopleManagmentSystem_API.Models
 
         public string Description { get; set; } = String.Empty;
 
+        public DateOnly StartDate { get; set; }
+        public DateOnly EndDate { get; set; }
+        public string MainMethodology { get; set; } = String.Empty;
+
         [BsonRepresentation(BsonType.ObjectId)]
         public string CompanyId { get; set; } = String.Empty;
 
