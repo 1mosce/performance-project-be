@@ -41,6 +41,21 @@ namespace PeopleManagmentSystem_API.Controllers
             return task;
         }
 
+        [HttpGet("{id}/productivity")]
+        [SwaggerOperation(Summary = "Get Task`s Productivity")]
+        public ActionResult<double> GetProductivity(ObjectId id)
+        {
+            var task = taskService.Get(id);
+
+            if (task == null)
+            {
+                return NotFound($"Task with Id = {id} not found");
+            }
+
+            return taskService.GetProductivity(id);
+        }
+
+
         [HttpGet("{id}/comments")]
         [SwaggerOperation(Summary = "Get Task's Comments")]
         public ActionResult<List<Comment>> GetProjects(ObjectId id)

@@ -36,6 +36,12 @@ namespace PeopleManagmentSystem_API.Services
         {
             return _tasks.Find(t => t.Id == id).FirstOrDefault();
         }
+
+        public double GetProductivity(ObjectId id)
+        {
+            return _tasks.Find(t => t.Id == id).First().CalculateProductivity();
+        }
+
         public List<Comment> GetComments(ObjectId id)
         {
             _tasks.Find(c => c.Id == id).FirstOrDefault();
