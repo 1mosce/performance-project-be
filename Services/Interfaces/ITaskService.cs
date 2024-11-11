@@ -9,6 +9,7 @@ namespace PeopleManagmentSystem_API.Services.Interfaces
         List<Task> Get();
         Task Get(ObjectId id);
         double GetProductivity(ObjectId id);
+        string GetSkills(string title);
         List<Comment> GetComments(ObjectId id);
         Task Create(Task task);
         void Update(ObjectId id, Task task);

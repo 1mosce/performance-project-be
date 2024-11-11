@@ -41,6 +41,13 @@ namespace PeopleManagmentSystem_API.Controllers
             return task;
         }
 
+        [HttpGet("{title}/skills")]
+        [SwaggerOperation(Summary = "Get Predicted Skills for Task")]
+        public ActionResult<string> GetSkills(string title)
+        {
+            return taskService.GetSkills(title);
+        }
+
         [HttpGet("{id}/productivity")]
         [SwaggerOperation(Summary = "Get Task`s Productivity")]
         public ActionResult<double> GetProductivity(ObjectId id)
