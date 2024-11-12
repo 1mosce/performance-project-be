@@ -19,101 +19,123 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet]
         [SwaggerOperation(Summary = "Get all Companies")]
-        public ActionResult<List<Company>> Get()
+        public async Task<ActionResult<List<Company>>> Get()
         {
-            return companyService.Get();
+            var companies = await companyService.GetAsync();
+            return Ok(companies);
         }
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Company by Id")]
-        public ActionResult<Company> Get(ObjectId id)
+        public async Task<ActionResult<Company>> Get(ObjectId id)
         {
-            var company = companyService.Get(id);
+            var company = await companyService.GetAsync(id);
 
             if (company == null)
             {
                 return NotFound($"Company with Id = {id} not found");
             }
 
-            return company;
+            return Ok(company);
         }
 
         [HttpGet("{id}/users")]
         [SwaggerOperation(Summary = "Get Company's Users")]
-        public ActionResult<List<User>> GetUsers(ObjectId id)
+        public async Task<ActionResult<List<User>>> GetUsers(ObjectId id)
         {
-            var company = companyService.Get(id);
+            var company = await companyService.GetAsync(id);
 
             if (company == null)
             {
                 return NotFound($"Company with Id = {id} not found");
             }
 
-            return companyService.GetUsers(id);
+            var users = await companyService.GetUsersAsync(id);
+
+            return Ok(users);
         }
 
         [HttpPut("{companyId}/{userId}")]
         [SwaggerOperation(Summary = "Update a User's Company Membership")]
-        public ActionResult UpdateUser(ObjectId companyId, ObjectId userId)
+        public async Task<IActionResult> UpdateUser(ObjectId companyId, ObjectId userId)
         {
-            companyService.UpdateUser(companyId, userId);
+            var company = await companyService.GetAsync(companyId);
+            if (company == null)
+            {
+                return NotFound($"Company with Id = {companyId} not found");
+            }
+
+            var userExists = await companyService.UserExistsAsync(userId);
+            if (!userExists)
+            {
+                return NotFound($"User with Id = {userId} not found");
+            }
+
+            companyService.UpdateUserAsync(companyId, userId);
 
             return NoContent();
         }
 
         [HttpGet("{id}/projects")]
         [SwaggerOperation(Summary = "Get Company's Projects")]
-        public ActionResult<List<Project>> GetProjects(ObjectId id)
+        public async Task<ActionResult<List<Project>>> GetProjects(ObjectId id)
         {
-            var company = companyService.Get(id);
+            var company = await companyService.GetAsync(id);
 
             if (company == null)
             {
                 return NotFound($"Company with Id = {id} not found");
             }
 
-            return companyService.GetProjects(id);
+            var projects = await companyService.GetProjectsAsync(id);
+
+            if (projects == null || !projects.Any())
+            {
+                return NotFound($"No projects found for Company with Id = {id}");
+            }
+
+            return Ok(projects);
         }
 
         [HttpPost]
         [SwaggerOperation(Summary = "Create a New Company")]
-        public ActionResult<Company> Post([FromBody] Company company)
+        public async Task<ActionResult<Company>> Post([FromBody] Company company)
         {
-            companyService.Create(company);
+            await companyService.CreateAsync(company);
 
             return CreatedAtAction(nameof(Get), new { id = company.Id }, company);
         }
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a Company")]
-        public ActionResult Put(ObjectId id, [FromBody] Company company)
+        public async Task<ActionResult> Put(ObjectId id, [FromBody] Company company)
         {
-            var existingCompany = companyService.Get(id);
+            var existingCompany = await companyService.GetAsync(id);
 
             if (existingCompany == null)
             {
                 return NotFound($"Company with Id = {id} not found");
             }
 
-            companyService.Update(id, company);
+            await companyService.UpdateAsync(id, company);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a Company")]
-        public ActionResult Delete(ObjectId id)
+        public async Task<ActionResult> Delete(ObjectId id)
         {
-            var company = companyService.Get(id);
+            var company = await companyService.GetAsync(id);
 
             if (company == null)
             {
                 return NotFound($"Company with Id = {id} not found");
             }
 
-            companyService.Remove(company.Id);
+            await companyService.RemoveAsync(company.Id);
 
-            return Ok($"Company with Id = {id} deleted");
+            return NoContent();
         }
     }
 }

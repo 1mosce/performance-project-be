@@ -3,91 +3,108 @@ using MongoDB.Driver;
 using PeopleManagmentSystem_API.Models;
 using PeopleManagmentSystem_API.Models.Database;
 using PeopleManagmentSystem_API.Services.Interfaces;
+using Task = System.Threading.Tasks.Task;
 
 namespace PeopleManagmentSystem_API.Services
 {
     public class CompanyService : ICompanyService
     {
         private IMongoCollection<Company> _companies;
-        private IMongoCollection<Project> _projects;
         private IMongoCollection<User> _users;
-        private IMongoCollection<CompanyUser> _companyUserRelation;
 
         public CompanyService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _companies = database.GetCollection<Company>(settings.CompanyCollectionName);
             _users = database.GetCollection<User>(settings.UserCollectionName);
-            _companyUserRelation = database.GetCollection<CompanyUser>(settings.CompanyUserCollectionName);
-            _projects = database.GetCollection<Project>(settings.ProjectCollectionName);
         }
 
-        public Company Create(Company company)
+        public async Task<Company> CreateAsync(Company company)
         {
-            _companies.InsertOne(company);
+            await _companies.InsertOneAsync(company);
             return company;
         }
 
-        public List<Company> Get()
+        public async Task<List<Company>> GetAsync()
         {
-            return _companies.Find(c => true).ToList();
+            return await _companies.Find(c => true).ToListAsync();
         }
 
-        public Company Get(ObjectId id)
+        public async Task<Company> GetAsync(ObjectId id)
         {
-            return _companies.Find(c => c.Id == id).FirstOrDefault();
+            var company = await _companies.Find(c => c.Id == id).FirstOrDefaultAsync();
+            if (company == null)
+            {
+                throw new KeyNotFoundException($"Company with Id '{id}' not found.");
+            }
+            return company;
+        }
+        public async Task<List<User>> GetUsersByIdsAsync(List<ObjectId> userIds)
+        {
+            var filter = Builders<User>.Filter.In(u => u.Id, userIds); //проекція
+            return await _users.Find(filter).ToListAsync();
         }
 
-        public List<User> GetUsers(ObjectId id)
+        public async Task<List<User>> GetUsersAsync(ObjectId id)
         {
-            var usersIds = _companyUserRelation
-                 .Find(c => c.CompanyId == id.ToString())
-                 .Project(u => u.UserId)
-                 .ToList();
+            var company = await _companies.Find(c => c.Id == id).FirstOrDefaultAsync();
 
-            return _users.Find(u => usersIds.Contains(u.Id.ToString())).ToList();
+            if (company == null)
+            {
+                throw new KeyNotFoundException($"Company with Id '{id}' not found.");
+            }
+
+            return await GetUsersByIdsAsync(company.UserIds);
         }
 
-        public void UpdateUser(ObjectId companyId, ObjectId userId)
+        public async Task<bool> UserExistsAsync(ObjectId userId)
         {
-            var c = _companies.Find(c => true).ToList();
-            var company = _companies.Find(c => c.Id == companyId).FirstOrDefault();
-            var user = _users.Find(u => u.Id == userId).FirstOrDefault();
-
-            if (company == null || user == null)
-                return;
-
-            var _companyId = companyId.ToString();
-            var _userId = userId.ToString();
-
-            var companyUserRelation = _companyUserRelation
-            .Find(r => r.UserId == _userId && r.CompanyId == _companyId)
-            .SingleOrDefault();
-
-            if (companyUserRelation == null)
-                _companyUserRelation.InsertOne(new CompanyUser() { CompanyId = _companyId, UserId = _userId });
-            else
-                _companyUserRelation.DeleteOne(r => r.UserId == _userId && r.CompanyId == _companyId);
+            return await _users.Find(user => user.Id == userId).AnyAsync();
         }
 
-        public List<Project> GetProjects(ObjectId id)
+        public async Task UpdateUserAsync(ObjectId companyId, ObjectId userId)
         {
-            _companies.Find(c => c.Id == id).FirstOrDefault();
+            var filter = Builders<Company>.Filter.Eq(c => c.Id, companyId);
 
-            return _projects
-                .Find(p => p.CompanyId == id.ToString())
-                .ToList();
+            var company = await _companies.Find(filter).FirstOrDefaultAsync();
+
+            if (company == null)
+            {
+                throw new KeyNotFoundException($"Company with Id '{companyId}' not found.");
+            }
+
+            var user = await _users.Find(u => u.Id == userId).FirstOrDefaultAsync();
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with Id '{userId}' not found.");
+            }
+
+            var update = company.UserIds.Contains(userId)
+        ? Builders<Company>.Update.Pull(c => c.UserIds, userId)
+        : Builders<Company>.Update.Push(c => c.UserIds, userId);
+
+            await _companies.UpdateOneAsync(filter, update);
         }
 
-        public void Remove(ObjectId id)
+        public async Task<List<Project>> GetProjectsAsync(ObjectId id)
         {
-            _companies.DeleteOne(c => c.Id == id);
+            var company = await _companies.Find(c => c.Id == id).FirstOrDefaultAsync();
+            if (company == null)
+            {
+                throw new KeyNotFoundException($"Company with Id '{id}' not found.");
+            }
+            return company.Projects;
         }
 
-        public void Update(ObjectId id, Company company)
+        public async Task RemoveAsync(ObjectId id)
+        {
+            await _companies.DeleteOneAsync(c => c.Id == id);
+        }
+
+        public async Task UpdateAsync(ObjectId id, Company company)
         {
             company.Id = id;
-            _companies.ReplaceOne(c => c.Id == id, company);
+            await _companies.ReplaceOneAsync(c => c.Id == id, company);
         }
     }
 }

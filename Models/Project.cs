@@ -14,19 +14,19 @@ namespace PeopleManagmentSystem_API.Models
 
         public string Description { get; set; } = String.Empty;
 
+        [BsonIgnoreIfNull]
+        public Methodology? MainMethodology { get; set; } //допрацювати
+
         public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
-        public string MainMethodology { get; set; } = String.Empty;
+        public DateOnly? EndDate { get; set; }
 
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string CompanyId { get; set; } = String.Empty;
 
         [BsonIgnoreIfNull]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string StatusId { get; set; } = String.Empty;
+        public Team? Team { get; set; }
 
-        [BsonIgnoreIfNull]
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string TeamId { get; set; } = String.Empty;
+        public List<Task> Tasks { get; set; } = new();
+
+        [BsonRepresentation(BsonType.String)]
+        public ProjectStatus Status { get; set; }
     }
 }

@@ -10,74 +10,85 @@ namespace PeopleManagmentSystem_API.Services
     {
         private IMongoCollection<Team> _teams;
         private IMongoCollection<User> _users;
-        private IMongoCollection<TeamUser> _teamUserRelation;
+        private IMongoCollection<TeamRole> _teamRoles;
 
         public TeamService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _teams = database.GetCollection<Team>(settings.TeamCollectionName);
             _users = database.GetCollection<User>(settings.UserCollectionName);
-            _teamUserRelation = database.GetCollection<TeamUser>(settings.TeamUserCollectionName);
+            _teamRoles = database.GetCollection<TeamRole>(settings.TeamRolesCollectionName);
         }
 
-        public Team Create(Team team)
+        public async Task<Team> CreateAsync(Team team)
         {
-            _teams.InsertOne(team);
+            await _teams.InsertOneAsync(team);
             return team;
         }
 
-        public List<Team> Get()
+        public async Task<List<Team>> GetAsync()
         {
-            return _teams.Find(t => true).ToList();
+            return await _teams.Find(t => true).ToListAsync();
         }
 
-        public Team Get(ObjectId id)
+        public async Task<Team> GetAsync(ObjectId id)
         {
-            return _teams.Find(t => t.Id == id).FirstOrDefault();
+            return await _teams.Find(t => t.Id == id).FirstOrDefaultAsync();
         }
 
-        public List<User> GetUsers(ObjectId id)
+        public async Task<List<User>> GetUsersAsync(ObjectId teamId)
         {
-            var usersIds = _teamUserRelation
-                 .Find(t => t.TeamId == id.ToString())
-                 .Project(u => u.UserId)
-                 .ToList();
+            var team = await _teams.Find(t => t.Id == teamId).FirstOrDefaultAsync();
+            if (team == null)
+            {
+                throw new KeyNotFoundException($"Team with Id '{teamId}' not found.");
+            }
 
-            return _users.Find(u => usersIds.Contains(u.Id.ToString())).ToList();
+            var userIds = team.Members.Select(m => m.UserId).ToList();
+
+            var users = await _users.Find(u => userIds.Contains(u.Id.ToString())).ToListAsync();
+
+            return users;
         }
 
-        public void UpdateUser(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
+        public async System.Threading.Tasks.Task UpdateUserAsync(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
         {
-            var team = _teams.Find(t => t.Id == teamId).FirstOrDefault();
-            var user = _users.Find(u => u.Id == userId).FirstOrDefault();
-           // var teamRole = _users.Find(u => u.Id == userId).FirstOrDefault();
+            var roleExists = await _teamRoles.Find(r => r.Id == teamRoleId).AnyAsync();
 
-            if (team == null || user == null)
-                return;
+            if (!roleExists)
+            {
+                throw new KeyNotFoundException($"TeamRole with Id '{teamRoleId}' not found.");
+            }
 
-            var _teamId = teamId.ToString();
-            var _userId = userId.ToString();
-            var _teamRoleId = teamRoleId.ToString();
+            var team = await _teams.Find(t => t.Id == teamId).FirstOrDefaultAsync();
 
-            var teamUserRelation = _teamUserRelation
-            .Find(r => r.UserId == _userId && r.TeamId == _teamId)
-            .SingleOrDefault();
+            if (team == null)
+            {
+                throw new KeyNotFoundException($"Team with Id '{teamId}' not found.");
+            }
 
-            if (teamUserRelation == null)
-                _teamUserRelation.InsertOne(new TeamUser() { TeamId = _teamId, UserId = _userId, TeamRoleId = _teamRoleId });
-            else
-                _teamUserRelation.DeleteOne(r => r.UserId == _userId && r.TeamId == _teamId);
+            var member = team.Members.FirstOrDefault(m => m.UserId == userId.ToString());
+
+            if (member == null)
+            {
+                throw new KeyNotFoundException($"User with Id '{userId}' not found in Team with Id '{teamId}'.");
+            }
+
+            member.TeamRoleId = teamRoleId.ToString();
+
+            var updateDefinition = Builders<Team>.Update.Set(t => t.Members, team.Members);
+            await _teams.UpdateOneAsync(t => t.Id == teamId, updateDefinition);
         }
 
-        public void Remove(ObjectId id)
+        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
         {
-            _teams.DeleteOne(t => t.Id == id);
+            await _teams.DeleteOneAsync(t => t.Id == id);
         }
 
-        public void Update(ObjectId id, Team team)
+        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, Team team)
         {
             team.Id = id;
-            _teams.ReplaceOne(t => t.Id == id, team);
+            await _teams.ReplaceOneAsync(t => t.Id == id, team);
         }
     }
 }

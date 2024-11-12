@@ -9,51 +9,43 @@ namespace PeopleManagmentSystem_API.Services
     {
         private IMongoCollection<User> _users; 
         private IMongoCollection<Company> _companies;
-        private IMongoCollection<CompanyUser> _companyUserRelation;
 
         public UserService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _users = database.GetCollection<User>(settings.UserCollectionName);
             _companies = database.GetCollection<Company>(settings.CompanyCollectionName);
-            _companyUserRelation = database.GetCollection<CompanyUser>(settings.CompanyUserCollectionName);
         }
-
-        public User Create(User employee)
+        public async Task<User> CreateAsync(User employee)
         {
-            _users.InsertOne(employee);
+            await _users.InsertOneAsync(employee);
             return employee;
         }
 
-        public List<User> Get()
+        public async Task<List<User>> GetAsync()
         {
-            return _users.Find(u => true).ToList();
+            return await _users.Find(u => true).ToListAsync();
         }
 
-        public User Get(ObjectId id)
+        public async Task<User?> GetAsync(ObjectId id)
         {
-            return _users.Find(u => u.Id == id).FirstOrDefault();
+            return await _users.Find(u => u.Id == id).FirstOrDefaultAsync();
         }
 
-        public List<Company> GetCompanies(ObjectId id)
+        public async Task<List<Company>> GetCompaniesAsync(ObjectId userId)
         {
-            var companiesIds = _companyUserRelation
-                .Find(u => u.UserId == id.ToString())
-                .Project(c => c.CompanyId)
-                .ToList();
-
-            return _companies.Find(u => companiesIds.Contains(u.Id.ToString())).ToList();
+            return await _companies.Find(c => c.UserIds.Contains(userId)).ToListAsync();
         }
 
-        public void Remove(ObjectId id)
+        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
         {
-            _users.DeleteOne(u => u.Id == id);
+            await _users.DeleteOneAsync(u => u.Id == id);
         }
 
-        public void Update(ObjectId id, User user)
+        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, User user)
         {
             user.Id = id;
-            _users.ReplaceOne(u => u.Id == id, user);
+            await _users.ReplaceOneAsync(u => u.Id == id, user);
         }
     }
 }

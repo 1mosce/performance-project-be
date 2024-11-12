@@ -10,50 +10,53 @@ namespace PeopleManagmentSystem_API.Services
     public class ProjectService : IProjectService
     {
         private IMongoCollection<Project> _projects;
-        private IMongoCollection<Task> _tasks;
 
         public ProjectService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _projects = database.GetCollection<Project>(settings.ProjectCollectionName);
-            _tasks = database.GetCollection<Task>(settings.TaskCollectionName);
         }
 
-        public Project Create(Project project)
+        public async Task<Project> CreateAsync(Project project)
         {
-            _projects.InsertOne(project);
+            await _projects.InsertOneAsync(project);
             return project;
         }
 
-        public List<Project> Get()
+        public async Task<List<Project>> GetAsync()
         {
-            return _projects.Find(p => true).ToList();
+            return await _projects.Find(p => true).ToListAsync();
         }
 
-        public Project Get(ObjectId id)
+        public async Task<Project> GetAsync(ObjectId id)
         {
-            return _projects.Find(p => p.Id == id).FirstOrDefault();
+            var project = await _projects.Find(p => p.Id == id).FirstOrDefaultAsync();
+            if (project == null)
+            {
+                throw new KeyNotFoundException($"Project with Id '{id}' not found.");
+            }
+            return project;
         }
 
-        public List<Task> GetTasks(ObjectId id)
+        public async Task<List<Task>> GetTasksAsync(ObjectId id)
         {
-            //_projects.Find(p => p.Id == id).FirstOrDefault();
-            //var tas = _tasks
-            //    .Find(t => t.ProjectId == id.ToString())
-            //    .ToList();
-
-            return _tasks.Find(t => true).ToList().FindAll(t => t.ProjectId == id.ToString());
+            var project = await _projects.Find(p => p.Id == id).FirstOrDefaultAsync();
+            if (project == null)
+            {
+                throw new KeyNotFoundException($"Project with Id '{id}' not found.");
+            }
+            return project.Tasks;
         }
 
-        public void Remove(ObjectId id)
+        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
         {
-            _projects.DeleteOne(p => p.Id == id);
+            await _projects.DeleteOneAsync(p => p.Id == id);
         }
 
-        public void Update(ObjectId id, Project project)
+        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, Project project)
         {
             project.Id = id;
-            _projects.ReplaceOne(p => p.Id == id, project);
+            await _projects.ReplaceOneAsync(p => p.Id == id, project);
         }
     }
 }

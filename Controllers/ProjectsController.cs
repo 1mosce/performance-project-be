@@ -21,79 +21,81 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet]
         [SwaggerOperation(Summary = "Get all Projects")]
-        public ActionResult<List<Project>> Get()
+        public async Task<ActionResult<List<Project>>> Get()
         {
-            return projectService.Get();
+            var projects = await projectService.GetAsync();
+            return Ok(projects);
         }
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Project by Id")]
-        public ActionResult<Project> Get(ObjectId id)
+        public async Task<ActionResult<Project>> Get(ObjectId id)
         {
-            var project = projectService.Get(id);
+            var project = await projectService.GetAsync(id);
 
             if (project == null)
             {
                 return NotFound($"Project with Id = {id} not found");
             }
 
-            return project;
+            return Ok(project);
         }
 
 
         [HttpGet("{id}/tasks")]
         [SwaggerOperation(Summary = "Get Project's Tasks")]
-        public ActionResult<List<Task>> GetTasks(ObjectId id)
+        public async Task<ActionResult<List<Task>>> GetTasks(ObjectId id)
         {
-            var company = projectService.Get(id);
+            var project = await projectService.GetAsync(id);
 
-            if (company == null)
+            if (project == null)
             {
                 return NotFound($"Project with Id = {id} not found");
             }
 
-            return projectService.GetTasks(id);
+            var tasks = await projectService.GetTasksAsync(id);
+            return Ok(tasks);
         }
 
         [HttpPost]
         [SwaggerOperation(Summary = "Create a New Project")]
-        public ActionResult<Project> Post([FromBody] Project project)
+        public async Task<ActionResult<Project>> Post([FromBody] Project project)
         {
-            projectService.Create(project);
+            await projectService.CreateAsync(project);
 
             return CreatedAtAction(nameof(Get), new { id = project.Id }, project);
         }
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a Project")]
-        public ActionResult Put(ObjectId id, [FromBody] Project project)
+        public async Task<ActionResult> Put(ObjectId id, [FromBody] Project project)
         {
-            var existingProject = projectService.Get(id);
+            var existingProject = await projectService.GetAsync(id);
 
             if (existingProject == null)
             {
                 return NotFound($"Project with Id = {id} not found");
             }
 
-            projectService.Update(id, project);
+            await projectService.UpdateAsync(id, project);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a Project")]
-        public ActionResult Delete(ObjectId id)
+        public async Task<ActionResult> Delete(ObjectId id)
         {
-            var project = projectService.Get(id);
+            var project = await projectService.GetAsync(id);
 
             if (project == null)
             {
                 return NotFound($"Project with Id = {id} not found");
             }
 
-            projectService.Remove(project.Id);
+            await projectService.RemoveAsync(project.Id);
 
-            return Ok($"Project with Id = {id} deleted");
+            return NoContent();
         }
     }
 }

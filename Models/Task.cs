@@ -1,6 +1,7 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDbGenericRepository.Attributes;
+using System.ComponentModel.DataAnnotations;
 
 namespace PeopleManagmentSystem_API.Models
 {
@@ -14,15 +15,15 @@ namespace PeopleManagmentSystem_API.Models
 
         public string Title { get; set; } = String.Empty;
         public string Description { get; set; } = String.Empty;
+
         [BsonRepresentation(BsonType.ObjectId)]
         public string AssigneeId { get; set; } = String.Empty;
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string ProjectId { get; set; } = String.Empty;
+        
+        [BsonRepresentation(BsonType.String)]
+        public TaskStatus Status { get; set; }
 
-        [BsonIgnoreIfNull]
-        public string Status { get; set; } = String.Empty;
-        [BsonIgnoreIfNull]
-        public string Difficulty { get; set; } = String.Empty;
+        [BsonRepresentation(BsonType.String)]
+        public DifficultyLevel Difficulty { get; set; }
 
         public DateTime DueDate { get; set; }
         public DateTime Accepted { get; set; }
@@ -30,6 +31,14 @@ namespace PeopleManagmentSystem_API.Models
 
         public TimeSpan TimeSpent { get => Finished.Subtract(Accepted); }
 
+        public List<Comment> Comments { get; set; } = new();
+
+        [Range(1, 5)]
+        public double Rating { get; set; }
+
+        public List<string> Skills { get; set; } = new();
+
+        /*
         // Method to convert difficulty level to numeric value
         private int GetDifficultyLevel()
         {
@@ -81,13 +90,6 @@ namespace PeopleManagmentSystem_API.Models
             double timeFactor = CalculateTimeFactor();
             return (difficultyLevel / timeSpentHours) * timeFactor;
         }
-
-        //[BsonRepresentation(BsonType.ObjectId)]
-        //[BsonIgnoreIfNull]
-        //public string StatusId { get; set; } = String.Empty;
-        //[BsonRepresentation(BsonType.ObjectId)]
-        //[BsonIgnoreIfNull]
-        //public string PriorityId { get; set; } = String.Empty;
-        //public double Rating { get; set; }
+        */
     }
 }

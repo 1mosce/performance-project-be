@@ -6,11 +6,11 @@ namespace PeopleManagmentSystem_API.Services.Interfaces
 {
     public interface IProjectService
     {
-        List<Project> Get();
-        Project Get(ObjectId id); 
-        List<Task> GetTasks(ObjectId id);
-        Project Create(Project project);
-        void Update(ObjectId id, Project project);
-        void Remove(ObjectId id);
+        Task<Project> CreateAsync(Project project);
+        Task<List<Project>> GetAsync();
+        Task<Project> GetAsync(ObjectId id);
+        Task<List<Task>> GetTasksAsync(ObjectId id);
+        System.Threading.Tasks.Task UpdateAsync(ObjectId id, Project project);
+        System.Threading.Tasks.Task RemoveAsync(ObjectId id);
     }
 }

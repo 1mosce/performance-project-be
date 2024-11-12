@@ -13,6 +13,7 @@ namespace PeopleManagmentSystem_API.Models
         public string Name { get; set; } = String.Empty;
         public string Email { get; set; } = String.Empty;
         public string Description { get; set; } = String.Empty;
+        public List<ObjectId> UserIds { get; set; } = new(); 
+        public List<Project> Projects { get; set; } = new();
     }
-
 }

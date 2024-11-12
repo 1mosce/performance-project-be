@@ -1,16 +1,17 @@
 ﻿using MongoDB.Bson;
 using PeopleManagmentSystem_API.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace PeopleManagmentSystem_API.Services.Interfaces
 {
     public interface ITeamService
     {
-        List<Team> Get();
-        Team Get(ObjectId id);
-        List<User> GetUsers(ObjectId id);
-        void UpdateUser(ObjectId teamId, ObjectId userId, ObjectId teamRoleId);
-        Team Create(Team team); 
-        void Update(ObjectId id, Team team);
-        void Remove(ObjectId id);
+        Task<List<Team>> GetAsync();
+        Task<Team?> GetAsync(ObjectId id);
+        Task<List<User>> GetUsersAsync(ObjectId id);
+        Task UpdateUserAsync(ObjectId teamId, ObjectId userId, ObjectId teamRoleId);
+        Task<Team> CreateAsync(Team team);
+        Task UpdateAsync(ObjectId id, Team team);
+        Task RemoveAsync(ObjectId id);
     }
 }

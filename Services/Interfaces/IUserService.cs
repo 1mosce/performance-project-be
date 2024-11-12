@@ -1,15 +1,16 @@
 ﻿using MongoDB.Bson;
 using PeopleManagmentSystem_API.Models;
+using Task = System.Threading.Tasks.Task;
 
 namespace PeopleManagmentSystem_API.Services
 {
     public interface IUserService
     {
-        List<User> Get();
-        User Get(ObjectId id);
-        List<Company> GetCompanies(ObjectId id);
-        User Create(User employee);
-        void Update(ObjectId id, User employee);
-        void Remove(ObjectId id);
+        Task<List<User>> GetAsync();
+        Task<User> GetAsync(ObjectId id);
+        Task<List<Company>> GetCompaniesAsync(ObjectId id);
+        Task<User> CreateAsync(User employee);
+        Task UpdateAsync(ObjectId id, User employee);
+        Task RemoveAsync(ObjectId id);
     }
 }

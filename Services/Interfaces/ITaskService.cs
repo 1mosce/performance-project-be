@@ -6,13 +6,17 @@ namespace PeopleManagmentSystem_API.Services.Interfaces
 {
     public interface ITaskService
     {
-        List<Task> Get();
-        Task Get(ObjectId id);
-        double GetProductivity(ObjectId id);
-        string GetSkills(string title);
-        List<Comment> GetComments(ObjectId id);
-        Task Create(Task task);
-        void Update(ObjectId id, Task task);
-        void Remove(ObjectId id);
+        Task<List<Task>> GetAsync();
+        Task<Task> GetAsync(ObjectId id);
+        Task<List<Comment>> GetCommentsAsync(ObjectId id);
+        Task<Task> CreateAsync(Task task);
+        System.Threading.Tasks.Task UpdateAsync(ObjectId id, Task task);
+        System.Threading.Tasks.Task RemoveAsync(ObjectId id);
+        System.Threading.Tasks.Task AddCommentAsync(ObjectId taskId, Comment comment);
+        System.Threading.Tasks.Task UpdateCommentAsync(ObjectId taskId, ObjectId commentId, string content);
+        System.Threading.Tasks.Task RemoveCommentAsync(ObjectId taskId, ObjectId commentId);
+
+        //double GetProductivity(ObjectId id);
+        //string GetSkills(string title);
     }
 }

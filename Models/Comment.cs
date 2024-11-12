@@ -14,12 +14,9 @@ namespace PeopleManagmentSystem_API.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string FromId { get; set; } = String.Empty;
 
-        public string Content { get; set; }
+        public required string Content { get; set; }
 
         public DateTime SentTime { get; set; }
-
-        [BsonRepresentation(BsonType.ObjectId)]
-        public string TaskId { get; set; } = String.Empty;
     }
 
 }

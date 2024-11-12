@@ -19,87 +19,93 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet]
         [SwaggerOperation(Summary = "Get all Teams")]
-        public ActionResult<List<Team>> Get()
+        public async Task<ActionResult<List<Team>>> Get()
         {
-            return teamService.Get();
+            var teams = await teamService.GetAsync();
+            return Ok(teams);
         }
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Team by Id")]
-        public ActionResult<Team> Get(ObjectId id)
+        public async Task<ActionResult<Team>> Get(ObjectId id)
         {
-            var team = teamService.Get(id);
+            var team = await teamService.GetAsync(id);
 
             if (team == null)
             {
                 return NotFound($"Team with Id = {id} not found");
             }
 
-            return team;
+            return Ok(team);
         }
 
         [HttpGet("{id}/users")]
         [SwaggerOperation(Summary = "Get Team's Users")]
-        public ActionResult<List<User>> GetUsers(ObjectId id)
+        public async Task<ActionResult<List<User>>> GetUsers(ObjectId id)
         {
-            var team = teamService.Get(id);
+            var team = await teamService.GetAsync(id);
 
             if (team == null)
             {
                 return NotFound($"Team with Id = {id} not found");
             }
 
-            return teamService.GetUsers(id);
+            var users = await teamService.GetUsersAsync(id);
+            return Ok(users);
         }
 
         [HttpPut("{teamId}/{userId}")]
         [SwaggerOperation(Summary = "Update a User's Team Membership")]
-        public ActionResult UpdateUser(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
+        public async Task<ActionResult> UpdateUser(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
         {
-            teamService.UpdateUser(teamId, userId, teamRoleId);
+            var teamExists = await teamService.GetAsync(teamId);
+            if (teamExists == null)
+            {
+                return NotFound($"Team with Id = {teamId} not found");
+            }
 
+            await teamService.UpdateUserAsync(teamId, userId, teamRoleId);
             return NoContent();
         }
 
         [HttpPost]
         [SwaggerOperation(Summary = "Create a New Team")]
-        public ActionResult<Team> Post([FromBody] Team team)
+        public async Task<ActionResult<Team>> Post([FromBody] Team team)
         {
-            teamService.Create(team);
-
-            return CreatedAtAction(nameof(Get), new { id = team.Id }, team);
+            var createdTeam = await teamService.CreateAsync(team);
+            return CreatedAtAction(nameof(Get), new { id = createdTeam.Id }, createdTeam);
         }
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a Team")]
-        public ActionResult Put(ObjectId id, [FromBody] Team team)
+        public async Task<ActionResult> Put(ObjectId id, [FromBody] Team team)
         {
-            var existingTeam = teamService.Get(id);
+            var existingTeam = await teamService.GetAsync(id);
 
             if (existingTeam == null)
             {
                 return NotFound($"Team with Id = {id} not found");
             }
 
-            teamService.Update(id, team);
+            await teamService.UpdateAsync(id, team);
 
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a Team")]
-        public ActionResult Delete(ObjectId id)
+        public async Task<ActionResult> Delete(ObjectId id)
         {
-            var team = teamService.Get(id);
+            var team = await teamService.GetAsync(id);
 
             if (team == null)
             {
                 return NotFound($"Team with Id = {id} not found");
             }
 
-            teamService.Remove(team.Id);
+            await teamService.RemoveAsync(id);
 
-            return Ok($"Team with Id = {id} deleted");
+            return NoContent();
         }
     }
 }
