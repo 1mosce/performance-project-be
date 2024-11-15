@@ -2,6 +2,7 @@
 using MongoDB.Bson.Serialization.Attributes;
 using MongoDbGenericRepository.Attributes;
 using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace PeopleManagmentSystem_API.Models
 {
@@ -18,11 +19,11 @@ namespace PeopleManagmentSystem_API.Models
 
         [BsonRepresentation(BsonType.ObjectId)]
         public string AssigneeId { get; set; } = String.Empty;
-        
-        [BsonRepresentation(BsonType.String)]
+
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public TaskStatus Status { get; set; }
 
-        [BsonRepresentation(BsonType.String)]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public DifficultyLevel Difficulty { get; set; }
 
         public DateTime DueDate { get; set; }

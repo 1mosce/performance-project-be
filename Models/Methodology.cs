@@ -8,6 +8,6 @@ namespace PeopleManagmentSystem_API.Models
         [BsonId]
         public ObjectId Id { get; set; }
         public string Name { get; set; } = String.Empty;
-        public List<string> Phases { get; set; } = new List<string>();
+       // public List<string> Phases { get; set; } = new List<string>();
     }
 }

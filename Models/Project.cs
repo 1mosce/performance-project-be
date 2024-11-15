@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.Text.Json.Serialization;
 
 namespace PeopleManagmentSystem_API.Models
 {
@@ -15,7 +16,7 @@ namespace PeopleManagmentSystem_API.Models
         public string Description { get; set; } = String.Empty;
 
         [BsonIgnoreIfNull]
-        public Methodology? MainMethodology { get; set; } //допрацювати
+        public Methodology? MainMethodology { get; set; } 
 
         public DateOnly StartDate { get; set; }
         public DateOnly? EndDate { get; set; }
@@ -26,7 +27,7 @@ namespace PeopleManagmentSystem_API.Models
 
         public List<Task> Tasks { get; set; } = new();
 
-        [BsonRepresentation(BsonType.String)]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ProjectStatus Status { get; set; }
     }
 }

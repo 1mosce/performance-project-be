@@ -36,6 +36,18 @@ namespace PeopleManagmentSystem_API.Services
             return await _tasks.Find(t => t.Id == id).FirstOrDefaultAsync();
         }
 
+        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
+        {
+            await _tasks.DeleteOneAsync(t => t.Id == id);
+        }
+
+        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, Task task)
+        {
+            task.Id = id;
+            await _tasks.ReplaceOneAsync(t => t.Id == id, task);
+        }
+
+        // Comments
         public async Task<List<Comment>> GetCommentsAsync(ObjectId taskId)
         {
             var task = await _tasks.Find(t => t.Id == taskId).FirstOrDefaultAsync();
@@ -46,17 +58,6 @@ namespace PeopleManagmentSystem_API.Services
             }
 
             return task.Comments;
-        }
-
-        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
-        {
-            await _tasks.DeleteOneAsync(t => t.Id == id);
-        }
-
-        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, Task task)
-        {
-            task.Id = id;
-            await _tasks.ReplaceOneAsync(t => t.Id == id, task);
         }
 
         public async System.Threading.Tasks.Task AddCommentAsync(ObjectId taskId, Comment comment)
@@ -82,7 +83,73 @@ namespace PeopleManagmentSystem_API.Services
             await _tasks.UpdateOneAsync(t => t.Id == taskId, update);
         }
 
+        // Assignee
+        public async System.Threading.Tasks.Task AssignUserAsync(ObjectId taskId, ObjectId userId)
+        {
+            var update = Builders<Models.Task>.Update.Set(t => t.AssigneeId, userId.ToString());
+            var result = await _tasks.UpdateOneAsync(t => t.Id == taskId, update); 
+            
+            if (result.ModifiedCount == 0)
+                throw new KeyNotFoundException($"Task with Id '{taskId}' not found.");
+        }
 
+        public async System.Threading.Tasks.Task RemoveAssigneeAsync(ObjectId taskId)
+        {
+            var update = Builders<Models.Task>.Update.Set(t => t.AssigneeId, string.Empty);
+            var result = await _tasks.UpdateOneAsync(t => t.Id == taskId, update);
+
+            if (result.ModifiedCount == 0)
+                throw new KeyNotFoundException($"Task with Id '{taskId}' not found.");
+        }
+
+        // Skills
+        public async System.Threading.Tasks.Task AddSkillAsync(ObjectId taskId, string skill)
+        {
+            var update = Builders<Models.Task>.Update.AddToSet(t => t.Skills, skill);
+            var result = await _tasks.UpdateOneAsync(t => t.Id == taskId, update);
+
+            if (result.ModifiedCount == 0)
+                throw new KeyNotFoundException($"Task with Id '{taskId}' not found.");
+        }
+
+        public async System.Threading.Tasks.Task RemoveSkillAsync(ObjectId taskId, string skill)
+        {
+            var update = Builders<Models.Task>.Update.Pull(t => t.Skills, skill);
+            var result = await _tasks.UpdateOneAsync(t => t.Id == taskId, update);
+
+            if (result.ModifiedCount == 0)
+                throw new KeyNotFoundException($"Task with Id '{taskId}' not found.");
+        }
+
+        public async Task<List<string>> GetSkillsAsync(ObjectId taskId)
+        {
+            var task = await _tasks.Find(t => t.Id == taskId).FirstOrDefaultAsync();
+
+            if (task == null)
+                throw new KeyNotFoundException($"Task with Id '{taskId}' not found.");
+
+            return task.Skills;
+        }
+
+        // Status
+        public async System.Threading.Tasks.Task UpdateStatusAsync(ObjectId taskId, Models.TaskStatus status)
+        {
+            var update = Builders<Models.Task>.Update.Set(t => t.Status, status);
+            var result = await _tasks.UpdateOneAsync(t => t.Id == taskId, update);
+
+            if (result.ModifiedCount == 0)
+                throw new KeyNotFoundException($"Task with Id '{taskId}' not found.");
+        }
+
+        // Difficulty
+        public async System.Threading.Tasks.Task UpdateDifficultyAsync(ObjectId taskId, DifficultyLevel difficulty)
+        {
+            var update = Builders<Models.Task>.Update.Set(t => t.Difficulty, difficulty);
+            var result = await _tasks.UpdateOneAsync(t => t.Id == taskId, update);
+
+            if (result.ModifiedCount == 0)
+                throw new KeyNotFoundException($"Task with Id '{taskId}' not found.");
+        }
 
         //    public double GetProductivity(ObjectId id)
         //    {

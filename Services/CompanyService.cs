@@ -39,6 +39,18 @@ namespace PeopleManagmentSystem_API.Services
             }
             return company;
         }
+        public async Task RemoveAsync(ObjectId id)
+        {
+            await _companies.DeleteOneAsync(c => c.Id == id);
+        }
+
+        public async Task UpdateAsync(ObjectId id, Company company)
+        {
+            company.Id = id;
+            await _companies.ReplaceOneAsync(c => c.Id == id, company);
+        }
+
+        // Users
         public async Task<List<User>> GetUsersByIdsAsync(List<ObjectId> userIds)
         {
             var filter = Builders<User>.Filter.In(u => u.Id, userIds); //проекція
@@ -61,31 +73,39 @@ namespace PeopleManagmentSystem_API.Services
         {
             return await _users.Find(user => user.Id == userId).AnyAsync();
         }
-
-        public async Task UpdateUserAsync(ObjectId companyId, ObjectId userId)
+        public async Task AddUserAsync(ObjectId companyId, ObjectId userId)
         {
-            var filter = Builders<Company>.Filter.Eq(c => c.Id, companyId);
+            var company = await GetAsync(companyId);
 
-            var company = await _companies.Find(filter).FirstOrDefaultAsync();
-
-            if (company == null)
+            if (company.UserIds.Contains(userId))
             {
-                throw new KeyNotFoundException($"Company with Id '{companyId}' not found.");
+                throw new InvalidOperationException($"User with Id = {userId} is already a member of the company.");
             }
 
-            var user = await _users.Find(u => u.Id == userId).FirstOrDefaultAsync();
-            if (user == null)
+            var userExists = await UserExistsAsync(userId);
+            if (!userExists)
             {
-                throw new KeyNotFoundException($"User with Id '{userId}' not found.");
+                throw new KeyNotFoundException($"User with Id = {userId} not found.");
             }
 
-            var update = company.UserIds.Contains(userId)
-        ? Builders<Company>.Update.Pull(c => c.UserIds, userId)
-        : Builders<Company>.Update.Push(c => c.UserIds, userId);
-
-            await _companies.UpdateOneAsync(filter, update);
+            company.UserIds.Add(userId);
+            await UpdateAsync(companyId, company);
         }
 
+        public async Task RemoveUserAsync(ObjectId companyId, ObjectId userId)
+        {
+            var company = await GetAsync(companyId);
+
+            if (!company.UserIds.Contains(userId))
+            {
+                throw new InvalidOperationException($"User with Id = {userId} is not a member of the company.");
+            }
+
+            company.UserIds.Remove(userId);
+            await UpdateAsync(companyId, company);
+        }
+
+        // Projects
         public async Task<List<Project>> GetProjectsAsync(ObjectId id)
         {
             var company = await _companies.Find(c => c.Id == id).FirstOrDefaultAsync();
@@ -95,16 +115,38 @@ namespace PeopleManagmentSystem_API.Services
             }
             return company.Projects;
         }
-
-        public async Task RemoveAsync(ObjectId id)
+        public async Task AddProjectAsync(ObjectId companyId, Project project)
         {
-            await _companies.DeleteOneAsync(c => c.Id == id);
+            var company = await GetAsync(companyId);
+            company.Projects.Add(project);
+            await UpdateAsync(companyId, company);
         }
-
-        public async Task UpdateAsync(ObjectId id, Company company)
+        public async Task UpdateProjectAsync(ObjectId companyId, Project project)
         {
-            company.Id = id;
-            await _companies.ReplaceOneAsync(c => c.Id == id, company);
+            var company = await GetAsync(companyId);
+
+            var existingProject = company.Projects.FirstOrDefault(p => p.Id == project.Id);
+            if (existingProject == null)
+            {
+                throw new KeyNotFoundException($"Project with Id = {project.Id} not found in the company.");
+            }
+
+            company.Projects.Remove(existingProject);
+            company.Projects.Add(project);
+            await UpdateAsync(companyId, company);
+        }
+        public async Task RemoveProjectAsync(ObjectId companyId, ObjectId projectId)
+        {
+            var company = await GetAsync(companyId);
+
+            var project = company.Projects.FirstOrDefault(p => p.Id == projectId);
+            if (project == null)
+            {
+                throw new KeyNotFoundException($"Project with Id = {projectId} not found in the company.");
+            }
+
+            company.Projects.Remove(project);
+            await UpdateAsync(companyId, company);
         }
     }
 }

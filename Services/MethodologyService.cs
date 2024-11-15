@@ -13,7 +13,7 @@ namespace PeopleManagmentSystem_API.Services
         public MethodologyService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
-            _methodologies = database.GetCollection<Methodology>(settings.TeamRolesCollectionName);
+            _methodologies = database.GetCollection<Methodology>(settings.MethodologiesCollectionName);
         }
         public async Task<List<Methodology>> GetAsync()
         {

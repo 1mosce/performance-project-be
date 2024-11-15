@@ -9,11 +9,19 @@ namespace PeopleManagmentSystem_API.Services.Interfaces
         Task<Company> CreateAsync(Company company);
         Task<List<Company>> GetAsync(); 
         Task<Company> GetAsync(ObjectId id);
-        Task<List<Project>> GetProjectsAsync(ObjectId id);
-        Task<List<User>> GetUsersAsync(ObjectId id);
-        Task<bool> UserExistsAsync(ObjectId userId);
-        Task UpdateUserAsync(ObjectId companyId, ObjectId userId);
         Task UpdateAsync(ObjectId id, Company company);
         Task RemoveAsync(ObjectId id);
+
+        // Users
+        Task<List<User>> GetUsersAsync(ObjectId id);
+        Task<bool> UserExistsAsync(ObjectId userId);
+        Task AddUserAsync(ObjectId companyId, ObjectId userId);
+        Task RemoveUserAsync(ObjectId companyId, ObjectId userId);
+
+        // Projects
+        Task<List<Project>> GetProjectsAsync(ObjectId id);
+        Task AddProjectAsync(ObjectId companyId, Project project);
+        Task UpdateProjectAsync(ObjectId companyId, Project project);
+        Task RemoveProjectAsync(ObjectId companyId, ObjectId projectId);
     }
 }

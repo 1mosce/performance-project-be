@@ -51,6 +51,7 @@ namespace PeopleManagmentSystem_API.Controllers
                 user = new User
                 {
                     Name = request.Name,
+                    Surname = request.Surname,
                     Email = request.Email,
                     ConcurrencyStamp = Guid.NewGuid().ToString(),
                     UserName = request.Email,

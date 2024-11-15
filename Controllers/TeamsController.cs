@@ -54,8 +54,16 @@ namespace PeopleManagmentSystem_API.Controllers
             return Ok(users);
         }
 
+        [HttpPost("{teamId}/members")]
+        [SwaggerOperation(Summary = "Add a Member to a Team")]
+        public async Task<IActionResult> AddMember(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
+        {
+            await teamService.AddMemberAsync(teamId, userId, teamRoleId);
+            return NoContent();
+        }
+
         [HttpPut("{teamId}/{userId}")]
-        [SwaggerOperation(Summary = "Update a User's Team Membership")]
+        [SwaggerOperation(Summary = "Update a User's Team Role")]
         public async Task<ActionResult> UpdateUser(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
         {
             var teamExists = await teamService.GetAsync(teamId);
@@ -64,8 +72,27 @@ namespace PeopleManagmentSystem_API.Controllers
                 return NotFound($"Team with Id = {teamId} not found");
             }
 
-            await teamService.UpdateUserAsync(teamId, userId, teamRoleId);
+            await teamService.UpdateMemberAsync(teamId, userId, teamRoleId);
             return NoContent();
+        }
+
+        [HttpGet("{teamId}/members")]
+        [SwaggerOperation(Summary = "Get all Members of a Team")]
+        public async Task<ActionResult<List<TeamMember>>> GetMembers(ObjectId teamId)
+        {
+            try
+            {
+                var members = await teamService.GetMembersAsync(teamId);
+                return Ok(members);
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
         [HttpPost]

@@ -12,5 +12,10 @@ namespace PeopleManagmentSystem_API.Services
         Task<User> CreateAsync(User employee);
         Task UpdateAsync(ObjectId id, User employee);
         Task RemoveAsync(ObjectId id);
+
+        // Positions
+        Task AddPositionAsync(ObjectId userId, Position position);
+        Task UpdatePositionAsync(ObjectId userId, ObjectId positionId, Position position);
+        Task RemovePositionAsync(ObjectId userId, ObjectId positionId);
     }
 }

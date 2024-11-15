@@ -47,5 +47,59 @@ namespace PeopleManagmentSystem_API.Services
             user.Id = id;
             await _users.ReplaceOneAsync(u => u.Id == id, user);
         }
+
+        public async System.Threading.Tasks.Task AddPositionAsync(ObjectId userId, Position position)
+        {
+            var user = await GetAsync(userId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with Id = {userId} not found.");
+            }
+
+            position.Id = ObjectId.GenerateNewId();
+            user.Positions.Add(position);
+
+            await UpdateAsync(userId, user);
+        }
+
+        public async System.Threading.Tasks.Task UpdatePositionAsync(ObjectId userId, ObjectId positionId, Position position)
+        {
+            var user = await GetAsync(userId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with Id = {userId} not found.");
+            }
+
+            var existingPosition = user.Positions.FirstOrDefault(p => p.Id == positionId);
+            if (existingPosition == null)
+            {
+                throw new KeyNotFoundException($"Position with Id = {positionId} not found.");
+            }
+
+            existingPosition.Name = position.Name;
+            existingPosition.Description = position.Description;
+
+            await UpdateAsync(userId, user);
+        }
+
+        public async System.Threading.Tasks.Task RemovePositionAsync(ObjectId userId, ObjectId positionId)
+        {
+            var user = await GetAsync(userId);
+            if (user == null)
+            {
+                throw new KeyNotFoundException($"User with Id = {userId} not found.");
+            }
+
+            var position = user.Positions.FirstOrDefault(p => p.Id == positionId);
+            if (position == null)
+            {
+                throw new KeyNotFoundException($"Position with Id = {positionId} not found.");
+            }
+
+            user.Positions.Remove(position);
+
+            await UpdateAsync(userId, user);
+        }
+
     }
 }

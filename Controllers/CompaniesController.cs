@@ -39,64 +39,6 @@ namespace PeopleManagmentSystem_API.Controllers
             return Ok(company);
         }
 
-        [HttpGet("{id}/users")]
-        [SwaggerOperation(Summary = "Get Company's Users")]
-        public async Task<ActionResult<List<User>>> GetUsers(ObjectId id)
-        {
-            var company = await companyService.GetAsync(id);
-
-            if (company == null)
-            {
-                return NotFound($"Company with Id = {id} not found");
-            }
-
-            var users = await companyService.GetUsersAsync(id);
-
-            return Ok(users);
-        }
-
-        [HttpPut("{companyId}/{userId}")]
-        [SwaggerOperation(Summary = "Update a User's Company Membership")]
-        public async Task<IActionResult> UpdateUser(ObjectId companyId, ObjectId userId)
-        {
-            var company = await companyService.GetAsync(companyId);
-            if (company == null)
-            {
-                return NotFound($"Company with Id = {companyId} not found");
-            }
-
-            var userExists = await companyService.UserExistsAsync(userId);
-            if (!userExists)
-            {
-                return NotFound($"User with Id = {userId} not found");
-            }
-
-            companyService.UpdateUserAsync(companyId, userId);
-
-            return NoContent();
-        }
-
-        [HttpGet("{id}/projects")]
-        [SwaggerOperation(Summary = "Get Company's Projects")]
-        public async Task<ActionResult<List<Project>>> GetProjects(ObjectId id)
-        {
-            var company = await companyService.GetAsync(id);
-
-            if (company == null)
-            {
-                return NotFound($"Company with Id = {id} not found");
-            }
-
-            var projects = await companyService.GetProjectsAsync(id);
-
-            if (projects == null || !projects.Any())
-            {
-                return NotFound($"No projects found for Company with Id = {id}");
-            }
-
-            return Ok(projects);
-        }
-
         [HttpPost]
         [SwaggerOperation(Summary = "Create a New Company")]
         public async Task<ActionResult<Company>> Post([FromBody] Company company)
@@ -137,5 +79,89 @@ namespace PeopleManagmentSystem_API.Controllers
 
             return NoContent();
         }
+
+        //Users
+
+        [HttpGet("{id}/users")]
+        [SwaggerOperation(Summary = "Get Company's Users")]
+        public async Task<ActionResult<List<User>>> GetUsers(ObjectId id)
+        {
+            var company = await companyService.GetAsync(id);
+
+            if (company == null)
+            {
+                return NotFound($"Company with Id = {id} not found");
+            }
+
+            var users = await companyService.GetUsersAsync(id);
+
+            return Ok(users);
+        }
+
+        [HttpPut("{companyId}/users/{userId}")]
+        [SwaggerOperation(Summary = "Add User to Company")]
+        public async Task<IActionResult> AddUserAsync(ObjectId companyId, ObjectId userId)
+        {
+            await companyService.AddUserAsync(companyId, userId);
+            return NoContent();
+        }
+
+        [HttpDelete("{companyId}/users/{userId}")]
+        [SwaggerOperation(Summary = "Remove User from Company")]
+        public async Task<IActionResult> RemoveUserAsync(ObjectId companyId, ObjectId userId)
+        {
+            await companyService.RemoveUserAsync(companyId, userId);
+            return NoContent();
+        }
+
+        // Projects
+
+        [HttpGet("{id}/projects")]
+        [SwaggerOperation(Summary = "Get Company's Projects")]
+        public async Task<ActionResult<List<Project>>> GetProjects(ObjectId id)
+        {
+            var company = await companyService.GetAsync(id);
+
+            if (company == null)
+            {
+                return NotFound($"Company with Id = {id} not found");
+            }
+
+            var projects = await companyService.GetProjectsAsync(id);
+
+            if (projects == null || !projects.Any())
+            {
+                return NotFound($"No projects found for Company with Id = {id}");
+            }
+
+            return Ok(projects);
+        }
+
+        [HttpPost("{companyId}/projects")]
+        [SwaggerOperation(Summary = "Add Project to Company")]
+        public async Task<IActionResult> AddProjectAsync(ObjectId companyId, [FromBody] Project project)
+        {
+            await companyService.AddProjectAsync(companyId, project);
+            return CreatedAtAction(nameof(GetProjects), new { id = companyId }, project);
+        }
+
+        [HttpPut("{companyId}/projects")]
+        [SwaggerOperation(Summary = "Update Project in Company")]
+        public async Task<IActionResult> UpdateProjectAsync(ObjectId companyId, [FromBody] Project project)
+        {
+            await companyService.UpdateProjectAsync(companyId, project);
+            return NoContent();
+        }
+
+        [HttpDelete("{companyId}/projects/{projectId}")]
+        [SwaggerOperation(Summary = "Remove Project from Company")]
+        public async Task<IActionResult> RemoveProjectAsync(ObjectId companyId, ObjectId projectId)
+        {
+            await companyService.RemoveProjectAsync(companyId, projectId);
+            return NoContent();
+        }
+
+
+
     }
 }

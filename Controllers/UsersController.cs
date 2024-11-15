@@ -93,5 +93,29 @@ namespace PeopleManagmentSystem_API.Controllers
 
             return NoContent();
         }
+
+        [HttpPost("{userId}/positions")]
+        [SwaggerOperation(Summary = "Add a Position to User")]
+        public async Task<IActionResult> AddPosition(ObjectId userId, [FromBody] Position position)
+        {
+            await _userService.AddPositionAsync(userId, position);
+            return NoContent();
+        }
+
+        [HttpPut("{userId}/positions/{positionId}")]
+        [SwaggerOperation(Summary = "Update a User's Position")]
+        public async Task<IActionResult> UpdatePosition(ObjectId userId, ObjectId positionId, [FromBody] Position position)
+        {
+            await _userService.UpdatePositionAsync(userId, positionId, position);
+            return NoContent();
+        }
+
+        [HttpDelete("{userId}/positions/{positionId}")]
+        [SwaggerOperation(Summary = "Remove a User's Position")]
+        public async Task<IActionResult> RemovePosition(ObjectId userId, ObjectId positionId)
+        {
+            await _userService.RemovePositionAsync(userId, positionId);
+            return NoContent();
+        }
     }
 }
