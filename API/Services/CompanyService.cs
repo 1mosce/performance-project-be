@@ -11,12 +11,14 @@ namespace PeopleManagmentSystem_API.Services
     {
         private IMongoCollection<Company> _companies;
         private IMongoCollection<User> _users;
+        private readonly IProjectService _projectService;
 
-        public CompanyService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient)
+        public CompanyService(IPeopleManagmentDatabaseSettings settings, IMongoClient mongoClient, IProjectService projectService)
         {
             var database = mongoClient.GetDatabase(settings.DatabaseName);
             _companies = database.GetCollection<Company>(settings.CompanyCollectionName);
             _users = database.GetCollection<User>(settings.UserCollectionName);
+            _projectService = projectService;
         }
 
         public async Task<Company> CreateAsync(Company company)
@@ -115,9 +117,16 @@ namespace PeopleManagmentSystem_API.Services
             }
             return company.Projects;
         }
-        public async Task AddProjectAsync(ObjectId companyId, Project project)
+        public async Task AddProjectAsync(ObjectId companyId, ObjectId projectId)
         {
             var company = await GetAsync(companyId);
+            if (company == null)
+                throw new KeyNotFoundException($"Company with ID {companyId} not found.");
+
+            var project = await _projectService.GetAsync(projectId);
+            if (project == null)
+                throw new KeyNotFoundException($"Project with ID {projectId} not found.");
+
             company.Projects.Add(project);
             await UpdateAsync(companyId, company);
         }

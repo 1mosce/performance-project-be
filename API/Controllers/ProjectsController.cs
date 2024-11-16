@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using PerformanceProject.Shared.Models;
-using PeopleManagmentSystem_API.Services;
 using PeopleManagmentSystem_API.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 

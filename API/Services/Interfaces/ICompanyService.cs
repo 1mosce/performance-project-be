@@ -20,7 +20,7 @@ namespace PeopleManagmentSystem_API.Services.Interfaces
 
         // Projects
         Task<List<Project>> GetProjectsAsync(ObjectId id);
-        Task AddProjectAsync(ObjectId companyId, Project project);
+        Task AddProjectAsync(ObjectId companyId, ObjectId projectId);
         Task UpdateProjectAsync(ObjectId companyId, Project project);
         Task RemoveProjectAsync(ObjectId companyId, ObjectId projectId);
     }

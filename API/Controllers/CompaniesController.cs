@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using PerformanceProject.Shared.Models;
 using PeopleManagmentSystem_API.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
+using PeopleManagmentSystem_API.Services;
 
 namespace PeopleManagmentSystem_API.Controllers
 {
@@ -137,12 +138,12 @@ namespace PeopleManagmentSystem_API.Controllers
             return Ok(projects);
         }
 
-        [HttpPost("{companyId}/projects")]
+        [HttpPost("{companyId}/projects/{projectId}")]
         [SwaggerOperation(Summary = "Add Project to Company")]
-        public async Task<IActionResult> AddProjectAsync(ObjectId companyId, [FromBody] Project project)
+        public async Task<IActionResult> AddProject(ObjectId companyId, ObjectId projectId)
         {
-            await companyService.AddProjectAsync(companyId, project);
-            return CreatedAtAction(nameof(GetProjects), new { id = companyId }, project);
+            await companyService.AddProjectAsync(companyId, projectId);
+            return Ok();
         }
 
         [HttpPut("{companyId}/projects")]

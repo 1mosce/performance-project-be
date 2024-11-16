@@ -1,9 +1,96 @@
 ﻿@page "/"
+@using PerformanceProject.Client.Services.Generated
+@inject Client ApiClient
 
-<PageTitle>Index</PageTitle>
+<h3>Dashboard</h3>
 
-<h1>Hello, world!</h1>
+@if (isLoading)
+{
+    <p>Loading...</p>
+}
+else if (errorMessage != null)
+{
+    <p style="color: red;">@errorMessage</p>
+}
+else
+{
+    <div>
+        <h4>Company</h4>
+        <p><strong>@selectedCompany?.Name</strong></p>
+        <p>@selectedCompany?.Description</p>
 
-Welcome to your new app.
+        <h4>Projects</h4>
+        <ul>
+            @foreach (var project in projects)
+            {
+                <li>
+                    <strong>@project.Name</strong> - @project.Description
+                    <ul>
+                        <li>Status: @project.Status</li>
+                        <li>Methodology: @project.MainMethodology?.Name</li>
+                    </ul>
+                </li>
+            }
+        </ul>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+        <h4>Tasks</h4>
+        <ul>
+            @foreach (var task in tasks)
+            {
+                <li>
+                    <strong>@task.Title</strong> - @task.Description
+                    <ul>
+                        <li>Status: @task.Status</li>
+                        <li>Assigned To: @task.AssigneeId</li>
+                        <li>Skills: @string.Join(", ", task.Skills)</li>
+                        <li>Difficulty: @task.Difficulty</li>
+                    </ul>
+                </li>
+            }
+        </ul>
+    </div>
+}
+
+@code {
+    private bool isLoading = true;
+    private string? errorMessage = null;
+
+    private PerformanceProject.Client.Services.Generated.Company? selectedCompany;
+    private ICollection<PerformanceProject.Client.Services.Generated.Project> projects;
+    private ICollection<PerformanceProject.Client.Services.Generated.Task> tasks;
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        try
+        {
+            isLoading = true;
+
+            string companyIdString = "673343a6b91c82c022b8b090";
+            MongoDB.Bson.ObjectId companyId;
+            ObjectId companyIdGenerated = null;
+            if (MongoDB.Bson.ObjectId.TryParse(companyIdString, out companyId))
+            {
+                companyIdGenerated = new ObjectId() { CreationTime = companyId.CreationTime, Increment = companyId.Increment, Machine = companyId.Machine, Pid = companyId.Pid, Timestamp = companyId.Timestamp };
+            }
+            var selectedCompany = await ApiClient.CompaniesGETAsync(companyIdGenerated);
+           
+            if (selectedCompany.Projects == null || !selectedCompany.Projects.Any())
+            {
+                throw new Exception("Projects collection is null or empty");
+            }
+
+            projects = selectedCompany.Projects;
+
+            if (projects.First().Tasks == null || !projects.First().Tasks.Any())
+            {
+                throw new Exception("Tasks collection is null or empty in the first project");
+            }
+
+            tasks = projects.First().Tasks;
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"An error occurred: {ex.Message}";
+        }
+    }
+}

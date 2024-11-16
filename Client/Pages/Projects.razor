@@ -1,0 +1,42 @@
+﻿@page "/projects"
+@using PerfomanceProject.Client.Services
+@using PerformanceProject.Shared.Models
+@inject ProjectService ProjectService
+
+<h3>Projects</h3>
+
+@if (projects == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var project in projects)
+            {
+                <tr>
+                    <td>@project.Name</td>
+                    <td>@project.Description</td>
+                    <td>@project.Status</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Project>? projects;
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        projects = await ProjectService.GetProjectsAsync();
+    }
+}
