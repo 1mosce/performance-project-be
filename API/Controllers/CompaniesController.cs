@@ -3,7 +3,6 @@ using MongoDB.Bson;
 using PerformanceProject.Shared.Models;
 using PeopleManagmentSystem_API.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
-using PeopleManagmentSystem_API.Services;
 
 namespace PeopleManagmentSystem_API.Controllers
 {
@@ -28,7 +27,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Company by Id")]
-        public async Task<ActionResult<Company>> Get(ObjectId id)
+        public async Task<ActionResult<Company>> GetById(ObjectId id)
         {
             var company = await companyService.GetAsync(id);
 
@@ -101,7 +100,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{companyId}/users/{userId}")]
         [SwaggerOperation(Summary = "Add User to Company")]
-        public async Task<IActionResult> AddUserAsync(ObjectId companyId, ObjectId userId)
+        public async Task<IActionResult> AddUser(ObjectId companyId, ObjectId userId)
         {
             await companyService.AddUserAsync(companyId, userId);
             return NoContent();
@@ -109,7 +108,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{companyId}/users/{userId}")]
         [SwaggerOperation(Summary = "Remove User from Company")]
-        public async Task<IActionResult> RemoveUserAsync(ObjectId companyId, ObjectId userId)
+        public async Task<IActionResult> RemoveUser(ObjectId companyId, ObjectId userId)
         {
             await companyService.RemoveUserAsync(companyId, userId);
             return NoContent();

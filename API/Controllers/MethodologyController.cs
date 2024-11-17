@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using PerformanceProject.Shared.Models;
-using PeopleManagmentSystem_API.Services;
 using PeopleManagmentSystem_API.Services.Interfaces;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -28,7 +27,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Methodology by Id")]
-        public async Task<ActionResult<Methodology>> Get(ObjectId id)
+        public async Task<ActionResult<Methodology>> GetById(ObjectId id)
         {
             var methodology = await _methodologyService.GetAsync(id);
 

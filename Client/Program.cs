@@ -11,7 +11,7 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddMudServices();
 builder.Services.AddScoped(sp =>
-    new Client(new HttpClient { BaseAddress = new Uri("https://localhost:44365") }));
+    new Client("https://localhost:44365", new HttpClient { BaseAddress = new Uri("https://localhost:44365") }));
 
 builder.Services.AddScoped<CompanyService>();
 builder.Services.AddScoped<ProjectService>();

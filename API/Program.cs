@@ -111,7 +111,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
     c.EnableAnnotations();
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "PeopleManagmentSystem-API", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "PerfomanceProject.API", Version = "v1" });
+    c.CustomOperationIds(apiDesc =>
+    {
+        return $"{apiDesc.ActionDescriptor.RouteValues["controller"]}_{apiDesc.ActionDescriptor.RouteValues["action"]}";
+    });
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Name = "Authorization",

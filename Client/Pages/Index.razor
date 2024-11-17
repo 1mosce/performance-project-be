@@ -1,5 +1,7 @@
 ﻿@page "/"
+@using MongoDB.Bson
 @using PerformanceProject.Client.Services.Generated
+@using PerformanceProject.Shared.Models
 @inject Client ApiClient
 
 <h3>Dashboard</h3>
@@ -55,9 +57,9 @@ else
     private bool isLoading = true;
     private string? errorMessage = null;
 
-    private PerformanceProject.Client.Services.Generated.Company? selectedCompany;
-    private ICollection<PerformanceProject.Client.Services.Generated.Project> projects;
-    private ICollection<PerformanceProject.Client.Services.Generated.Task> tasks;
+    private Company selectedCompany;
+    private ICollection<Project> projects;
+    private ICollection<PerformanceProject.Shared.Models.Task> tasks;
 
     protected override async System.Threading.Tasks.Task OnInitializedAsync()
     {
@@ -65,14 +67,8 @@ else
         {
             isLoading = true;
 
-            string companyIdString = "673343a6b91c82c022b8b090";
-            MongoDB.Bson.ObjectId companyId;
-            ObjectId companyIdGenerated = null;
-            if (MongoDB.Bson.ObjectId.TryParse(companyIdString, out companyId))
-            {
-                companyIdGenerated = new ObjectId() { CreationTime = companyId.CreationTime, Increment = companyId.Increment, Machine = companyId.Machine, Pid = companyId.Pid, Timestamp = companyId.Timestamp };
-            }
-            var selectedCompany = await ApiClient.CompaniesGETAsync(companyIdGenerated);
+            ObjectId companyId = ObjectId.Parse("673343a6b91c82c022b8b090");
+            var selectedCompany = await ApiClient.Companies_GetByIdAsync(companyId);
            
             if (selectedCompany.Projects == null || !selectedCompany.Projects.Any())
             {

@@ -29,7 +29,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Task by Id")]
-        public async Task<ActionResult<Task>> Get(ObjectId id)
+        public async Task<ActionResult<Task>> GetById(ObjectId id)
         {
             var task = await taskService.GetAsync(id);
 

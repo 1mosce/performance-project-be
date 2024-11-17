@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "PeopleManagmentSystem-API",
+    "title": "PerfomanceProject.API",
     "version": "v1"
   },
   "paths": {
@@ -11,6 +11,7 @@
           "Authentication"
         ],
         "summary": "Create a New Role",
+        "operationId": "Authentication_CreateRole",
         "requestBody": {
           "content": {
             "application/json": {
@@ -43,6 +44,7 @@
           "Authentication"
         ],
         "summary": "Register",
+        "operationId": "Authentication_Register",
         "requestBody": {
           "content": {
             "application/json": {
@@ -75,6 +77,7 @@
           "Authentication"
         ],
         "summary": "Login",
+        "operationId": "Authentication_Login",
         "requestBody": {
           "content": {
             "application/json": {
@@ -124,6 +127,7 @@
           "Companies"
         ],
         "summary": "Get all Companies",
+        "operationId": "Companies_Get",
         "responses": {
           "200": {
             "description": "Success",
@@ -161,6 +165,7 @@
           "Companies"
         ],
         "summary": "Create a New Company",
+        "operationId": "Companies_Post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -210,6 +215,7 @@
           "Companies"
         ],
         "summary": "Get Company by Id",
+        "operationId": "Companies_GetById",
         "parameters": [
           {
             "name": "id",
@@ -249,6 +255,7 @@
           "Companies"
         ],
         "summary": "Modify a Company",
+        "operationId": "Companies_Put",
         "parameters": [
           {
             "name": "id",
@@ -290,6 +297,7 @@
           "Companies"
         ],
         "summary": "Remove a Company",
+        "operationId": "Companies_Delete",
         "parameters": [
           {
             "name": "id",
@@ -314,6 +322,7 @@
           "Companies"
         ],
         "summary": "Get Company's Users",
+        "operationId": "Companies_GetUsers",
         "parameters": [
           {
             "name": "id",
@@ -364,6 +373,7 @@
           "Companies"
         ],
         "summary": "Add User to Company",
+        "operationId": "Companies_AddUser",
         "parameters": [
           {
             "name": "companyId",
@@ -395,6 +405,7 @@
           "Companies"
         ],
         "summary": "Remove User from Company",
+        "operationId": "Companies_RemoveUser",
         "parameters": [
           {
             "name": "companyId",
@@ -428,6 +439,7 @@
           "Companies"
         ],
         "summary": "Get Company's Projects",
+        "operationId": "Companies_GetProjects",
         "parameters": [
           {
             "name": "id",
@@ -472,12 +484,13 @@
         }
       }
     },
-    "/api/Companies/{companyId}/projects": {
+    "/api/Companies/{companyId}/projects/{projectId}": {
       "post": {
         "tags": [
           "Companies"
         ],
         "summary": "Add Project to Company",
+        "operationId": "Companies_AddProject",
         "parameters": [
           {
             "name": "companyId",
@@ -487,81 +500,29 @@
             "schema": {
               "$ref": "#/components/schemas/ObjectId"
             }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Project"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Project"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Project"
-              }
+          },
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "$ref": "#/components/schemas/ObjectId"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Success"
           }
         }
       },
-      "put": {
-        "tags": [
-          "Companies"
-        ],
-        "summary": "Update Project in Company",
-        "parameters": [
-          {
-            "name": "companyId",
-            "in": "path",
-            "required": true,
-            "style": "simple",
-            "schema": {
-              "$ref": "#/components/schemas/ObjectId"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Project"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/Project"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/Project"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success"
-          }
-        }
-      }
-    },
-    "/api/Companies/{companyId}/projects/{projectId}": {
       "delete": {
         "tags": [
           "Companies"
         ],
         "summary": "Remove Project from Company",
+        "operationId": "Companies_RemoveProject",
         "parameters": [
           {
             "name": "companyId",
@@ -589,12 +550,57 @@
         }
       }
     },
+    "/api/Companies/{companyId}/projects": {
+      "put": {
+        "tags": [
+          "Companies"
+        ],
+        "summary": "Update Project in Company",
+        "operationId": "Companies_UpdateProject",
+        "parameters": [
+          {
+            "name": "companyId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "$ref": "#/components/schemas/ObjectId"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Project"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/Methodology": {
       "get": {
         "tags": [
           "Methodology"
         ],
         "summary": "Get all Methodologies",
+        "operationId": "Methodology_Get",
         "responses": {
           "200": {
             "description": "Success",
@@ -632,6 +638,7 @@
           "Methodology"
         ],
         "summary": "Create a New Methodology",
+        "operationId": "Methodology_Post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -681,6 +688,7 @@
           "Methodology"
         ],
         "summary": "Get Methodology by Id",
+        "operationId": "Methodology_GetById",
         "parameters": [
           {
             "name": "id",
@@ -720,6 +728,7 @@
           "Methodology"
         ],
         "summary": "Modify a Methodology",
+        "operationId": "Methodology_Put",
         "parameters": [
           {
             "name": "id",
@@ -761,6 +770,7 @@
           "Methodology"
         ],
         "summary": "Remove a Methodology",
+        "operationId": "Methodology_Delete",
         "parameters": [
           {
             "name": "id",
@@ -785,6 +795,7 @@
           "Positions"
         ],
         "summary": "Get all Positions",
+        "operationId": "Positions_Get",
         "responses": {
           "200": {
             "description": "Success",
@@ -822,6 +833,7 @@
           "Positions"
         ],
         "summary": "Create a New Position",
+        "operationId": "Positions_Post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -871,6 +883,7 @@
           "Positions"
         ],
         "summary": "Get Position by Id",
+        "operationId": "Positions_GetById",
         "parameters": [
           {
             "name": "id",
@@ -910,6 +923,7 @@
           "Positions"
         ],
         "summary": "Modify a Position",
+        "operationId": "Positions_Put",
         "parameters": [
           {
             "name": "id",
@@ -951,6 +965,7 @@
           "Positions"
         ],
         "summary": "Remove a Position",
+        "operationId": "Positions_Delete",
         "parameters": [
           {
             "name": "id",
@@ -975,6 +990,7 @@
           "Projects"
         ],
         "summary": "Get all Projects",
+        "operationId": "Projects_Get",
         "responses": {
           "200": {
             "description": "Success",
@@ -1012,6 +1028,7 @@
           "Projects"
         ],
         "summary": "Create a New Project",
+        "operationId": "Projects_Post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1061,6 +1078,7 @@
           "Projects"
         ],
         "summary": "Get Project by Id",
+        "operationId": "Projects_GetById",
         "parameters": [
           {
             "name": "id",
@@ -1100,6 +1118,7 @@
           "Projects"
         ],
         "summary": "Modify a Project",
+        "operationId": "Projects_Put",
         "parameters": [
           {
             "name": "id",
@@ -1141,6 +1160,7 @@
           "Projects"
         ],
         "summary": "Remove a Project",
+        "operationId": "Projects_Delete",
         "parameters": [
           {
             "name": "id",
@@ -1165,6 +1185,7 @@
           "Projects"
         ],
         "summary": "Get Project's Tasks",
+        "operationId": "Projects_GetTasks",
         "parameters": [
           {
             "name": "id",
@@ -1213,6 +1234,7 @@
           "Projects"
         ],
         "summary": "Add Task to Project",
+        "operationId": "Projects_AddTask",
         "parameters": [
           {
             "name": "id",
@@ -1254,6 +1276,7 @@
           "Projects"
         ],
         "summary": "Update Task in Project",
+        "operationId": "Projects_UpdateTask",
         "parameters": [
           {
             "name": "id",
@@ -1297,6 +1320,7 @@
           "Projects"
         ],
         "summary": "Set or Update the Methodology for a Project",
+        "operationId": "Projects_SetMethodology",
         "parameters": [
           {
             "name": "projectId",
@@ -1338,6 +1362,7 @@
           "Projects"
         ],
         "summary": "Remove the Methodology from a Project",
+        "operationId": "Projects_RemoveMethodology",
         "parameters": [
           {
             "name": "projectId",
@@ -1360,6 +1385,7 @@
           "Projects"
         ],
         "summary": "Get the Methodology of a Project",
+        "operationId": "Projects_GetMethodology",
         "parameters": [
           {
             "name": "projectId",
@@ -1401,6 +1427,7 @@
           "Projects"
         ],
         "summary": "Get Project's Team",
+        "operationId": "Projects_GetTeam",
         "parameters": [
           {
             "name": "id",
@@ -1423,6 +1450,7 @@
           "Projects"
         ],
         "summary": "Set Team for Project",
+        "operationId": "Projects_SetTeam",
         "parameters": [
           {
             "name": "id",
@@ -1464,6 +1492,7 @@
           "Projects"
         ],
         "summary": "Remove Team from Project",
+        "operationId": "Projects_RemoveTeam",
         "parameters": [
           {
             "name": "id",
@@ -1488,6 +1517,7 @@
           "Projects"
         ],
         "summary": "Remove Task from Project",
+        "operationId": "Projects_RemoveTask",
         "parameters": [
           {
             "name": "id",
@@ -1521,6 +1551,7 @@
           "Projects"
         ],
         "summary": "Update Project Status",
+        "operationId": "Projects_UpdateStatus",
         "parameters": [
           {
             "name": "id",
@@ -1564,6 +1595,7 @@
           "Tasks"
         ],
         "summary": "Get all Tasks",
+        "operationId": "Tasks_Get",
         "responses": {
           "200": {
             "description": "Success",
@@ -1601,6 +1633,7 @@
           "Tasks"
         ],
         "summary": "Create a New Task",
+        "operationId": "Tasks_Post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -1650,6 +1683,7 @@
           "Tasks"
         ],
         "summary": "Get Task by Id",
+        "operationId": "Tasks_GetById",
         "parameters": [
           {
             "name": "id",
@@ -1689,6 +1723,7 @@
           "Tasks"
         ],
         "summary": "Modify a Task",
+        "operationId": "Tasks_Put",
         "parameters": [
           {
             "name": "id",
@@ -1730,6 +1765,7 @@
           "Tasks"
         ],
         "summary": "Remove a Task",
+        "operationId": "Tasks_Delete",
         "parameters": [
           {
             "name": "id",
@@ -1754,6 +1790,7 @@
           "Tasks"
         ],
         "summary": "Get All Comments from a Task in Project",
+        "operationId": "Tasks_GetComments",
         "parameters": [
           {
             "name": "projectId",
@@ -1811,6 +1848,7 @@
           "Tasks"
         ],
         "summary": "Add a Comment to a Task in Project",
+        "operationId": "Tasks_AddComment",
         "parameters": [
           {
             "name": "projectId",
@@ -1863,6 +1901,7 @@
           "Tasks"
         ],
         "summary": "Get a Comment from a Task in Project",
+        "operationId": "Tasks_GetComment",
         "parameters": [
           {
             "name": "projectId",
@@ -1920,6 +1959,7 @@
           "Tasks"
         ],
         "summary": "Update a Comment from a Task in Project",
+        "operationId": "Tasks_UpdateComment",
         "parameters": [
           {
             "name": "projectId",
@@ -1979,6 +2019,7 @@
           "Tasks"
         ],
         "summary": "Remove a Comment from a Task in Project",
+        "operationId": "Tasks_RemoveComment",
         "parameters": [
           {
             "name": "projectId",
@@ -2021,6 +2062,7 @@
           "Tasks"
         ],
         "summary": "Assign User to Task",
+        "operationId": "Tasks_AssignUser",
         "parameters": [
           {
             "name": "projectId",
@@ -2063,6 +2105,7 @@
           "Tasks"
         ],
         "summary": "Remove Assignee from Task",
+        "operationId": "Tasks_RemoveAssignee",
         "parameters": [
           {
             "name": "projectId",
@@ -2096,6 +2139,7 @@
           "Tasks"
         ],
         "summary": "Add Skill to Task",
+        "operationId": "Tasks_AddSkill",
         "parameters": [
           {
             "name": "projectId",
@@ -2146,6 +2190,7 @@
           "Tasks"
         ],
         "summary": "Remove Skill from Task",
+        "operationId": "Tasks_RemoveSkill",
         "parameters": [
           {
             "name": "projectId",
@@ -2196,6 +2241,7 @@
           "Tasks"
         ],
         "summary": "Get Task Skills",
+        "operationId": "Tasks_GetSkills",
         "parameters": [
           {
             "name": "projectId",
@@ -2255,6 +2301,7 @@
           "Tasks"
         ],
         "summary": "Update Task Status",
+        "operationId": "Tasks_UpdateStatus",
         "parameters": [
           {
             "name": "projectId",
@@ -2307,6 +2354,7 @@
           "Tasks"
         ],
         "summary": "Update Task Difficulty",
+        "operationId": "Tasks_UpdateDifficulty",
         "parameters": [
           {
             "name": "projectId",
@@ -2359,6 +2407,7 @@
           "TeamRoles"
         ],
         "summary": "Get all Team Roles",
+        "operationId": "TeamRoles_Get",
         "responses": {
           "200": {
             "description": "Success",
@@ -2396,6 +2445,7 @@
           "TeamRoles"
         ],
         "summary": "Create a New Team Role",
+        "operationId": "TeamRoles_Post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2445,6 +2495,7 @@
           "TeamRoles"
         ],
         "summary": "Get Team Role by Id",
+        "operationId": "TeamRoles_GetById",
         "parameters": [
           {
             "name": "id",
@@ -2484,6 +2535,7 @@
           "TeamRoles"
         ],
         "summary": "Modify a Team Role",
+        "operationId": "TeamRoles_Put",
         "parameters": [
           {
             "name": "id",
@@ -2525,6 +2577,7 @@
           "TeamRoles"
         ],
         "summary": "Remove a Team Role",
+        "operationId": "TeamRoles_Delete",
         "parameters": [
           {
             "name": "id",
@@ -2549,6 +2602,7 @@
           "Teams"
         ],
         "summary": "Get all Teams",
+        "operationId": "Teams_Get",
         "responses": {
           "200": {
             "description": "Success",
@@ -2586,6 +2640,7 @@
           "Teams"
         ],
         "summary": "Create a New Team",
+        "operationId": "Teams_Post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -2635,6 +2690,7 @@
           "Teams"
         ],
         "summary": "Get Team by Id",
+        "operationId": "Teams_GetById",
         "parameters": [
           {
             "name": "id",
@@ -2674,6 +2730,7 @@
           "Teams"
         ],
         "summary": "Modify a Team",
+        "operationId": "Teams_Put",
         "parameters": [
           {
             "name": "id",
@@ -2715,6 +2772,7 @@
           "Teams"
         ],
         "summary": "Remove a Team",
+        "operationId": "Teams_Delete",
         "parameters": [
           {
             "name": "id",
@@ -2739,6 +2797,7 @@
           "Teams"
         ],
         "summary": "Get Team's Users",
+        "operationId": "Teams_GetUsers",
         "parameters": [
           {
             "name": "id",
@@ -2789,6 +2848,7 @@
           "Teams"
         ],
         "summary": "Add a Member to a Team",
+        "operationId": "Teams_AddMember",
         "parameters": [
           {
             "name": "teamId",
@@ -2827,6 +2887,7 @@
           "Teams"
         ],
         "summary": "Get all Members of a Team",
+        "operationId": "Teams_GetMembers",
         "parameters": [
           {
             "name": "teamId",
@@ -2877,6 +2938,7 @@
           "Teams"
         ],
         "summary": "Update a User's Team Role",
+        "operationId": "Teams_UpdateUser",
         "parameters": [
           {
             "name": "teamId",
@@ -2918,6 +2980,7 @@
           "Users"
         ],
         "summary": "Get all Users",
+        "operationId": "Users_Get",
         "responses": {
           "200": {
             "description": "Success",
@@ -2955,6 +3018,7 @@
           "Users"
         ],
         "summary": "Create a New User",
+        "operationId": "Users_Post",
         "requestBody": {
           "content": {
             "application/json": {
@@ -3004,6 +3068,7 @@
           "Users"
         ],
         "summary": "Get User by Id",
+        "operationId": "Users_GetById",
         "parameters": [
           {
             "name": "id",
@@ -3043,6 +3108,7 @@
           "Users"
         ],
         "summary": "Modify a User",
+        "operationId": "Users_Put",
         "parameters": [
           {
             "name": "id",
@@ -3084,6 +3150,7 @@
           "Users"
         ],
         "summary": "Remove a User",
+        "operationId": "Users_Delete",
         "parameters": [
           {
             "name": "id",
@@ -3108,6 +3175,7 @@
           "Users"
         ],
         "summary": "Get User's Companies",
+        "operationId": "Users_GetCompanies",
         "parameters": [
           {
             "name": "id",
@@ -3158,6 +3226,7 @@
           "Users"
         ],
         "summary": "Add a Position to User",
+        "operationId": "Users_AddPosition",
         "parameters": [
           {
             "name": "userId",
@@ -3201,6 +3270,7 @@
           "Users"
         ],
         "summary": "Update a User's Position",
+        "operationId": "Users_UpdatePosition",
         "parameters": [
           {
             "name": "userId",
@@ -3251,6 +3321,7 @@
           "Users"
         ],
         "summary": "Remove a User's Position",
+        "operationId": "Users_RemovePosition",
         "parameters": [
           {
             "name": "userId",

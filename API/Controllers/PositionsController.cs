@@ -27,7 +27,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Position by Id")]
-        public async Task<ActionResult<Position>> Get(ObjectId id)
+        public async Task<ActionResult<Position>> GetById(ObjectId id)
         {
             var position = await _positionService.GetAsync(id);
 
