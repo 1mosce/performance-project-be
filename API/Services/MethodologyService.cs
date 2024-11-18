@@ -20,9 +20,9 @@ namespace PeopleManagmentSystem_API.Services
             return await _methodologies.Find(_ => true).ToListAsync();
         }
 
-        public async Task<Methodology> GetAsync(ObjectId id)
+        public async Task<Methodology> GetAsync(string id)
         {
-            return await _methodologies.Find(m => m.Id == id).FirstOrDefaultAsync();
+            return await _methodologies.Find(m => m.SerializedId == id).FirstOrDefaultAsync();
         }
 
         public async Task<Methodology> CreateAsync(Methodology methodology)
@@ -31,15 +31,15 @@ namespace PeopleManagmentSystem_API.Services
             return methodology;
         }
 
-        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, Methodology methodology)
+        public async System.Threading.Tasks.Task UpdateAsync(string id, Methodology methodology)
         {
-            methodology.Id = id;
-            await _methodologies.ReplaceOneAsync(m => m.Id == id, methodology);
+            methodology.Id = ObjectId.Parse(id);
+            await _methodologies.ReplaceOneAsync(m => m.SerializedId == id, methodology);
         }
 
-        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
+        public async System.Threading.Tasks.Task RemoveAsync(string id)
         {
-            await _methodologies.DeleteOneAsync(m => m.Id == id);
+            await _methodologies.DeleteOneAsync(m => m.SerializedId == id);
         }
     }
 }

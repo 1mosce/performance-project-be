@@ -27,7 +27,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Team Role by Id")]
-        public async Task<ActionResult<TeamRole>> GetById(ObjectId id)
+        public async Task<ActionResult<TeamRole>> GetById(string id)
         {
             var role = await _teamRoleService.GetAsync(id);
 
@@ -49,7 +49,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a Team Role")]
-        public async Task<ActionResult> Put(ObjectId id, [FromBody] TeamRole teamRole)
+        public async Task<ActionResult> Put(string id, [FromBody] TeamRole teamRole)
         {
             var existingRole = await _teamRoleService.GetAsync(id);
 
@@ -64,7 +64,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a Team Role")]
-        public async Task<ActionResult> Delete(ObjectId id)
+        public async Task<ActionResult> Delete(string id)
         {
             var role = await _teamRoleService.GetAsync(id);
 
@@ -73,7 +73,7 @@ namespace PeopleManagmentSystem_API.Controllers
                 return NotFound($"Team Role with Id = {id} not found");
             }
 
-            await _teamRoleService.RemoveAsync(role.Id);
+            await _teamRoleService.RemoveAsync(role.SerializedId);
             return NoContent();
         }
     }

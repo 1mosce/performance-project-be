@@ -20,9 +20,9 @@ namespace PeopleManagmentSystem_API.Services
             return await _teamRoles.Find(_ => true).ToListAsync();
         }
 
-        public async Task<TeamRole?> GetAsync(ObjectId id)
+        public async Task<TeamRole?> GetAsync(string id)
         {
-            return await _teamRoles.Find(role => role.Id == id).FirstOrDefaultAsync();
+            return await _teamRoles.Find(role => role.SerializedId == id).FirstOrDefaultAsync();
         }
 
         public async Task<TeamRole> CreateAsync(TeamRole teamRole)
@@ -31,15 +31,15 @@ namespace PeopleManagmentSystem_API.Services
             return teamRole;
         }
 
-        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, TeamRole teamRole)
+        public async System.Threading.Tasks.Task UpdateAsync(string id, TeamRole teamRole)
         {
-            teamRole.Id = id;
-            await _teamRoles.ReplaceOneAsync(role => role.Id == id, teamRole);
+            teamRole.Id = ObjectId.Parse(id);
+            await _teamRoles.ReplaceOneAsync(role => role.SerializedId == id, teamRole);
         }
 
-        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
+        public async System.Threading.Tasks.Task RemoveAsync(string id)
         {
-            await _teamRoles.DeleteOneAsync(role => role.Id == id);
+            await _teamRoles.DeleteOneAsync(role => role.SerializedId == id);
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using PerformanceProject.Shared.Models;
+﻿using PerformanceProject.Shared.Models;
 using Task = System.Threading.Tasks.Task;
 
 namespace PeopleManagmentSystem_API.Services
@@ -7,15 +6,15 @@ namespace PeopleManagmentSystem_API.Services
     public interface IUserService
     {
         Task<List<User>> GetAsync();
-        Task<User> GetAsync(ObjectId id);
-        Task<List<Company>> GetCompaniesAsync(ObjectId id);
+        Task<User> GetAsync(string id);
+        Task<List<Company>> GetCompaniesAsync(string id);
         Task<User> CreateAsync(User employee);
-        Task UpdateAsync(ObjectId id, User employee);
-        Task RemoveAsync(ObjectId id);
+        Task UpdateAsync(string id, User employee);
+        Task RemoveAsync(string id);
 
         // Positions
-        Task AddPositionAsync(ObjectId userId, Position position);
-        Task UpdatePositionAsync(ObjectId userId, ObjectId positionId, Position position);
-        Task RemovePositionAsync(ObjectId userId, ObjectId positionId);
+        Task AddPositionAsync(string userId, Position position);
+        Task UpdatePositionAsync(string userId, string positionId, Position position);
+        Task RemovePositionAsync(string userId, string positionId);
     }
 }

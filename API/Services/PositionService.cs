@@ -20,9 +20,9 @@ namespace PeopleManagmentSystem_API.Services
             return await _positions.Find(_ => true).ToListAsync();
         }
 
-        public async Task<Position?> GetAsync(ObjectId id)
+        public async Task<Position?> GetAsync(string id)
         {
-            return await _positions.Find(pos => pos.Id == id).FirstOrDefaultAsync();
+            return await _positions.Find(pos => pos.SerializedId == id).FirstOrDefaultAsync();
         }
 
         public async Task<Position> CreateAsync(Position position)
@@ -30,15 +30,15 @@ namespace PeopleManagmentSystem_API.Services
             await _positions.InsertOneAsync(position);
             return position;
         }
-        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, Position position)
+        public async System.Threading.Tasks.Task UpdateAsync(string id, Position position)
         {
-            position.Id = id;
-            await _positions.ReplaceOneAsync(pos => pos.Id == id, position);
+            position.Id = ObjectId.Parse(id);
+            await _positions.ReplaceOneAsync(pos => pos.SerializedId == id, position);
         }
 
-        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
+        public async System.Threading.Tasks.Task RemoveAsync(string id)
         {
-            await _positions.DeleteOneAsync(pos => pos.Id == id);
+            await _positions.DeleteOneAsync(pos => pos.SerializedId == id);
         }
     }
 }

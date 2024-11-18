@@ -1,6 +1,5 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
-using PerfomanceProject.Shared.Models;
 using System.Text.Json.Serialization;
 
 namespace PerformanceProject.Shared.Models

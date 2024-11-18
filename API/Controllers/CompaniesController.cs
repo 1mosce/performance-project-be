@@ -27,7 +27,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Company by Id")]
-        public async Task<ActionResult<Company>> GetById(ObjectId id)
+        public async Task<ActionResult<Company>> GetById(string id)
         {
             var company = await companyService.GetAsync(id);
 
@@ -50,7 +50,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a Company")]
-        public async Task<ActionResult> Put(ObjectId id, [FromBody] Company company)
+        public async Task<ActionResult> Put(string id, [FromBody] Company company)
         {
             var existingCompany = await companyService.GetAsync(id);
 
@@ -66,7 +66,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a Company")]
-        public async Task<ActionResult> Delete(ObjectId id)
+        public async Task<ActionResult> Delete(string id)
         {
             var company = await companyService.GetAsync(id);
 
@@ -75,7 +75,7 @@ namespace PeopleManagmentSystem_API.Controllers
                 return NotFound($"Company with Id = {id} not found");
             }
 
-            await companyService.RemoveAsync(company.Id);
+            await companyService.RemoveAsync(company.SerializedId);
 
             return NoContent();
         }
@@ -84,7 +84,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}/users")]
         [SwaggerOperation(Summary = "Get Company's Users")]
-        public async Task<ActionResult<List<User>>> GetUsers(ObjectId id)
+        public async Task<ActionResult<List<User>>> GetUsers(string id)
         {
             var company = await companyService.GetAsync(id);
 
@@ -100,7 +100,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{companyId}/users/{userId}")]
         [SwaggerOperation(Summary = "Add User to Company")]
-        public async Task<IActionResult> AddUser(ObjectId companyId, ObjectId userId)
+        public async Task<IActionResult> AddUser(string companyId, string userId)
         {
             await companyService.AddUserAsync(companyId, userId);
             return NoContent();
@@ -108,7 +108,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{companyId}/users/{userId}")]
         [SwaggerOperation(Summary = "Remove User from Company")]
-        public async Task<IActionResult> RemoveUser(ObjectId companyId, ObjectId userId)
+        public async Task<IActionResult> RemoveUser(string companyId, string userId)
         {
             await companyService.RemoveUserAsync(companyId, userId);
             return NoContent();
@@ -118,7 +118,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}/projects")]
         [SwaggerOperation(Summary = "Get Company's Projects")]
-        public async Task<ActionResult<List<Project>>> GetProjects(ObjectId id)
+        public async Task<ActionResult<List<Project>>> GetProjects(string id)
         {
             var company = await companyService.GetAsync(id);
 
@@ -139,7 +139,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPost("{companyId}/projects/{projectId}")]
         [SwaggerOperation(Summary = "Add Project to Company")]
-        public async Task<IActionResult> AddProject(ObjectId companyId, ObjectId projectId)
+        public async Task<IActionResult> AddProject(string companyId, string projectId)
         {
             await companyService.AddProjectAsync(companyId, projectId);
             return Ok();
@@ -147,7 +147,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{companyId}/projects")]
         [SwaggerOperation(Summary = "Update Project in Company")]
-        public async Task<IActionResult> UpdateProjectAsync(ObjectId companyId, [FromBody] Project project)
+        public async Task<IActionResult> UpdateProjectAsync(string companyId, [FromBody] Project project)
         {
             await companyService.UpdateProjectAsync(companyId, project);
             return NoContent();
@@ -155,7 +155,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{companyId}/projects/{projectId}")]
         [SwaggerOperation(Summary = "Remove Project from Company")]
-        public async Task<IActionResult> RemoveProjectAsync(ObjectId companyId, ObjectId projectId)
+        public async Task<IActionResult> RemoveProjectAsync(string companyId, string projectId)
         {
             await companyService.RemoveProjectAsync(companyId, projectId);
             return NoContent();

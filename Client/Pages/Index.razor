@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@page "/test"
 @using MongoDB.Bson
 @using PerformanceProject.Client.Services.Generated
 @using PerformanceProject.Shared.Models
@@ -6,11 +6,7 @@
 
 <h3>Dashboard</h3>
 
-@if (isLoading)
-{
-    <p>Loading...</p>
-}
-else if (errorMessage != null)
+@if (errorMessage != null)
 {
     <p style="color: red;">@errorMessage</p>
 }
@@ -54,7 +50,6 @@ else
 }
 
 @code {
-    private bool isLoading = true;
     private string? errorMessage = null;
 
     private Company selectedCompany;
@@ -65,11 +60,10 @@ else
     {
         try
         {
-            isLoading = true;
-
-            ObjectId companyId = ObjectId.Parse("673343a6b91c82c022b8b090");
-            var selectedCompany = await ApiClient.Companies_GetByIdAsync(companyId);
-           
+            // ObjectId companyId = ObjectId.Parse("673343a6b91c82c022b8b090");
+            //var selectedCompany = await ApiClient.Companies_GetByIdAsync(companyId);
+            var companies = await ApiClient.Companies_GetAsync();
+            var selectedCompany = companies.First();
             if (selectedCompany.Projects == null || !selectedCompany.Projects.Any())
             {
                 throw new Exception("Projects collection is null or empty");

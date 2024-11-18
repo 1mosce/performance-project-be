@@ -27,33 +27,33 @@ namespace PeopleManagmentSystem_API.Services
             return await _users.Find(u => true).ToListAsync();
         }
 
-        public async Task<User?> GetAsync(ObjectId id)
+        public async Task<User?> GetAsync(string id)
         {
-            return await _users.Find(u => u.Id == id).FirstOrDefaultAsync();
+            return await _users.Find(u => u.SerializedId == id).FirstOrDefaultAsync();
         }
 
-        public async Task<List<Company>> GetCompaniesAsync(ObjectId userId)
+        public async Task<List<Company>> GetCompaniesAsync(string userId)
         {
             return await _companies.Find(c => c.UserIds.Contains(userId)).ToListAsync();
         }
 
-        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
+        public async System.Threading.Tasks.Task RemoveAsync(string id)
         {
-            await _users.DeleteOneAsync(u => u.Id == id);
+            await _users.DeleteOneAsync(u => u.SerializedId == id);
         }
 
-        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, User user)
+        public async System.Threading.Tasks.Task UpdateAsync(string id, User user)
         {
-            user.Id = id;
-            await _users.ReplaceOneAsync(u => u.Id == id, user);
+            user.Id = ObjectId.Parse(id);
+            await _users.ReplaceOneAsync(u => u.SerializedId == id, user);
         }
 
-        public async System.Threading.Tasks.Task AddPositionAsync(ObjectId userId, Position position)
+        public async System.Threading.Tasks.Task AddPositionAsync(string userId, Position position)
         {
             var user = await GetAsync(userId);
             if (user == null)
             {
-                throw new KeyNotFoundException($"User with Id = {userId} not found.");
+                throw new KeyNotFoundException($"User with SerializedId = {userId} not found.");
             }
 
             position.Id = ObjectId.GenerateNewId();
@@ -62,18 +62,18 @@ namespace PeopleManagmentSystem_API.Services
             await UpdateAsync(userId, user);
         }
 
-        public async System.Threading.Tasks.Task UpdatePositionAsync(ObjectId userId, ObjectId positionId, Position position)
+        public async System.Threading.Tasks.Task UpdatePositionAsync(string userId, string positionId, Position position)
         {
             var user = await GetAsync(userId);
             if (user == null)
             {
-                throw new KeyNotFoundException($"User with Id = {userId} not found.");
+                throw new KeyNotFoundException($"User with SerializedId = {userId} not found.");
             }
 
-            var existingPosition = user.Positions.FirstOrDefault(p => p.Id == positionId);
+            var existingPosition = user.Positions.FirstOrDefault(p => p.SerializedId == positionId);
             if (existingPosition == null)
             {
-                throw new KeyNotFoundException($"Position with Id = {positionId} not found.");
+                throw new KeyNotFoundException($"Position with SerializedId = {positionId} not found.");
             }
 
             existingPosition.Name = position.Name;
@@ -82,18 +82,18 @@ namespace PeopleManagmentSystem_API.Services
             await UpdateAsync(userId, user);
         }
 
-        public async System.Threading.Tasks.Task RemovePositionAsync(ObjectId userId, ObjectId positionId)
+        public async System.Threading.Tasks.Task RemovePositionAsync(string userId, string positionId)
         {
             var user = await GetAsync(userId);
             if (user == null)
             {
-                throw new KeyNotFoundException($"User with Id = {userId} not found.");
+                throw new KeyNotFoundException($"User with SerializedId = {userId} not found.");
             }
 
-            var position = user.Positions.FirstOrDefault(p => p.Id == positionId);
+            var position = user.Positions.FirstOrDefault(p => p.SerializedId == positionId);
             if (position == null)
             {
-                throw new KeyNotFoundException($"Position with Id = {positionId} not found.");
+                throw new KeyNotFoundException($"Position with SerializedId = {positionId} not found.");
             }
 
             user.Positions.Remove(position);

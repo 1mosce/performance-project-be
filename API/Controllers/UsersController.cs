@@ -27,7 +27,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get User by Id")]
-        public async Task<ActionResult<User>> GetById(ObjectId id)
+        public async Task<ActionResult<User>> GetById(string id)
         {
             var user = await _userService.GetAsync(id);
 
@@ -41,7 +41,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}/companies")]
         [SwaggerOperation(Summary = "Get User's Companies")]
-        public async Task<ActionResult<List<Company>>> GetCompanies(ObjectId id)
+        public async Task<ActionResult<List<Company>>> GetCompanies(string id)
         {
             var user = await _userService.GetAsync(id);
 
@@ -64,7 +64,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a User")]
-        public async Task<ActionResult> Put(ObjectId id, [FromBody] User user)
+        public async Task<ActionResult> Put(string id, [FromBody] User user)
         {
             var existingUser = await _userService.GetAsync(id);
 
@@ -80,7 +80,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a User")]
-        public async Task<ActionResult> Delete(ObjectId id)
+        public async Task<ActionResult> Delete(string id)
         {
             var user = await _userService.GetAsync(id);
 
@@ -89,14 +89,14 @@ namespace PeopleManagmentSystem_API.Controllers
                 return NotFound($"User with Id = {id} not found");
             }
 
-            await _userService.RemoveAsync(user.Id);
+            await _userService.RemoveAsync(user.SerializedId);
 
             return NoContent();
         }
 
         [HttpPost("{userId}/positions")]
         [SwaggerOperation(Summary = "Add a Position to User")]
-        public async Task<IActionResult> AddPosition(ObjectId userId, [FromBody] Position position)
+        public async Task<IActionResult> AddPosition(string userId, [FromBody] Position position)
         {
             await _userService.AddPositionAsync(userId, position);
             return NoContent();
@@ -104,7 +104,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{userId}/positions/{positionId}")]
         [SwaggerOperation(Summary = "Update a User's Position")]
-        public async Task<IActionResult> UpdatePosition(ObjectId userId, ObjectId positionId, [FromBody] Position position)
+        public async Task<IActionResult> UpdatePosition(string userId, string positionId, [FromBody] Position position)
         {
             await _userService.UpdatePositionAsync(userId, positionId, position);
             return NoContent();
@@ -112,7 +112,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{userId}/positions/{positionId}")]
         [SwaggerOperation(Summary = "Remove a User's Position")]
-        public async Task<IActionResult> RemovePosition(ObjectId userId, ObjectId positionId)
+        public async Task<IActionResult> RemovePosition(string userId, string positionId)
         {
             await _userService.RemovePositionAsync(userId, positionId);
             return NoContent();

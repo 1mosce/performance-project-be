@@ -27,7 +27,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Team by Id")]
-        public async Task<ActionResult<Team>> GetById(ObjectId id)
+        public async Task<ActionResult<Team>> GetById(string id)
         {
             var team = await teamService.GetAsync(id);
 
@@ -41,7 +41,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}/users")]
         [SwaggerOperation(Summary = "Get Team's Users")]
-        public async Task<ActionResult<List<User>>> GetUsers(ObjectId id)
+        public async Task<ActionResult<List<User>>> GetUsers(string id)
         {
             var team = await teamService.GetAsync(id);
 
@@ -56,7 +56,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPost("{teamId}/members")]
         [SwaggerOperation(Summary = "Add a Member to a Team")]
-        public async Task<IActionResult> AddMember(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
+        public async Task<IActionResult> AddMember(string teamId, string userId, string teamRoleId)
         {
             await teamService.AddMemberAsync(teamId, userId, teamRoleId);
             return NoContent();
@@ -64,7 +64,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{teamId}/{userId}")]
         [SwaggerOperation(Summary = "Update a User's Team Role")]
-        public async Task<ActionResult> UpdateUser(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
+        public async Task<ActionResult> UpdateUser(string teamId, string userId, string teamRoleId)
         {
             var teamExists = await teamService.GetAsync(teamId);
             if (teamExists == null)
@@ -78,7 +78,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{teamId}/members")]
         [SwaggerOperation(Summary = "Get all Members of a Team")]
-        public async Task<ActionResult<List<TeamMember>>> GetMembers(ObjectId teamId)
+        public async Task<ActionResult<List<TeamMember>>> GetMembers(string teamId)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a Team")]
-        public async Task<ActionResult> Put(ObjectId id, [FromBody] Team team)
+        public async Task<ActionResult> Put(string id, [FromBody] Team team)
         {
             var existingTeam = await teamService.GetAsync(id);
 
@@ -121,7 +121,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a Team")]
-        public async Task<ActionResult> Delete(ObjectId id)
+        public async Task<ActionResult> Delete(string id)
         {
             var team = await teamService.GetAsync(id);
 

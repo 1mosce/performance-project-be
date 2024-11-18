@@ -7,36 +7,36 @@ namespace PeopleManagmentSystem_API.Services.Interfaces
     public interface ITaskService
     {
         Task<List<PerformanceProject.Shared.Models.Task>> GetAsync();
-        Task<PerformanceProject.Shared.Models.Task> GetAsync(ObjectId id);
+        Task<PerformanceProject.Shared.Models.Task> GetAsync(string id);
         Task<PerformanceProject.Shared.Models.Task> CreateAsync(PerformanceProject.Shared.Models.Task task);
-        Task UpdateAsync(ObjectId id, PerformanceProject.Shared.Models.Task task);
-        Task RemoveAsync(ObjectId id);
+        Task UpdateAsync(string id, PerformanceProject.Shared.Models.Task task);
+        Task RemoveAsync(string id);
 
         //Comments
-        Task<List<Comment>> GetCommentsAsync(ObjectId projectId, ObjectId taskId);
-        Task<Comment> GetCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId);
-        Task AddCommentAsync(ObjectId projectId, ObjectId taskId, Comment comment);
-        Task UpdateCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId, string content);
-        Task RemoveCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId);
+        Task<List<Comment>> GetCommentsAsync(string projectId, string taskId);
+        Task<Comment> GetCommentAsync(string projectId, string taskId, string commentId);
+        Task AddCommentAsync(string projectId, string taskId, Comment comment);
+        Task UpdateCommentAsync(string projectId, string taskId, string commentId, string content);
+        Task RemoveCommentAsync(string projectId, string taskId, string commentId);
 
         // Assignee
-        Task AssignUserAsync(ObjectId projectId, ObjectId taskId, ObjectId userId);
-        Task RemoveAssigneeAsync(ObjectId projectId, ObjectId taskId);
+        Task AssignUserAsync(string projectId, string taskId, string userId);
+        Task RemoveAssigneeAsync(string projectId, string taskId);
 
         // Skills
-        Task AddSkillAsync(ObjectId projectId, ObjectId taskId, string skill);
-        Task RemoveSkillAsync(ObjectId projectId, ObjectId taskId, string skill);
-        Task<List<string>> GetSkillsAsync(ObjectId projectId, ObjectId taskId);
+        Task AddSkillAsync(string projectId, string taskId, string skill);
+        Task RemoveSkillAsync(string projectId, string taskId, string skill);
+        Task<List<string>> GetSkillsAsync(string projectId, string taskId);
 
         // Status
-        Task UpdateStatusAsync(ObjectId projectId, ObjectId taskId, PerformanceProject.Shared.Models.TaskStatus status);
+        Task UpdateStatusAsync(string projectId, string taskId, PerformanceProject.Shared.Models.TaskStatus status);
 
         // Difficulty
-        Task UpdateDifficultyAsync(ObjectId projectId, ObjectId taskId, DifficultyLevel difficulty);
+        Task UpdateDifficultyAsync(string projectId, string taskId, DifficultyLevel difficulty);
 
 
 
-        //double GetProductivity(ObjectId id);
+        //double GetProductivity(string id);
         //string GetSkills(string title);
     }
 }

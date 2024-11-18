@@ -27,7 +27,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Position by Id")]
-        public async Task<ActionResult<Position>> GetById(ObjectId id)
+        public async Task<ActionResult<Position>> GetById(string id)
         {
             var position = await _positionService.GetAsync(id);
 
@@ -49,7 +49,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a Position")]
-        public async Task<ActionResult> Put(ObjectId id, [FromBody] Position position)
+        public async Task<ActionResult> Put(string id, [FromBody] Position position)
         {
             var existingPosition = await _positionService.GetAsync(id);
 
@@ -65,7 +65,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a Position")]
-        public async Task<ActionResult> Delete(ObjectId id)
+        public async Task<ActionResult> Delete(string id)
         {
             var position = await _positionService.GetAsync(id);
 

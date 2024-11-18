@@ -27,7 +27,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Methodology by Id")]
-        public async Task<ActionResult<Methodology>> GetById(ObjectId id)
+        public async Task<ActionResult<Methodology>> GetById(string id)
         {
             var methodology = await _methodologyService.GetAsync(id);
 
@@ -49,7 +49,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a Methodology")]
-        public async Task<ActionResult> Put(ObjectId id, [FromBody] Methodology methodology)
+        public async Task<ActionResult> Put(string id, [FromBody] Methodology methodology)
         {
             var existingMethodology = await _methodologyService.GetAsync(id);
 
@@ -64,7 +64,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a Methodology")]
-        public async Task<ActionResult> Delete(ObjectId id)
+        public async Task<ActionResult> Delete(string id)
         {
             var methodology = await _methodologyService.GetAsync(id);
 

@@ -29,7 +29,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get Project by Id")]
-        public async Task<ActionResult<Project>> GetById(ObjectId id)
+        public async Task<ActionResult<Project>> GetById(string id)
         {
             var project = await _projectService.GetAsync(id);
 
@@ -44,7 +44,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{id}/tasks")]
         [SwaggerOperation(Summary = "Get Project's Tasks")]
-        public async Task<ActionResult<List<Task>>> GetTasks(ObjectId id)
+        public async Task<ActionResult<List<Task>>> GetTasks(string id)
         {
             var project = await _projectService.GetAsync(id);
 
@@ -68,7 +68,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{id}")]
         [SwaggerOperation(Summary = "Modify a Project")]
-        public async Task<ActionResult> Put(ObjectId id, [FromBody] Project project)
+        public async Task<ActionResult> Put(string id, [FromBody] Project project)
         {
             var existingProject = await _projectService.GetAsync(id);
 
@@ -84,7 +84,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{id}")]
         [SwaggerOperation(Summary = "Remove a Project")]
-        public async Task<ActionResult> Delete(ObjectId id)
+        public async Task<ActionResult> Delete(string id)
         {
             var project = await _projectService.GetAsync(id);
 
@@ -93,7 +93,7 @@ namespace PeopleManagmentSystem_API.Controllers
                 return NotFound($"Project with Id = {id} not found");
             }
 
-            await _projectService.RemoveAsync(project.Id);
+            await _projectService.RemoveAsync(project.SerializedId);
 
             return NoContent();
         }
@@ -102,7 +102,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{projectId}/methodology")]
         [SwaggerOperation(Summary = "Set or Update the Methodology for a Project")]
-        public async Task<IActionResult> SetMethodology(ObjectId projectId, [FromBody] Methodology methodology)
+        public async Task<IActionResult> SetMethodology(string projectId, [FromBody] Methodology methodology)
         {
             await _projectService.SetMethodologyAsync(projectId, methodology);
             return NoContent();
@@ -110,7 +110,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{projectId}/methodology")]
         [SwaggerOperation(Summary = "Remove the Methodology from a Project")]
-        public async Task<IActionResult> RemoveMethodology(ObjectId projectId)
+        public async Task<IActionResult> RemoveMethodology(string projectId)
         {
             await _projectService.RemoveMethodologyAsync(projectId);
             return NoContent();
@@ -118,7 +118,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpGet("{projectId}/methodology")]
         [SwaggerOperation(Summary = "Get the Methodology of a Project")]
-        public async Task<ActionResult<Methodology?>> GetMethodology(ObjectId projectId)
+        public async Task<ActionResult<Methodology?>> GetMethodology(string projectId)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace PeopleManagmentSystem_API.Controllers
         // Team
         [HttpGet("{id}/team")]
         [SwaggerOperation(Summary = "Get Project's Team")]
-        public async Task<IActionResult> GetTeam(ObjectId id)
+        public async Task<IActionResult> GetTeam(string id)
         {
             var team = await _projectService.GetTeamAsync(id);
             if (team == null)
@@ -147,7 +147,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{id}/team")]
         [SwaggerOperation(Summary = "Set Team for Project")]
-        public async Task<IActionResult> SetTeam(ObjectId id, [FromBody] Team team)
+        public async Task<IActionResult> SetTeam(string id, [FromBody] Team team)
         {
             await _projectService.SetTeamAsync(id, team);
             return NoContent();
@@ -155,7 +155,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{id}/team")]
         [SwaggerOperation(Summary = "Remove Team from Project")]
-        public async Task<IActionResult> RemoveTeam(ObjectId id)
+        public async Task<IActionResult> RemoveTeam(string id)
         {
             await _projectService.RemoveTeamAsync(id);
             return NoContent();
@@ -164,7 +164,7 @@ namespace PeopleManagmentSystem_API.Controllers
         // Tasks
         [HttpPost("{id}/tasks")]
         [SwaggerOperation(Summary = "Add Task to Project")]
-        public async Task<IActionResult> AddTask(ObjectId id, [FromBody] Task task)
+        public async Task<IActionResult> AddTask(string id, [FromBody] Task task)
         {
             await _projectService.AddTaskAsync(id, task);
             return NoContent();
@@ -172,7 +172,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpDelete("{id}/tasks/{taskId}")]
         [SwaggerOperation(Summary = "Remove Task from Project")]
-        public async Task<IActionResult> RemoveTask(ObjectId id, ObjectId taskId)
+        public async Task<IActionResult> RemoveTask(string id, string taskId)
         {
             await _projectService.RemoveTaskAsync(id, taskId);
             return NoContent();
@@ -180,7 +180,7 @@ namespace PeopleManagmentSystem_API.Controllers
 
         [HttpPut("{id}/tasks")]
         [SwaggerOperation(Summary = "Update Task in Project")]
-        public async Task<IActionResult> UpdateTask(ObjectId id, [FromBody] Task task)
+        public async Task<IActionResult> UpdateTask(string id, [FromBody] Task task)
         {
             await _projectService.UpdateTaskAsync(id, task);
             return NoContent();
@@ -189,7 +189,7 @@ namespace PeopleManagmentSystem_API.Controllers
         // Status
         [HttpPut("{id}/status")]
         [SwaggerOperation(Summary = "Update Project Status")]
-        public async Task<IActionResult> UpdateStatus(ObjectId id, [FromBody] ProjectStatus status)
+        public async Task<IActionResult> UpdateStatus(string id, [FromBody] ProjectStatus status)
         {
             await _projectService.UpdateStatusAsync(id, status);
             return NoContent();

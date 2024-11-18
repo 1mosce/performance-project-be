@@ -32,40 +32,40 @@ namespace PeopleManagmentSystem_API.Services
             return await _tasks.Find(t => true).ToListAsync();
         }
 
-        public async Task<Task> GetAsync(ObjectId id)
+        public async Task<Task> GetAsync(string id)
         {
-            return await _tasks.Find(t => t.Id == id).FirstOrDefaultAsync();
+            return await _tasks.Find(t => t.SerializedId == id).FirstOrDefaultAsync();
         }
 
-        public async System.Threading.Tasks.Task RemoveAsync(ObjectId id)
+        public async System.Threading.Tasks.Task RemoveAsync(string id)
         {
-            await _tasks.DeleteOneAsync(t => t.Id == id);
+            await _tasks.DeleteOneAsync(t => t.SerializedId == id);
         }
 
-        public async System.Threading.Tasks.Task UpdateAsync(ObjectId id, Task task)
+        public async System.Threading.Tasks.Task UpdateAsync(string id, Task task)
         {
-            task.Id = id;
-            await _tasks.ReplaceOneAsync(t => t.Id == id, task);
+            task.Id = ObjectId.Parse(id);
+            await _tasks.ReplaceOneAsync(t => t.SerializedId == id, task);
         }
 
         // Comments
-        public async Task<List<Comment>> GetCommentsAsync(ObjectId projectId, ObjectId taskId)
+        public async Task<List<Comment>> GetCommentsAsync(string projectId, string taskId)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
             return task.Comments;
         }
 
-        public async Task<Comment> GetCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId)
+        public async Task<Comment> GetCommentAsync(string projectId, string taskId, string commentId)
         {
             var comments = await GetCommentsAsync(projectId, taskId);
-            var comment = comments.FirstOrDefault(c => c.Id == commentId);
+            var comment = comments.FirstOrDefault(c => c.SerializedId == commentId);
 
             if (comment == null)
                 throw new KeyNotFoundException($"Comment with Id '{commentId}' not found in Task '{taskId}'.");
@@ -73,13 +73,13 @@ namespace PeopleManagmentSystem_API.Services
             return comment;
         }
 
-        public async System.Threading.Tasks.Task AddCommentAsync(ObjectId projectId, ObjectId taskId, Comment comment)
+        public async System.Threading.Tasks.Task AddCommentAsync(string projectId, string taskId, Comment comment)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
@@ -90,17 +90,17 @@ namespace PeopleManagmentSystem_API.Services
             await _projectService.UpdateAsync(projectId, project);
         }
 
-        public async System.Threading.Tasks.Task UpdateCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId, string content)
+        public async System.Threading.Tasks.Task UpdateCommentAsync(string projectId, string taskId, string commentId, string content)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
-            var comment = task.Comments.FirstOrDefault(c => c.Id == commentId);
+            var comment = task.Comments.FirstOrDefault(c => c.SerializedId == commentId);
             if (comment == null)
                 throw new KeyNotFoundException($"Comment with Id '{commentId}' not found in Task '{taskId}'.");
 
@@ -110,30 +110,30 @@ namespace PeopleManagmentSystem_API.Services
             await _projectService.UpdateAsync(projectId, project);
         }
 
-        public async System.Threading.Tasks.Task RemoveCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId)
+        public async System.Threading.Tasks.Task RemoveCommentAsync(string projectId, string taskId, string commentId)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
-            task.Comments.RemoveAll(c => c.Id == commentId);
+            task.Comments.RemoveAll(c => c.SerializedId == commentId);
 
             await _projectService.UpdateAsync(projectId, project);
         }
 
 
         // Assignee
-        public async System.Threading.Tasks.Task AssignUserAsync(ObjectId projectId, ObjectId taskId, ObjectId userId)
+        public async System.Threading.Tasks.Task AssignUserAsync(string projectId, string taskId, string userId)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
@@ -142,13 +142,13 @@ namespace PeopleManagmentSystem_API.Services
             await _projectService.UpdateAsync(projectId, project);
         }
 
-        public async System.Threading.Tasks.Task RemoveAssigneeAsync(ObjectId projectId, ObjectId taskId)
+        public async System.Threading.Tasks.Task RemoveAssigneeAsync(string projectId, string taskId)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
@@ -158,13 +158,13 @@ namespace PeopleManagmentSystem_API.Services
         }
 
         // Skills
-        public async System.Threading.Tasks.Task AddSkillAsync(ObjectId projectId, ObjectId taskId, string skill)
+        public async System.Threading.Tasks.Task AddSkillAsync(string projectId, string taskId, string skill)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
@@ -174,13 +174,13 @@ namespace PeopleManagmentSystem_API.Services
             await _projectService.UpdateAsync(projectId, project);
         }
 
-        public async System.Threading.Tasks.Task RemoveSkillAsync(ObjectId projectId, ObjectId taskId, string skill)
+        public async System.Threading.Tasks.Task RemoveSkillAsync(string projectId, string taskId, string skill)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
@@ -189,13 +189,13 @@ namespace PeopleManagmentSystem_API.Services
             await _projectService.UpdateAsync(projectId, project);
         }
 
-        public async Task<List<string>> GetSkillsAsync(ObjectId projectId, ObjectId taskId)
+        public async Task<List<string>> GetSkillsAsync(string projectId, string taskId)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
@@ -203,13 +203,13 @@ namespace PeopleManagmentSystem_API.Services
         }
 
         // Status
-        public async System.Threading.Tasks.Task UpdateStatusAsync(ObjectId projectId, ObjectId taskId, PerformanceProject.Shared.Models.TaskStatus status)
+        public async System.Threading.Tasks.Task UpdateStatusAsync(string projectId, string taskId, PerformanceProject.Shared.Models.TaskStatus status)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
@@ -219,13 +219,13 @@ namespace PeopleManagmentSystem_API.Services
         }
 
         // Difficulty
-        public async System.Threading.Tasks.Task UpdateDifficultyAsync(ObjectId projectId, ObjectId taskId, DifficultyLevel difficulty)
+        public async System.Threading.Tasks.Task UpdateDifficultyAsync(string projectId, string taskId, DifficultyLevel difficulty)
         {
             var project = await _projectService.GetAsync(projectId);
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.Id == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 
@@ -235,7 +235,7 @@ namespace PeopleManagmentSystem_API.Services
         }
 
 
-        //    public double GetProductivity(ObjectId id)
+        //    public double GetProductivity(string id)
         //    {
         //        // return _tasks.Find(t => t.Id == id).First().CalculateProductivity();
         //        throw new NotImplementedException();

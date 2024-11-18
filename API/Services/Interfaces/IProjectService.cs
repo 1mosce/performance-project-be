@@ -8,28 +8,28 @@ namespace PeopleManagmentSystem_API.Services.Interfaces
     {
         Task<Project> CreateAsync(Project project);
         Task<List<Project>> GetAsync();
-        Task<Project> GetAsync(ObjectId id);
-        Task<List<PerformanceProject.Shared.Models.Task>> GetTasksAsync(ObjectId id);
-        Task UpdateAsync(ObjectId id, Project project);
-        Task RemoveAsync(ObjectId id);
+        Task<Project> GetAsync(string id);
+        Task<List<PerformanceProject.Shared.Models.Task>> GetTasksAsync(string id);
+        Task UpdateAsync(string id, Project project);
+        Task RemoveAsync(string id);
 
         // Methodology
-        Task<Methodology?> GetMethodologyAsync(ObjectId projectId);
-        Task SetMethodologyAsync(ObjectId projectId, Methodology methodology);
-        Task RemoveMethodologyAsync(ObjectId projectId);
+        Task<Methodology?> GetMethodologyAsync(string projectId);
+        Task SetMethodologyAsync(string projectId, Methodology methodology);
+        Task RemoveMethodologyAsync(string projectId);
 
         // Team
-        Task<Team> GetTeamAsync(ObjectId projectId);
-        Task SetTeamAsync(ObjectId projectId, Team team);
-        Task RemoveTeamAsync(ObjectId projectId);
+        Task<Team> GetTeamAsync(string projectId);
+        Task SetTeamAsync(string projectId, Team team);
+        Task RemoveTeamAsync(string projectId);
 
         // Tasks
-        Task AddTaskAsync(ObjectId projectId, PerformanceProject.Shared.Models.Task task);
-        Task RemoveTaskAsync(ObjectId projectId, ObjectId taskId);
-        Task UpdateTaskAsync(ObjectId projectId, PerformanceProject.Shared.Models.Task task);
+        Task AddTaskAsync(string projectId, PerformanceProject.Shared.Models.Task task);
+        Task RemoveTaskAsync(string projectId, string taskId);
+        Task UpdateTaskAsync(string projectId, PerformanceProject.Shared.Models.Task task);
 
         // Status
-        Task UpdateStatusAsync(ObjectId projectId, ProjectStatus status);
+        Task UpdateStatusAsync(string projectId, ProjectStatus status);
 
     }
 }
