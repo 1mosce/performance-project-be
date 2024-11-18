@@ -1,5 +1,6 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using PerfomanceProject.Shared.Models;
 using System.Text.Json.Serialization;
 
 namespace PerformanceProject.Shared.Models
@@ -7,6 +8,8 @@ namespace PerformanceProject.Shared.Models
     public class Project
     {
         [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        [JsonIgnore]
         public ObjectId Id { get; set; }
 
         public string SerializedId { get => Id.ToString(); }

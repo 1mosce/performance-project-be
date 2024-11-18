@@ -10,6 +10,7 @@ namespace PerformanceProject.Shared.Models
     public class Task
     {
         [BsonId]
+        [JsonIgnore]
         public ObjectId Id { get; set; }
 
         public string SerializedId { get => Id.ToString(); }
