@@ -20,9 +20,9 @@
 
 namespace PerformanceProject.Client.Services.Generated
 {
-    using MongoDB.Bson;
     using PerformanceProject.Shared.Models;
     using PerformanceProject.Shared.Models.DTO;
+    using static PerfomanceProject.Shared.Models.ML.ProductivityModel;
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "14.1.0.0 (NJsonSchema v11.0.2.0 (Newtonsoft.Json v13.0.0.0))")]
@@ -502,7 +502,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Company> Companies_GetByIdAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<Company> Companies_GetByIdAsync(string id)
         {
             return Companies_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
@@ -513,7 +513,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Company> Companies_GetByIdAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Company> Companies_GetByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -590,7 +590,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Companies_PutAsync(ObjectId id, Company body)
+        public virtual System.Threading.Tasks.Task Companies_PutAsync(string id, Company body)
         {
             return Companies_PutAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -601,7 +601,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Companies_PutAsync(ObjectId id, Company body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Companies_PutAsync(string id, Company body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -676,7 +676,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Companies_DeleteAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task Companies_DeleteAsync(string id)
         {
             return Companies_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
@@ -687,7 +687,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Companies_DeleteAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Companies_DeleteAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -758,7 +758,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<User>> Companies_GetUsersAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<User>> Companies_GetUsersAsync(string id)
         {
             return Companies_GetUsersAsync(id, System.Threading.CancellationToken.None);
         }
@@ -769,7 +769,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<User>> Companies_GetUsersAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<User>> Companies_GetUsersAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -847,7 +847,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Companies_AddUserAsync(ObjectId companyId, ObjectId userId)
+        public virtual System.Threading.Tasks.Task Companies_AddUserAsync(string companyId, string userId)
         {
             return Companies_AddUserAsync(companyId, userId, System.Threading.CancellationToken.None);
         }
@@ -858,7 +858,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Companies_AddUserAsync(ObjectId companyId, ObjectId userId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Companies_AddUserAsync(string companyId, string userId, System.Threading.CancellationToken cancellationToken)
         {
             if (companyId == null)
                 throw new System.ArgumentNullException("companyId");
@@ -935,7 +935,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Companies_RemoveUserAsync(ObjectId companyId, ObjectId userId)
+        public virtual System.Threading.Tasks.Task Companies_RemoveUserAsync(string companyId, string userId)
         {
             return Companies_RemoveUserAsync(companyId, userId, System.Threading.CancellationToken.None);
         }
@@ -946,7 +946,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Companies_RemoveUserAsync(ObjectId companyId, ObjectId userId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Companies_RemoveUserAsync(string companyId, string userId, System.Threading.CancellationToken cancellationToken)
         {
             if (companyId == null)
                 throw new System.ArgumentNullException("companyId");
@@ -1022,7 +1022,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Project>> Companies_GetProjectsAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Project>> Companies_GetProjectsAsync(string id)
         {
             return Companies_GetProjectsAsync(id, System.Threading.CancellationToken.None);
         }
@@ -1033,7 +1033,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Project>> Companies_GetProjectsAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Project>> Companies_GetProjectsAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1111,7 +1111,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Companies_AddProjectAsync(ObjectId companyId, ObjectId projectId)
+        public virtual System.Threading.Tasks.Task Companies_AddProjectAsync(string companyId, string projectId)
         {
             return Companies_AddProjectAsync(companyId, projectId, System.Threading.CancellationToken.None);
         }
@@ -1122,7 +1122,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Companies_AddProjectAsync(ObjectId companyId, ObjectId projectId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Companies_AddProjectAsync(string companyId, string projectId, System.Threading.CancellationToken cancellationToken)
         {
             if (companyId == null)
                 throw new System.ArgumentNullException("companyId");
@@ -1199,7 +1199,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Companies_RemoveProjectAsync(ObjectId companyId, ObjectId projectId)
+        public virtual System.Threading.Tasks.Task Companies_RemoveProjectAsync(string companyId, string projectId)
         {
             return Companies_RemoveProjectAsync(companyId, projectId, System.Threading.CancellationToken.None);
         }
@@ -1210,7 +1210,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Companies_RemoveProjectAsync(ObjectId companyId, ObjectId projectId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Companies_RemoveProjectAsync(string companyId, string projectId, System.Threading.CancellationToken cancellationToken)
         {
             if (companyId == null)
                 throw new System.ArgumentNullException("companyId");
@@ -1286,7 +1286,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Companies_UpdateProjectAsync(ObjectId companyId, Project body)
+        public virtual System.Threading.Tasks.Task Companies_UpdateProjectAsync(string companyId, Project body)
         {
             return Companies_UpdateProjectAsync(companyId, body, System.Threading.CancellationToken.None);
         }
@@ -1297,7 +1297,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Companies_UpdateProjectAsync(ObjectId companyId, Project body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Companies_UpdateProjectAsync(string companyId, Project body, System.Threading.CancellationToken cancellationToken)
         {
             if (companyId == null)
                 throw new System.ArgumentNullException("companyId");
@@ -1545,7 +1545,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Methodology> Methodology_GetByIdAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<Methodology> Methodology_GetByIdAsync(string id)
         {
             return Methodology_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
@@ -1556,7 +1556,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Methodology> Methodology_GetByIdAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Methodology> Methodology_GetByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1633,7 +1633,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Methodology_PutAsync(ObjectId id, Methodology body)
+        public virtual System.Threading.Tasks.Task Methodology_PutAsync(string id, Methodology body)
         {
             return Methodology_PutAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -1644,7 +1644,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Methodology_PutAsync(ObjectId id, Methodology body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Methodology_PutAsync(string id, Methodology body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1719,7 +1719,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Methodology_DeleteAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task Methodology_DeleteAsync(string id)
         {
             return Methodology_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
@@ -1730,7 +1730,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Methodology_DeleteAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Methodology_DeleteAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -1973,7 +1973,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Position> Positions_GetByIdAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<Position> Positions_GetByIdAsync(string id)
         {
             return Positions_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
@@ -1984,7 +1984,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Position> Positions_GetByIdAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Position> Positions_GetByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2061,7 +2061,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Positions_PutAsync(ObjectId id, Position body)
+        public virtual System.Threading.Tasks.Task Positions_PutAsync(string id, Position body)
         {
             return Positions_PutAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -2072,7 +2072,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Positions_PutAsync(ObjectId id, Position body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Positions_PutAsync(string id, Position body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2147,7 +2147,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Positions_DeleteAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task Positions_DeleteAsync(string id)
         {
             return Positions_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
@@ -2158,7 +2158,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Positions_DeleteAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Positions_DeleteAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2203,6 +2203,405 @@ namespace PerformanceProject.Client.Services.Generated
                         if (status_ == 200)
                         {
                             return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task Prediction_PredictProductivityAsync(ProductivityData body)
+        {
+            return Prediction_PredictProductivityAsync(body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task Prediction_PredictProductivityAsync(ProductivityData body, System.Threading.CancellationToken cancellationToken)
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Prediction/predict"
+                    urlBuilder_.Append("api/Prediction/predict");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task Prediction_EvaluateModelAsync()
+        {
+            return Prediction_EvaluateModelAsync(System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task Prediction_EvaluateModelAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Prediction/evaluate"
+                    urlBuilder_.Append("api/Prediction/evaluate");
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<double> Productivity_GetIndividualProductivityAsync(string projectId, string assigneeId)
+        {
+            return Productivity_GetIndividualProductivityAsync(projectId, assigneeId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<double> Productivity_GetIndividualProductivityAsync(string projectId, string assigneeId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (projectId == null)
+                throw new System.ArgumentNullException("projectId");
+
+            if (assigneeId == null)
+                throw new System.ArgumentNullException("assigneeId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Productivity/individual/{projectId}/{assigneeId}"
+                    urlBuilder_.Append("api/Productivity/individual/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(projectId, System.Globalization.CultureInfo.InvariantCulture)));
+                    urlBuilder_.Append('/');
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(assigneeId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<double>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<double> Productivity_GetTeamProductivityAsync(string projectId)
+        {
+            return Productivity_GetTeamProductivityAsync(projectId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<double> Productivity_GetTeamProductivityAsync(string projectId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (projectId == null)
+                throw new System.ArgumentNullException("projectId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Productivity/team/{projectId}"
+                    urlBuilder_.Append("api/Productivity/team/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(projectId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<double>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, double>> Productivity_PredictTeamProductivityAsync(string projectId)
+        {
+            return Productivity_PredictTeamProductivityAsync(projectId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.IDictionary<string, double>> Productivity_PredictTeamProductivityAsync(string projectId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (projectId == null)
+                throw new System.ArgumentNullException("projectId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Productivity/predict/team/{projectId}"
+                    urlBuilder_.Append("api/Productivity/predict/team/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(projectId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.IDictionary<string, double>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -2401,7 +2800,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Project> Projects_GetByIdAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<Project> Projects_GetByIdAsync(string id)
         {
             return Projects_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
@@ -2412,7 +2811,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Project> Projects_GetByIdAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Project> Projects_GetByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2489,7 +2888,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_PutAsync(ObjectId id, Project body)
+        public virtual System.Threading.Tasks.Task Projects_PutAsync(string id, Project body)
         {
             return Projects_PutAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -2500,7 +2899,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_PutAsync(ObjectId id, Project body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_PutAsync(string id, Project body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2575,7 +2974,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_DeleteAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task Projects_DeleteAsync(string id)
         {
             return Projects_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
@@ -2586,7 +2985,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_DeleteAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_DeleteAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2657,7 +3056,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> Projects_GetTasksAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> Projects_GetTasksAsync(string id)
         {
             return Projects_GetTasksAsync(id, System.Threading.CancellationToken.None);
         }
@@ -2668,7 +3067,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> Projects_GetTasksAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Task>> Projects_GetTasksAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2746,7 +3145,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_AddTaskAsync(ObjectId id, Task body)
+        public virtual System.Threading.Tasks.Task Projects_AddTaskAsync(string id, Task body)
         {
             return Projects_AddTaskAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -2757,7 +3156,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_AddTaskAsync(ObjectId id, Task body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_AddTaskAsync(string id, Task body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2833,7 +3232,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_UpdateTaskAsync(ObjectId id, Task body)
+        public virtual System.Threading.Tasks.Task Projects_UpdateTaskAsync(string id, Task body)
         {
             return Projects_UpdateTaskAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -2844,7 +3243,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_UpdateTaskAsync(ObjectId id, Task body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_UpdateTaskAsync(string id, Task body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -2920,7 +3319,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_SetMethodologyAsync(ObjectId projectId, Methodology body)
+        public virtual System.Threading.Tasks.Task Projects_SetMethodologyAsync(string projectId, Methodology body)
         {
             return Projects_SetMethodologyAsync(projectId, body, System.Threading.CancellationToken.None);
         }
@@ -2931,7 +3330,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_SetMethodologyAsync(ObjectId projectId, Methodology body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_SetMethodologyAsync(string projectId, Methodology body, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -3007,7 +3406,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_RemoveMethodologyAsync(ObjectId projectId)
+        public virtual System.Threading.Tasks.Task Projects_RemoveMethodologyAsync(string projectId)
         {
             return Projects_RemoveMethodologyAsync(projectId, System.Threading.CancellationToken.None);
         }
@@ -3018,7 +3417,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_RemoveMethodologyAsync(ObjectId projectId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_RemoveMethodologyAsync(string projectId, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -3090,7 +3489,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Methodology> Projects_GetMethodologyAsync(ObjectId projectId)
+        public virtual System.Threading.Tasks.Task<Methodology> Projects_GetMethodologyAsync(string projectId)
         {
             return Projects_GetMethodologyAsync(projectId, System.Threading.CancellationToken.None);
         }
@@ -3101,7 +3500,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Methodology> Projects_GetMethodologyAsync(ObjectId projectId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Methodology> Projects_GetMethodologyAsync(string projectId, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -3179,7 +3578,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_GetTeamAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task Projects_GetTeamAsync(string id)
         {
             return Projects_GetTeamAsync(id, System.Threading.CancellationToken.None);
         }
@@ -3190,7 +3589,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_GetTeamAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_GetTeamAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3262,7 +3661,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_SetTeamAsync(ObjectId id, Team body)
+        public virtual System.Threading.Tasks.Task Projects_SetTeamAsync(string id, Team body)
         {
             return Projects_SetTeamAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -3273,7 +3672,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_SetTeamAsync(ObjectId id, Team body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_SetTeamAsync(string id, Team body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3349,7 +3748,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_RemoveTeamAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task Projects_RemoveTeamAsync(string id)
         {
             return Projects_RemoveTeamAsync(id, System.Threading.CancellationToken.None);
         }
@@ -3360,7 +3759,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_RemoveTeamAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_RemoveTeamAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3432,7 +3831,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_RemoveTaskAsync(ObjectId id, ObjectId taskId)
+        public virtual System.Threading.Tasks.Task Projects_RemoveTaskAsync(string id, string taskId)
         {
             return Projects_RemoveTaskAsync(id, taskId, System.Threading.CancellationToken.None);
         }
@@ -3443,7 +3842,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_RemoveTaskAsync(ObjectId id, ObjectId taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_RemoveTaskAsync(string id, string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3519,7 +3918,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Projects_UpdateStatusAsync(ObjectId id, ProjectStatus? body)
+        public virtual System.Threading.Tasks.Task Projects_UpdateStatusAsync(string id, ProjectStatus? body)
         {
             return Projects_UpdateStatusAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -3530,7 +3929,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Projects_UpdateStatusAsync(ObjectId id, ProjectStatus? body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Projects_UpdateStatusAsync(string id, ProjectStatus? body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3580,6 +3979,168 @@ namespace PerformanceProject.Client.Services.Generated
                         if (status_ == 200)
                         {
                             return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task Projects_UpdateWeightsAsync(string projectId, ProductivityWeights body)
+        {
+            return Projects_UpdateWeightsAsync(projectId, body, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task Projects_UpdateWeightsAsync(string projectId, ProductivityWeights body, System.Threading.CancellationToken cancellationToken)
+        {
+            if (projectId == null)
+                throw new System.ArgumentNullException("projectId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    var json_ = Newtonsoft.Json.JsonConvert.SerializeObject(body, JsonSerializerSettings);
+                    var content_ = new System.Net.Http.StringContent(json_);
+                    content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
+                    request_.Content = content_;
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Projects/update-weights/{projectId}"
+                    urlBuilder_.Append("api/Projects/update-weights/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(projectId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task<ProductivityWeights> Projects_GetWeightsAsync(string projectId)
+        {
+            return Projects_GetWeightsAsync(projectId, System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task<ProductivityWeights> Projects_GetWeightsAsync(string projectId, System.Threading.CancellationToken cancellationToken)
+        {
+            if (projectId == null)
+                throw new System.ArgumentNullException("projectId");
+
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Method = new System.Net.Http.HttpMethod("GET");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("text/plain"));
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Projects/weights/{projectId}"
+                    urlBuilder_.Append("api/Projects/weights/");
+                    urlBuilder_.Append(System.Uri.EscapeDataString(ConvertToString(projectId, System.Globalization.CultureInfo.InvariantCulture)));
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<ProductivityWeights>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            return objectResponse_.Object;
                         }
                         else
                         {
@@ -3778,7 +4339,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Task> Tasks_GetByIdAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<Task> Tasks_GetByIdAsync(string id)
         {
             return Tasks_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
@@ -3789,7 +4350,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Task> Tasks_GetByIdAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Task> Tasks_GetByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3866,7 +4427,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_PutAsync(ObjectId id, Task body)
+        public virtual System.Threading.Tasks.Task Tasks_PutAsync(string id, Task body)
         {
             return Tasks_PutAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -3877,7 +4438,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_PutAsync(ObjectId id, Task body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_PutAsync(string id, Task body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -3952,7 +4513,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_DeleteAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task Tasks_DeleteAsync(string id)
         {
             return Tasks_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
@@ -3963,7 +4524,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_DeleteAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_DeleteAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -4034,7 +4595,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Comment>> Tasks_GetCommentsAsync(ObjectId projectId, ObjectId taskId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Comment>> Tasks_GetCommentsAsync(string projectId, string taskId)
         {
             return Tasks_GetCommentsAsync(projectId, taskId, System.Threading.CancellationToken.None);
         }
@@ -4045,7 +4606,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Comment>> Tasks_GetCommentsAsync(ObjectId projectId, ObjectId taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Comment>> Tasks_GetCommentsAsync(string projectId, string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4128,7 +4689,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_AddCommentAsync(ObjectId projectId, ObjectId taskId, Comment body)
+        public virtual System.Threading.Tasks.Task Tasks_AddCommentAsync(string projectId, string taskId, Comment body)
         {
             return Tasks_AddCommentAsync(projectId, taskId, body, System.Threading.CancellationToken.None);
         }
@@ -4139,7 +4700,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_AddCommentAsync(ObjectId projectId, ObjectId taskId, Comment body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_AddCommentAsync(string projectId, string taskId, Comment body, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4220,7 +4781,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Comment> Tasks_GetCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId)
+        public virtual System.Threading.Tasks.Task<Comment> Tasks_GetCommentAsync(string projectId, string taskId, string commentId)
         {
             return Tasks_GetCommentAsync(projectId, taskId, commentId, System.Threading.CancellationToken.None);
         }
@@ -4231,7 +4792,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Comment> Tasks_GetCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Comment> Tasks_GetCommentAsync(string projectId, string taskId, string commentId, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4318,7 +4879,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_UpdateCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId, string body)
+        public virtual System.Threading.Tasks.Task Tasks_UpdateCommentAsync(string projectId, string taskId, string commentId, string body)
         {
             return Tasks_UpdateCommentAsync(projectId, taskId, commentId, body, System.Threading.CancellationToken.None);
         }
@@ -4329,7 +4890,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_UpdateCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId, string body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_UpdateCommentAsync(string projectId, string taskId, string commentId, string body, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4414,7 +4975,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_RemoveCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId)
+        public virtual System.Threading.Tasks.Task Tasks_RemoveCommentAsync(string projectId, string taskId, string commentId)
         {
             return Tasks_RemoveCommentAsync(projectId, taskId, commentId, System.Threading.CancellationToken.None);
         }
@@ -4425,7 +4986,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_RemoveCommentAsync(ObjectId projectId, ObjectId taskId, ObjectId commentId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_RemoveCommentAsync(string projectId, string taskId, string commentId, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4506,7 +5067,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_AssignUserAsync(ObjectId projectId, ObjectId taskId, ObjectId userId)
+        public virtual System.Threading.Tasks.Task Tasks_AssignUserAsync(string projectId, string taskId, string userId)
         {
             return Tasks_AssignUserAsync(projectId, taskId, userId, System.Threading.CancellationToken.None);
         }
@@ -4517,7 +5078,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_AssignUserAsync(ObjectId projectId, ObjectId taskId, ObjectId userId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_AssignUserAsync(string projectId, string taskId, string userId, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4599,7 +5160,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_RemoveAssigneeAsync(ObjectId projectId, ObjectId taskId)
+        public virtual System.Threading.Tasks.Task Tasks_RemoveAssigneeAsync(string projectId, string taskId)
         {
             return Tasks_RemoveAssigneeAsync(projectId, taskId, System.Threading.CancellationToken.None);
         }
@@ -4610,7 +5171,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_RemoveAssigneeAsync(ObjectId projectId, ObjectId taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_RemoveAssigneeAsync(string projectId, string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4688,7 +5249,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_AddSkillAsync(ObjectId projectId, ObjectId taskId, string body)
+        public virtual System.Threading.Tasks.Task Tasks_AddSkillAsync(string projectId, string taskId, string body)
         {
             return Tasks_AddSkillAsync(projectId, taskId, body, System.Threading.CancellationToken.None);
         }
@@ -4699,7 +5260,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_AddSkillAsync(ObjectId projectId, ObjectId taskId, string body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_AddSkillAsync(string projectId, string taskId, string body, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4780,7 +5341,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_RemoveSkillAsync(ObjectId projectId, ObjectId taskId, string body)
+        public virtual System.Threading.Tasks.Task Tasks_RemoveSkillAsync(string projectId, string taskId, string body)
         {
             return Tasks_RemoveSkillAsync(projectId, taskId, body, System.Threading.CancellationToken.None);
         }
@@ -4791,7 +5352,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_RemoveSkillAsync(ObjectId projectId, ObjectId taskId, string body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_RemoveSkillAsync(string projectId, string taskId, string body, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4872,7 +5433,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> Tasks_GetSkillsAsync(ObjectId projectId, ObjectId taskId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> Tasks_GetSkillsAsync(string projectId, string taskId)
         {
             return Tasks_GetSkillsAsync(projectId, taskId, System.Threading.CancellationToken.None);
         }
@@ -4883,7 +5444,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> Tasks_GetSkillsAsync(ObjectId projectId, ObjectId taskId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<string>> Tasks_GetSkillsAsync(string projectId, string taskId, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -4966,7 +5527,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_UpdateStatusAsync(ObjectId projectId, ObjectId taskId, TaskStatus? body)
+        public virtual System.Threading.Tasks.Task Tasks_UpdateStatusAsync(string projectId, string taskId, TaskStatus? body)
         {
             return Tasks_UpdateStatusAsync(projectId, taskId, body, System.Threading.CancellationToken.None);
         }
@@ -4977,7 +5538,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_UpdateStatusAsync(ObjectId projectId, ObjectId taskId, TaskStatus? body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_UpdateStatusAsync(string projectId, string taskId, TaskStatus? body, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -5058,7 +5619,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Tasks_UpdateDifficultyAsync(ObjectId projectId, ObjectId taskId, DifficultyLevel? body)
+        public virtual System.Threading.Tasks.Task Tasks_UpdateDifficultyAsync(string projectId, string taskId, DifficultyLevel? body)
         {
             return Tasks_UpdateDifficultyAsync(projectId, taskId, body, System.Threading.CancellationToken.None);
         }
@@ -5069,7 +5630,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Tasks_UpdateDifficultyAsync(ObjectId projectId, ObjectId taskId, DifficultyLevel? body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Tasks_UpdateDifficultyAsync(string projectId, string taskId, DifficultyLevel? body, System.Threading.CancellationToken cancellationToken)
         {
             if (projectId == null)
                 throw new System.ArgumentNullException("projectId");
@@ -5322,7 +5883,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<TeamRole> TeamRoles_GetByIdAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<TeamRole> TeamRoles_GetByIdAsync(string id)
         {
             return TeamRoles_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
@@ -5333,7 +5894,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<TeamRole> TeamRoles_GetByIdAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<TeamRole> TeamRoles_GetByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5410,7 +5971,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task TeamRoles_PutAsync(ObjectId id, TeamRole body)
+        public virtual System.Threading.Tasks.Task TeamRoles_PutAsync(string id, TeamRole body)
         {
             return TeamRoles_PutAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -5421,7 +5982,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task TeamRoles_PutAsync(ObjectId id, TeamRole body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TeamRoles_PutAsync(string id, TeamRole body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5496,7 +6057,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task TeamRoles_DeleteAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task TeamRoles_DeleteAsync(string id)
         {
             return TeamRoles_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
@@ -5507,7 +6068,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task TeamRoles_DeleteAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task TeamRoles_DeleteAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5750,7 +6311,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<Team> Teams_GetByIdAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<Team> Teams_GetByIdAsync(string id)
         {
             return Teams_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
@@ -5761,7 +6322,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<Team> Teams_GetByIdAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<Team> Teams_GetByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5838,7 +6399,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Teams_PutAsync(ObjectId id, Team body)
+        public virtual System.Threading.Tasks.Task Teams_PutAsync(string id, Team body)
         {
             return Teams_PutAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -5849,7 +6410,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Teams_PutAsync(ObjectId id, Team body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Teams_PutAsync(string id, Team body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -5924,7 +6485,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Teams_DeleteAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task Teams_DeleteAsync(string id)
         {
             return Teams_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
@@ -5935,7 +6496,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Teams_DeleteAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Teams_DeleteAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6006,7 +6567,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<User>> Teams_GetUsersAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<User>> Teams_GetUsersAsync(string id)
         {
             return Teams_GetUsersAsync(id, System.Threading.CancellationToken.None);
         }
@@ -6017,7 +6578,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<User>> Teams_GetUsersAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<User>> Teams_GetUsersAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6095,7 +6656,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Teams_AddMemberAsync(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
+        public virtual System.Threading.Tasks.Task Teams_AddMemberAsync(string teamId, string userId, string teamRoleId)
         {
             return Teams_AddMemberAsync(teamId, userId, teamRoleId, System.Threading.CancellationToken.None);
         }
@@ -6106,7 +6667,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Teams_AddMemberAsync(ObjectId teamId, ObjectId userId, ObjectId teamRoleId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Teams_AddMemberAsync(string teamId, string userId, string teamRoleId, System.Threading.CancellationToken cancellationToken)
         {
             if (teamId == null)
                 throw new System.ArgumentNullException("teamId");
@@ -6189,7 +6750,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamMember>> Teams_GetMembersAsync(ObjectId teamId)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamMember>> Teams_GetMembersAsync(string teamId)
         {
             return Teams_GetMembersAsync(teamId, System.Threading.CancellationToken.None);
         }
@@ -6200,7 +6761,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamMember>> Teams_GetMembersAsync(ObjectId teamId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<TeamMember>> Teams_GetMembersAsync(string teamId, System.Threading.CancellationToken cancellationToken)
         {
             if (teamId == null)
                 throw new System.ArgumentNullException("teamId");
@@ -6278,7 +6839,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Teams_UpdateUserAsync(ObjectId teamId, ObjectId userId, ObjectId teamRoleId)
+        public virtual System.Threading.Tasks.Task Teams_UpdateUserAsync(string teamId, string userId, string teamRoleId)
         {
             return Teams_UpdateUserAsync(teamId, userId, teamRoleId, System.Threading.CancellationToken.None);
         }
@@ -6289,7 +6850,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Teams_UpdateUserAsync(ObjectId teamId, ObjectId userId, ObjectId teamRoleId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Teams_UpdateUserAsync(string teamId, string userId, string teamRoleId, System.Threading.CancellationToken cancellationToken)
         {
             if (teamId == null)
                 throw new System.ArgumentNullException("teamId");
@@ -6319,6 +6880,79 @@ namespace PerformanceProject.Client.Services.Generated
                         urlBuilder_.Append(System.Uri.EscapeDataString("teamRoleId")).Append('=').Append(System.Uri.EscapeDataString(ConvertToString(teamRoleId, System.Globalization.CultureInfo.InvariantCulture))).Append('&');
                     }
                     urlBuilder_.Length--;
+
+                    PrepareRequest(client_, request_, urlBuilder_);
+
+                    var url_ = urlBuilder_.ToString();
+                    request_.RequestUri = new System.Uri(url_, System.UriKind.RelativeOrAbsolute);
+
+                    PrepareRequest(client_, request_, url_);
+
+                    var response_ = await client_.SendAsync(request_, System.Net.Http.HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
+                    var disposeResponse_ = true;
+                    try
+                    {
+                        var headers_ = new System.Collections.Generic.Dictionary<string, System.Collections.Generic.IEnumerable<string>>();
+                        foreach (var item_ in response_.Headers)
+                            headers_[item_.Key] = item_.Value;
+                        if (response_.Content != null && response_.Content.Headers != null)
+                        {
+                            foreach (var item_ in response_.Content.Headers)
+                                headers_[item_.Key] = item_.Value;
+                        }
+
+                        ProcessResponse(client_, response_);
+
+                        var status_ = (int)response_.StatusCode;
+                        if (status_ == 200)
+                        {
+                            return;
+                        }
+                        else
+                        {
+                            var responseData_ = response_.Content == null ? null : await response_.Content.ReadAsStringAsync().ConfigureAwait(false);
+                            throw new ApiException("The HTTP status code of the response was not expected (" + status_ + ").", status_, responseData_, headers_, null);
+                        }
+                    }
+                    finally
+                    {
+                        if (disposeResponse_)
+                            response_.Dispose();
+                    }
+                }
+            }
+            finally
+            {
+                if (disposeClient_)
+                    client_.Dispose();
+            }
+        }
+
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual System.Threading.Tasks.Task Training_TrainModelAsync()
+        {
+            return Training_TrainModelAsync(System.Threading.CancellationToken.None);
+        }
+
+        /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
+        /// <returns>Success</returns>
+        /// <exception cref="ApiException">A server side error occurred.</exception>
+        public virtual async System.Threading.Tasks.Task Training_TrainModelAsync(System.Threading.CancellationToken cancellationToken)
+        {
+            var client_ = _httpClient;
+            var disposeClient_ = false;
+            try
+            {
+                using (var request_ = new System.Net.Http.HttpRequestMessage())
+                {
+                    request_.Content = new System.Net.Http.StringContent(string.Empty, System.Text.Encoding.UTF8, "application/json");
+                    request_.Method = new System.Net.Http.HttpMethod("POST");
+
+                    var urlBuilder_ = new System.Text.StringBuilder();
+                    if (!string.IsNullOrEmpty(_baseUrl)) urlBuilder_.Append(_baseUrl);
+                    // Operation Path: "api/Training/train"
+                    urlBuilder_.Append("api/Training/train");
 
                     PrepareRequest(client_, request_, urlBuilder_);
 
@@ -6544,7 +7178,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<User> Users_GetByIdAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<User> Users_GetByIdAsync(string id)
         {
             return Users_GetByIdAsync(id, System.Threading.CancellationToken.None);
         }
@@ -6555,7 +7189,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<User> Users_GetByIdAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<User> Users_GetByIdAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6632,7 +7266,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Users_PutAsync(ObjectId id, User body)
+        public virtual System.Threading.Tasks.Task Users_PutAsync(string id, User body)
         {
             return Users_PutAsync(id, body, System.Threading.CancellationToken.None);
         }
@@ -6643,7 +7277,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Users_PutAsync(ObjectId id, User body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Users_PutAsync(string id, User body, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6718,7 +7352,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Users_DeleteAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task Users_DeleteAsync(string id)
         {
             return Users_DeleteAsync(id, System.Threading.CancellationToken.None);
         }
@@ -6729,7 +7363,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Users_DeleteAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Users_DeleteAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6800,7 +7434,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Company>> Users_GetCompaniesAsync(ObjectId id)
+        public virtual System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Company>> Users_GetCompaniesAsync(string id)
         {
             return Users_GetCompaniesAsync(id, System.Threading.CancellationToken.None);
         }
@@ -6811,7 +7445,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Company>> Users_GetCompaniesAsync(ObjectId id, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Company>> Users_GetCompaniesAsync(string id, System.Threading.CancellationToken cancellationToken)
         {
             if (id == null)
                 throw new System.ArgumentNullException("id");
@@ -6889,7 +7523,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Users_AddPositionAsync(ObjectId userId, Position body)
+        public virtual System.Threading.Tasks.Task Users_AddPositionAsync(string userId, Position body)
         {
             return Users_AddPositionAsync(userId, body, System.Threading.CancellationToken.None);
         }
@@ -6900,7 +7534,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Users_AddPositionAsync(ObjectId userId, Position body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Users_AddPositionAsync(string userId, Position body, System.Threading.CancellationToken cancellationToken)
         {
             if (userId == null)
                 throw new System.ArgumentNullException("userId");
@@ -6976,7 +7610,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Users_UpdatePositionAsync(ObjectId userId, ObjectId positionId, Position body)
+        public virtual System.Threading.Tasks.Task Users_UpdatePositionAsync(string userId, string positionId, Position body)
         {
             return Users_UpdatePositionAsync(userId, positionId, body, System.Threading.CancellationToken.None);
         }
@@ -6987,7 +7621,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Users_UpdatePositionAsync(ObjectId userId, ObjectId positionId, Position body, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Users_UpdatePositionAsync(string userId, string positionId, Position body, System.Threading.CancellationToken cancellationToken)
         {
             if (userId == null)
                 throw new System.ArgumentNullException("userId");
@@ -7067,7 +7701,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual System.Threading.Tasks.Task Users_RemovePositionAsync(ObjectId userId, ObjectId positionId)
+        public virtual System.Threading.Tasks.Task Users_RemovePositionAsync(string userId, string positionId)
         {
             return Users_RemovePositionAsync(userId, positionId, System.Threading.CancellationToken.None);
         }
@@ -7078,7 +7712,7 @@ namespace PerformanceProject.Client.Services.Generated
         /// </summary>
         /// <returns>Success</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public virtual async System.Threading.Tasks.Task Users_RemovePositionAsync(ObjectId userId, ObjectId positionId, System.Threading.CancellationToken cancellationToken)
+        public virtual async System.Threading.Tasks.Task Users_RemovePositionAsync(string userId, string positionId, System.Threading.CancellationToken cancellationToken)
         {
             if (userId == null)
                 throw new System.ArgumentNullException("userId");

@@ -32,8 +32,7 @@ namespace PeopleManagmentSystem_API.Controllers
         {
             try
             {
-                var productivity = _productivityService.CalculateTeamProductivity(projectId);
-                return Ok(productivity);
+                return _productivityService.CalculateTeamProductivity(projectId);
             }
             catch (ArgumentException ex)
             {
@@ -42,12 +41,11 @@ namespace PeopleManagmentSystem_API.Controllers
         }
 
         [HttpGet("predict/team/{projectId}")]
-        public IActionResult PredictTeamProductivity(string projectId)
+        public ActionResult<Dictionary<string, double>> PredictTeamProductivity(string projectId)
         {
             try
             {
-                var predictions = _productivityService.PredictTeamProductivity(projectId);
-                return Ok(predictions);
+                return _productivityService.PredictTeamProductivity(projectId);
             }
             catch (Exception ex)
             {

@@ -8,30 +8,87 @@
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
-    <link href="css/app.css" rel="stylesheet" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <link href="PerfomanceProject.Client.styles.css" rel="stylesheet" />
 </head>
 
 <body>
     <div id="app">
-        <svg class="loading-progress">
+        <!--<svg class="loading-progress">
             <circle r="40%" cx="50%" cy="50%" />
             <circle r="40%" cx="50%" cy="50%" />
         </svg>
-        <div class="loading-progress-text"></div>
+        <div class="loading-progress-text"></div>-->
     </div>
 
-    <div id="blazor-error-ui">
+    <!--<div id="blazor-error-ui">
         An unhandled error has occurred.
         <a href="" class="reload">Reload</a>
         <a class="dismiss">🗙</a>
-    </div>
+    </div>-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
     <script src="js/sb-admin-2.min.js"></script>
     <script src="_framework/blazor.webassembly.js"></script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script>
+        function loadCharts(completed, inProgress, toDo, teamMembers, tasksCompleted) {
+            console.log("Data for Pie Chart:", completed, inProgress, toDo); 
+            console.log("Data for Bar Chart:", teamMembers, tasksCompleted);
+
+            if (!document.getElementById('tasksPieChart') || !document.getElementById('productivityBarChart')) {
+                console.error("Canvas elements for charts are missing in the DOM");
+                return;
+            }
+
+            try {
+            // Tasks Distribution Pie Chart
+            var ctxPie = document.getElementById('tasksPieChart').getContext('2d');
+            new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: ['Completed', 'In Progress', 'To Do'],
+                    datasets: [{
+                        data: [completed, inProgress, toDo], // Динамічні дані
+                        backgroundColor: ['#1cc88a', '#f6c23e', '#e74a3b']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                }
+            });
+
+            // Productivity Bar Chart
+            var ctxBar = document.getElementById('productivityBarChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: teamMembers, // Імена команди
+                    datasets: [{
+                        label: 'Tasks Completed',
+                        data: tasksCompleted, // Завдання для кожного члена команди
+                        backgroundColor: ['#4e73df', '#36b9cc', '#1cc88a']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            } catch (error) {
+                console.error("Error rendering charts:", error);
+            }
+        }
+    </script>
+
+
 </body>
 
 </html>

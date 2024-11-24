@@ -223,7 +223,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -263,7 +263,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -305,7 +305,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -330,7 +330,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -381,7 +381,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -390,7 +390,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -413,7 +413,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -422,7 +422,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -447,7 +447,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -498,7 +498,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -507,7 +507,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -530,7 +530,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -539,7 +539,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -564,7 +564,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -696,7 +696,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -736,7 +736,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -778,7 +778,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -891,7 +891,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -931,7 +931,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -973,13 +973,208 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Prediction/predict": {
+      "post": {
+        "tags": [
+          "Prediction"
+        ],
+        "operationId": "Prediction_PredictProductivity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductivityData"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductivityData"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductivityData"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Prediction/evaluate": {
+      "get": {
+        "tags": [
+          "Prediction"
+        ],
+        "operationId": "Prediction_EvaluateModel",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Productivity/individual/{projectId}/{assigneeId}": {
+      "get": {
+        "tags": [
+          "Productivity"
+        ],
+        "operationId": "Productivity_GetIndividualProductivity",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "assigneeId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Productivity/team/{projectId}": {
+      "get": {
+        "tags": [
+          "Productivity"
+        ],
+        "operationId": "Productivity_GetTeamProductivity",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "number",
+                  "format": "double"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Productivity/predict/team/{projectId}": {
+      "get": {
+        "tags": [
+          "Productivity"
+        ],
+        "operationId": "Productivity_PredictTeamProductivity",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": {
+                    "type": "number",
+                    "format": "double"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -1086,7 +1281,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1126,7 +1321,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1168,7 +1363,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1193,7 +1388,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1242,7 +1437,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1284,7 +1479,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1328,7 +1523,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1370,7 +1565,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1393,7 +1588,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1435,7 +1630,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1458,7 +1653,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1500,7 +1695,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1525,7 +1720,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -1534,7 +1729,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1559,7 +1754,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1585,6 +1780,90 @@
         "responses": {
           "200": {
             "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Projects/update-weights/{projectId}": {
+      "post": {
+        "tags": [
+          "Projects"
+        ],
+        "operationId": "Projects_UpdateWeights",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductivityWeights"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductivityWeights"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProductivityWeights"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Projects/weights/{projectId}": {
+      "get": {
+        "tags": [
+          "Projects"
+        ],
+        "operationId": "Projects_GetWeights",
+        "parameters": [
+          {
+            "name": "projectId",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductivityWeights"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductivityWeights"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductivityWeights"
+                }
+              }
+            }
           }
         }
       }
@@ -1691,7 +1970,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1731,7 +2010,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1773,7 +2052,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1798,7 +2077,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -1807,7 +2086,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1856,7 +2135,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -1865,7 +2144,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1909,7 +2188,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -1918,7 +2197,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -1927,7 +2206,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -1967,7 +2246,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -1976,7 +2255,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -1985,7 +2264,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2027,7 +2306,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2036,7 +2315,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2045,7 +2324,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2070,7 +2349,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2079,7 +2358,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2088,7 +2367,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2113,7 +2392,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2122,7 +2401,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2147,7 +2426,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2156,7 +2435,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2198,7 +2477,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2207,7 +2486,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2249,7 +2528,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2258,7 +2537,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2309,7 +2588,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2318,7 +2597,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2362,7 +2641,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2371,7 +2650,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2503,7 +2782,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2543,7 +2822,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2585,7 +2864,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2698,7 +2977,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2738,7 +3017,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2780,7 +3059,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2805,7 +3084,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2856,7 +3135,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2864,7 +3143,7 @@
             "in": "query",
             "style": "form",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2872,7 +3151,7 @@
             "in": "query",
             "style": "form",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2895,7 +3174,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -2946,7 +3225,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2955,7 +3234,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -2963,10 +3242,23 @@
             "in": "query",
             "style": "form",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/Training/train": {
+      "post": {
+        "tags": [
+          "Training"
+        ],
+        "operationId": "Training_TrainModel",
         "responses": {
           "200": {
             "description": "Success"
@@ -3076,7 +3368,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -3116,7 +3408,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -3158,7 +3450,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -3183,7 +3475,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -3234,7 +3526,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -3278,7 +3570,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -3287,7 +3579,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -3329,7 +3621,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           },
           {
@@ -3338,7 +3630,7 @@
             "required": true,
             "style": "simple",
             "schema": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             }
           }
         ],
@@ -3355,9 +3647,6 @@
       "Comment": {
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ObjectId"
-          },
           "serializedId": {
             "type": "string",
             "nullable": true,
@@ -3381,9 +3670,6 @@
       "Company": {
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ObjectId"
-          },
           "serializedId": {
             "type": "string",
             "nullable": true,
@@ -3404,7 +3690,7 @@
           "userIds": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             },
             "nullable": true
           },
@@ -3486,8 +3772,10 @@
       "Methodology": {
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ObjectId"
+          "serializedId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
           },
           "name": {
             "type": "string",
@@ -3514,45 +3802,13 @@
         },
         "additionalProperties": false
       },
-      "ObjectId": {
-        "type": "object",
-        "properties": {
-          "timestamp": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true
-          },
-          "machine": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "deprecated": true
-          },
-          "pid": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "deprecated": true
-          },
-          "increment": {
-            "type": "integer",
-            "format": "int32",
-            "readOnly": true,
-            "deprecated": true
-          },
-          "creationTime": {
-            "type": "string",
-            "format": "date-time",
-            "readOnly": true
-          }
-        },
-        "additionalProperties": false
-      },
       "Position": {
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ObjectId"
+          "serializedId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
           },
           "name": {
             "type": "string",
@@ -3565,12 +3821,65 @@
         },
         "additionalProperties": false
       },
+      "ProductivityData": {
+        "type": "object",
+        "properties": {
+          "taskDifficulty": {
+            "type": "number",
+            "format": "float"
+          },
+          "taskRating": {
+            "type": "number",
+            "format": "float"
+          },
+          "plannedTime": {
+            "type": "number",
+            "format": "float"
+          },
+          "realTime": {
+            "type": "number",
+            "format": "float"
+          },
+          "engagement": {
+            "type": "number",
+            "format": "float"
+          },
+          "tasksPerPeriod": {
+            "type": "number",
+            "format": "float"
+          },
+          "productivity": {
+            "type": "number",
+            "format": "float"
+          }
+        },
+        "additionalProperties": false
+      },
+      "ProductivityWeights": {
+        "type": "object",
+        "properties": {
+          "taskWeight": {
+            "type": "number",
+            "format": "double"
+          },
+          "timeWeight": {
+            "type": "number",
+            "format": "double"
+          },
+          "qualityWeight": {
+            "type": "number",
+            "format": "double"
+          },
+          "engagementWeight": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
       "Project": {
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ObjectId"
-          },
           "serializedId": {
             "type": "string",
             "nullable": true,
@@ -3608,6 +3917,9 @@
           },
           "status": {
             "$ref": "#/components/schemas/ProjectStatus"
+          },
+          "weights": {
+            "$ref": "#/components/schemas/ProductivityWeights"
           }
         },
         "additionalProperties": false
@@ -3667,9 +3979,6 @@
       "Task": {
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ObjectId"
-          },
           "serializedId": {
             "type": "string",
             "nullable": true,
@@ -3699,11 +4008,16 @@
           },
           "accepted": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "finished": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "nullable": true
+          },
+          "plannedTime": {
+            "$ref": "#/components/schemas/TimeSpan"
           },
           "timeSpent": {
             "$ref": "#/components/schemas/TimeSpan"
@@ -3715,17 +4029,25 @@
             },
             "nullable": true
           },
-          "rating": {
-            "maximum": 5,
-            "minimum": 1,
-            "type": "number",
-            "format": "double"
-          },
           "skills": {
             "type": "array",
             "items": {
               "type": "string"
             },
+            "nullable": true
+          },
+          "rating": {
+            "maximum": 5,
+            "minimum": 1,
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "engagement": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number",
+            "format": "double",
             "nullable": true
           }
         },
@@ -3744,9 +4066,6 @@
       "Team": {
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ObjectId"
-          },
           "serializedId": {
             "type": "string",
             "nullable": true,
@@ -3783,8 +4102,10 @@
       "TeamRole": {
         "type": "object",
         "properties": {
-          "id": {
-            "$ref": "#/components/schemas/ObjectId"
+          "serializedId": {
+            "type": "string",
+            "nullable": true,
+            "readOnly": true
           },
           "name": {
             "type": "string",
@@ -3899,7 +4220,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "$ref": "#/components/schemas/ObjectId"
+            "type": "string",
+            "nullable": true
           },
           "userName": {
             "type": "string",
@@ -3973,7 +4295,7 @@
           "roles": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ObjectId"
+              "type": "string"
             },
             "nullable": true
           },
@@ -3990,11 +4312,6 @@
               "$ref": "#/components/schemas/Token"
             },
             "nullable": true
-          },
-          "serializedId": {
-            "type": "string",
-            "nullable": true,
-            "readOnly": true
           },
           "name": {
             "type": "string",

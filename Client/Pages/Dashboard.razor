@@ -1,0 +1,404 @@
+﻿@page "/dashboard"
+@using PerformanceProject.Shared.Models
+@using PerformanceProject.Client.Services.Generated
+@inject Client ApiClient
+@inject IJSRuntime JSRuntime
+
+<h1 class="h3 mb-4 text-gray-800">Dashboard</h1>
+
+<div class="row">
+    <!-- Загальні метрики -->
+    <div class="col-md-3">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Projects
+                        </div>
+                        @if (IsDataLoaded && projects != null)
+                        {
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">@projects.Count</div>
+                        }
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-folder fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Completed Tasks
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@CompletedTasks</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-check-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Ongoing Projects
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@InProgressTasks</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-spinner fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card border-left-danger shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                            Pending Tasks
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ToDoTasks</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-exclamation-circle fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Діаграми -->
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Tasks Distribution</h6>
+            </div>
+            <div class="card-body">
+                <canvas id="tasksPieChart" style="width: 100%; height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Team Productivity</h6>
+            </div>
+            <div class="card-body">
+                <canvas id="productivityBarChart" style="width: 100%; height: 300px;"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Останні зміни -->
+<div class="row mt-4">
+    <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Recent Changes</h6>
+            </div>
+            <div class="card-body">
+                <ul>
+                    @if (recentTasks == null)
+                    {
+                        <li>Loading...</li>
+                    }
+                    else
+                    {
+                        @foreach (var task in recentTasks)
+                        {
+                            <li>@task.Title - @task.Status (@task.Accepted?.ToString("dd.MM.yyyy"))</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<hr />
+<div class="row mt-4 align-items-center">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Team Productivity</h6>
+            </div>
+            <div class="card-body">
+                <h5 class="mt-3 font-weight-bold @(currentTeamProductivity >= 2 ? "text-success" : currentTeamProductivity >= 1 ? "text-warning" : "text-danger")">
+                    @Math.Round(currentTeamProductivity, 2)
+                </h5>
+
+                <p>
+                    @(currentTeamProductivity >= 2
+                        ? "The team is performing well."
+                        : currentTeamProductivity >= 1
+                        ? "Performance is moderate. Consider adjustments."
+                        : "Performance is poor. Immediate action is needed.")
+                </p>
+            </div>
+        </div>
+</div>
+<div class="row mt-4">
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Individual Productivity:</h6>
+            </div>
+            <div class="card-body">
+                @if (individualProductivity == null)
+                {
+                    <p>Loading predicted values...</p>
+                }
+                else
+                {
+                    <ul>
+                        @for (int i = 0; i < TeamMembers.Count; i++)
+                        {
+                            var memberProductivity = Math.Round(individualProductivity.Values.ElementAt(i), 2);
+                            var colorClass = memberProductivity >= 2 ? "text-success" : memberProductivity >= 1 ? "text-warning" : "text-danger";
+
+                            <li class="mt-2">
+                                <span class="font-weight-bold">@TeamMembers[i]:</span>
+                                <span class="@colorClass">@memberProductivity</span>
+                                <span>
+                                    @(memberProductivity >= 2
+                                        ? "(Excellent performance)"
+                                        : memberProductivity >= 1
+                                        ? "(Needs improvement)"
+                                        : "(Requires immediate attention)")
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Predicted Team Productivity</h6>
+            </div>
+            <div class="card-body">
+                @if (predictedTeamProductivity == null)
+                {
+                    <p>Loading predicted values...</p>
+                }
+                else
+                {
+                    <ul>
+                        @for (int i = 0; i < TeamMembers.Count; i++)
+                        {
+                            var memberProductivity = Math.Round(predictedTeamProductivity.Values.ElementAt(i), 2);
+                            var colorClass = memberProductivity >= 2 ? "text-success" : memberProductivity >= 1 ? "text-warning" : "text-danger";
+
+                            <li class="mt-2">
+                                <span class="font-weight-bold">@TeamMembers[i]:</span>
+                                <span class="@colorClass">@memberProductivity</span>
+                                <span>
+                                    @(memberProductivity >= 2
+                                        ? "(Excellent performance)"
+                                        : memberProductivity >= 1
+                                        ? "(Needs improvement)"
+                                        : "(Requires immediate attention)")
+                                </span>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h2>Projects</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Start Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (projects == null)
+        {
+            <tr>
+                <td colspan="5" class="text-center">Loading...</td>
+            </tr>
+        }
+        else
+        {
+            @foreach (var project in projects)
+            {
+                <tr>
+                    <td>@project.Name</td>
+                    <td>@project.Description</td>
+                    <td>@project.Status</td>
+                    <td>@project.StartDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <button class="btn btn-info btn-sm">Details</button>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+@code {
+    private string? errorMessage = null;
+
+    private Company selectedCompany;
+    private List<Project> projects = new();
+    private Project selectedProject;
+
+    public Team team;
+    private List<string> TeamMembers = new();
+    private List<int> TasksCompletedByMember = new();
+
+    private int CompletedTasks;
+    private int InProgressTasks;
+    private int ToDoTasks;
+    private ICollection<PerformanceProject.Shared.Models.Task> tasks;
+    private ICollection<PerformanceProject.Shared.Models.Task> recentTasks;
+
+    private double currentTeamProductivity;
+    private Dictionary<string, double> predictedTeamProductivity;
+    private Dictionary<string, double> individualProductivity;
+
+    private bool IsDataLoaded = false;
+
+    protected override async System.Threading.Tasks.Task OnInitializedAsync()
+    {
+        try
+        {
+            var companies = await ApiClient.Companies_GetAsync();
+            var selectedCompany = companies.First();
+            if (selectedCompany == null)
+            {
+                throw new Exception("Selected company is null");
+            }
+
+            projects = new List<Project>(selectedCompany.Projects);
+            if (selectedCompany.Projects == null || !selectedCompany.Projects.Any())
+            {
+                throw new Exception("Projects collection is null or empty");
+            }
+
+            selectedProject = projects.First();
+            if (selectedProject == null)
+            {
+                throw new Exception("Selected project is null");
+            }
+
+            tasks = selectedProject.Tasks;
+            if (tasks == null || !tasks.Any())
+            {
+                throw new Exception("Tasks collection is null or empty in the first project");
+            }
+
+            CompletedTasks = tasks.Count(task => task.Status == PerformanceProject.Shared.Models.TaskStatus.Completed);
+            InProgressTasks = tasks.Count(task => task.Status == PerformanceProject.Shared.Models.TaskStatus.InProgress);
+            ToDoTasks = tasks.Count(task => task.Status == PerformanceProject.Shared.Models.TaskStatus.ToDo);
+            recentTasks = tasks.OrderByDescending(task => task.Accepted).Take(5).ToList();
+
+            team = selectedProject.Team;
+            if (selectedProject.Team == null)
+            {
+                throw new Exception("Team is null in the selected project");
+            }
+            if (selectedProject.Team.Members == null || !selectedProject.Team.Members.Any())
+            {
+                throw new Exception("Team members collection is null or empty");
+            }
+            var userIds = team.Members.Select(member => member.UserId).ToList();
+            var users = await ApiClient.Users_GetAsync();
+
+            TeamMembers = team.Members
+            .Select(member =>
+            {
+                var user = users.FirstOrDefault(u => u.Id == member.UserId);
+                return user != null ? $"{user.Name} {user.Surname}" : "Unknown";
+            }).ToList();
+
+            TasksCompletedByMember = userIds
+          .Select(userId =>
+              tasks.Count(task => task.AssigneeId == userId && task.Status == PerformanceProject.Shared.Models.TaskStatus.Completed))
+          .ToList();
+
+            await FetchProductivityData();
+
+            IsDataLoaded = true;
+
+            await UpdateCharts();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error loading data: {ex.Message}");
+        }
+    }
+
+    protected override async System.Threading.Tasks.Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && IsDataLoaded)
+        {
+
+        }
+    }
+
+    private async System.Threading.Tasks.Task FetchProductivityData()
+    {
+        try
+        {
+            var projectId = "67379fe9a70fa7bbd6352cff";
+            currentTeamProductivity = await ApiClient.Productivity_GetTeamProductivityAsync(projectId);
+
+            IDictionary<string, double> dictionary = await ApiClient.Productivity_PredictTeamProductivityAsync(projectId);
+            predictedTeamProductivity = new Dictionary<string, double>(dictionary);
+
+            individualProductivity = new Dictionary<string, double>();
+            var userIds = team.Members.Select(member => member.UserId).ToList();
+            double productivity = 0;
+            foreach (var userId in userIds)
+            {
+                productivity = await ApiClient.Productivity_GetIndividualProductivityAsync(projectId, userId);
+                individualProductivity.Add(userId, productivity);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching productivity data: {ex.Message}");
+        }
+    }
+
+
+    private async System.Threading.Tasks.Task UpdateCharts()
+    {
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("loadCharts", CompletedTasks, InProgressTasks, ToDoTasks, TeamMembers, TasksCompletedByMember);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in JavaScript chart rendering: {ex.Message}");
+        }
+    }
+}
