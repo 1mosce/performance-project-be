@@ -194,5 +194,34 @@ namespace PeopleManagmentSystem_API.Controllers
             await _projectService.UpdateStatusAsync(id, status);
             return NoContent();
         }
+
+        //Weights
+
+        [HttpPost("update-weights/{projectId}")]
+        public async Task<IActionResult> UpdateWeights(string projectId, [FromBody] ProductivityWeights weights)
+        {
+            var project = await _projectService.GetAsync(projectId);
+            if (project == null)
+            {
+                return NotFound($"Project with id {projectId} not found.");
+            }
+
+            project.Weights = weights;
+            await _projectService.UpdateAsync(projectId, project);
+
+            return NoContent();
+        }
+
+        [HttpGet("weights/{projectId}")]
+        public async Task<ActionResult<ProductivityWeights>> GetWeights(string projectId)
+        {
+            var project = await _projectService.GetAsync(projectId);
+            if (project == null)
+            {
+                return NotFound($"Project with id {projectId} not found.");
+            }
+
+            return Ok(project.Weights);
+        }
     }
 }
