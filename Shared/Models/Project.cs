@@ -10,7 +10,7 @@ namespace PerformanceProject.Shared.Models
         [BsonRepresentation(BsonType.ObjectId)]
         [JsonIgnore]
         public ObjectId Id { get; set; }
-
+        [BsonIgnore]
         public string SerializedId { get => Id.ToString(); }
 
         public string Name { get; set; } = String.Empty;
@@ -31,5 +31,7 @@ namespace PerformanceProject.Shared.Models
 
         [JsonConverter(typeof(JsonStringEnumConverter))]
         public ProjectStatus Status { get; set; }
+
+        public ProductivityWeights Weights { get; set; } = new();
     }
 }

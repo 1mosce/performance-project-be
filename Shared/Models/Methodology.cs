@@ -9,6 +9,7 @@ namespace PerformanceProject.Shared.Models
         [BsonId]
         [JsonIgnore]
         public ObjectId Id { get; set; }
+        [BsonIgnore]
         public string SerializedId { get => Id.ToString(); }
         public string Name { get; set; } = String.Empty;
        // public List<string> Phases { get; set; } = new List<string>();

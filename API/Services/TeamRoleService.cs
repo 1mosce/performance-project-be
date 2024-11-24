@@ -22,7 +22,7 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task<TeamRole?> GetAsync(string id)
         {
-            return await _teamRoles.Find(role => role.SerializedId == id).FirstOrDefaultAsync();
+            return await _teamRoles.Find(role => role.Id.ToString() == id).FirstOrDefaultAsync();
         }
 
         public async Task<TeamRole> CreateAsync(TeamRole teamRole)
@@ -34,12 +34,12 @@ namespace PeopleManagmentSystem_API.Services
         public async System.Threading.Tasks.Task UpdateAsync(string id, TeamRole teamRole)
         {
             teamRole.Id = ObjectId.Parse(id);
-            await _teamRoles.ReplaceOneAsync(role => role.SerializedId == id, teamRole);
+            await _teamRoles.ReplaceOneAsync(role => role.Id.ToString() == id, teamRole);
         }
 
         public async System.Threading.Tasks.Task RemoveAsync(string id)
         {
-            await _teamRoles.DeleteOneAsync(role => role.SerializedId == id);
+            await _teamRoles.DeleteOneAsync(role => role.Id.ToString() == id);
         }
     }
 }

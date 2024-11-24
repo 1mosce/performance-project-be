@@ -89,7 +89,7 @@ namespace PeopleManagmentSystem_API.Controllers
                 return NotFound($"User with Id = {id} not found");
             }
 
-            await _userService.RemoveAsync(user.SerializedId);
+            await _userService.RemoveAsync(user.Id);
 
             return NoContent();
         }

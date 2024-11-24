@@ -22,7 +22,7 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task<Position?> GetAsync(string id)
         {
-            return await _positions.Find(pos => pos.SerializedId == id).FirstOrDefaultAsync();
+            return await _positions.Find(pos => pos.Id.ToString() == id).FirstOrDefaultAsync();
         }
 
         public async Task<Position> CreateAsync(Position position)
@@ -33,12 +33,12 @@ namespace PeopleManagmentSystem_API.Services
         public async System.Threading.Tasks.Task UpdateAsync(string id, Position position)
         {
             position.Id = ObjectId.Parse(id);
-            await _positions.ReplaceOneAsync(pos => pos.SerializedId == id, position);
+            await _positions.ReplaceOneAsync(pos => pos.Id.ToString() == id, position);
         }
 
         public async System.Threading.Tasks.Task RemoveAsync(string id)
         {
-            await _positions.DeleteOneAsync(pos => pos.SerializedId == id);
+            await _positions.DeleteOneAsync(pos => pos.Id.ToString() == id);
         }
     }
 }

@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Identity;
 using PerformanceProject.Shared.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using PeopleManagmentSystem_API.Services.Interfaces;
 using MongoDB.Bson;
 using Microsoft.OpenApi.Models;
@@ -17,6 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 using MongoDB.Bson.Serialization.Serializers;
 using MongoDB.Bson.Serialization;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using PerformanceProject.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,7 +57,7 @@ var mongoDbIdentityConfig = new MongoDbIdentityConfiguration
     }
 };
 
-builder.Services.ConfigureMongoDbIdentity<User, Role, ObjectId>(mongoDbIdentityConfig)
+builder.Services.ConfigureMongoDbIdentity<User, Role, string>(mongoDbIdentityConfig)
     .AddUserManager<UserManager<User>>()
     .AddSignInManager<SignInManager<User>>()
     .AddRoleManager<RoleManager<Role>>()
@@ -103,6 +103,7 @@ builder.Services.AddScoped<ITeamService, TeamService>();
 builder.Services.AddScoped<ITeamRoleService, TeamRoleService>();
 builder.Services.AddScoped<IPositionService, PositionService>();
 builder.Services.AddScoped<IMethodologyService, MethodologyService>();
+builder.Services.AddScoped<IProductivityService, ProductivityService>();
 
 builder.Services.AddControllers(
     options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);

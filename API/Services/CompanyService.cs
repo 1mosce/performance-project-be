@@ -34,7 +34,7 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task<Company> GetAsync(string id)
         {
-            var company = await _companies.Find(c => c.SerializedId == id).FirstOrDefaultAsync();
+            var company = await _companies.Find(c => c.Id.ToString() == id).FirstOrDefaultAsync();
             if (company == null)
             {
                 throw new KeyNotFoundException($"Company with Id '{id}' not found.");
@@ -43,25 +43,25 @@ namespace PeopleManagmentSystem_API.Services
         }
         public async Task RemoveAsync(string id)
         {
-            await _companies.DeleteOneAsync(c => c.SerializedId == id);
+            await _companies.DeleteOneAsync(c => c.Id.ToString() == id);
         }
 
         public async Task UpdateAsync(string id, Company company)
         {
             company.Id = ObjectId.Parse(id);
-            await _companies.ReplaceOneAsync(c => c.SerializedId == id, company);
+            await _companies.ReplaceOneAsync(c => c.Id.ToString() == id, company);
         }
 
         // Users
         public async Task<List<User>> GetUsersByIdsAsync(List<string> userIds)
         {
-            var filter = Builders<User>.Filter.In(u => u.SerializedId, userIds); //проекція
+            var filter = Builders<User>.Filter.In(u => u.Id, userIds); //проекція
             return await _users.Find(filter).ToListAsync();
         }
 
         public async Task<List<User>> GetUsersAsync(string id)
         {
-            var company = await _companies.Find(c => c.SerializedId == id).FirstOrDefaultAsync();
+            var company = await _companies.Find(c => c.Id.ToString() == id).FirstOrDefaultAsync();
 
             if (company == null)
             {
@@ -73,7 +73,7 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task<bool> UserExistsAsync(string userId)
         {
-            return await _users.Find(user => user.SerializedId == userId).AnyAsync();
+            return await _users.Find(user => user.Id.ToString() == userId).AnyAsync();
         }
         public async Task AddUserAsync(string companyId, string userId)
         {

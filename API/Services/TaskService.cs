@@ -34,18 +34,18 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task<Task> GetAsync(string id)
         {
-            return await _tasks.Find(t => t.SerializedId == id).FirstOrDefaultAsync();
+            return await _tasks.Find(t => t.Id.ToString() == id).FirstOrDefaultAsync();
         }
 
         public async System.Threading.Tasks.Task RemoveAsync(string id)
         {
-            await _tasks.DeleteOneAsync(t => t.SerializedId == id);
+            await _tasks.DeleteOneAsync(t => t.Id.ToString() == id);
         }
 
         public async System.Threading.Tasks.Task UpdateAsync(string id, Task task)
         {
             task.Id = ObjectId.Parse(id);
-            await _tasks.ReplaceOneAsync(t => t.SerializedId == id, task);
+            await _tasks.ReplaceOneAsync(t => t.Id.ToString() == id, task);
         }
 
         // Comments
@@ -55,7 +55,7 @@ namespace PeopleManagmentSystem_API.Services
             if (project == null)
                 throw new KeyNotFoundException($"Project with Id '{projectId}' not found.");
 
-            var task = project.Tasks.FirstOrDefault(t => t.SerializedId == taskId);
+            var task = project.Tasks.FirstOrDefault(t => t.Id.ToString() == taskId);
             if (task == null)
                 throw new KeyNotFoundException($"Task with Id '{taskId}' not found in Project '{projectId}'.");
 

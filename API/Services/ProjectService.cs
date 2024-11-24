@@ -30,7 +30,7 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task<Project> GetAsync(string id)
         {
-            var project = await _projects.Find(p => p.SerializedId == id).FirstOrDefaultAsync();
+            var project = await _projects.Find(p => p.Id.ToString() == id).FirstOrDefaultAsync();
             if (project == null)
             {
                 throw new KeyNotFoundException($"Project with SerializedId '{id}' not found.");
@@ -40,7 +40,7 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task<List<PerformanceProject.Shared.Models.Task>> GetTasksAsync(string id)
         {
-            var project = await _projects.Find(p => p.SerializedId == id).FirstOrDefaultAsync();
+            var project = await _projects.Find(p => p.Id.ToString() == id).FirstOrDefaultAsync();
             if (project == null)
             {
                 throw new KeyNotFoundException($"Project with SerializedId '{id}' not found.");
@@ -50,19 +50,19 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task RemoveAsync(string id)
         {
-            await _projects.DeleteOneAsync(p => p.SerializedId == id);
+            await _projects.DeleteOneAsync(p => p.Id.ToString() == id);
         }
 
         public async Task UpdateAsync(string id, Project project)
         {
             project.Id = ObjectId.Parse(id);
-            await _projects.ReplaceOneAsync(p => p.SerializedId == id, project);
+            await _projects.ReplaceOneAsync(p => p.Id.ToString() == id, project);
         }
 
         // Methodology
         public async Task<Methodology?> GetMethodologyAsync(string projectId)
         {
-            var project = await _projects.Find(p => p.SerializedId == projectId).FirstOrDefaultAsync();
+            var project = await _projects.Find(p => p.Id.ToString() == projectId).FirstOrDefaultAsync();
 
             if (project == null)
                 throw new KeyNotFoundException($"Project with SerializedId '{projectId}' not found.");
@@ -72,24 +72,24 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task SetMethodologyAsync(string projectId, Methodology methodology)
         {
-            var project = await _projects.Find(p => p.SerializedId == projectId).FirstOrDefaultAsync();
+            var project = await _projects.Find(p => p.Id.ToString() == projectId).FirstOrDefaultAsync();
 
             if (project == null)
                 throw new KeyNotFoundException($"Project with SerializedId '{projectId}' not found.");
 
             project.MainMethodology = methodology;
-            await _projects.ReplaceOneAsync(p => p.SerializedId == projectId, project);
+            await _projects.ReplaceOneAsync(p => p.Id.ToString() == projectId, project);
         }
 
         public async Task RemoveMethodologyAsync(string projectId)
         {
-            var project = await _projects.Find(p => p.SerializedId == projectId).FirstOrDefaultAsync();
+            var project = await _projects.Find(p => p.Id.ToString() == projectId).FirstOrDefaultAsync();
 
             if (project == null)
                 throw new KeyNotFoundException($"Project with SerializedId '{projectId}' not found.");
 
             project.MainMethodology = null;
-            await _projects.ReplaceOneAsync(p => p.SerializedId == projectId, project);
+            await _projects.ReplaceOneAsync(p => p.Id.ToString() == projectId, project);
         }
 
         // Team

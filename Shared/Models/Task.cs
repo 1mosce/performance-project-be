@@ -12,7 +12,7 @@ namespace PerformanceProject.Shared.Models
         [BsonId]
         [JsonIgnore]
         public ObjectId Id { get; set; }
-
+        [BsonIgnore]
         public string SerializedId { get => Id.ToString(); }
 
         public string Title { get; set; } = String.Empty;
@@ -28,17 +28,46 @@ namespace PerformanceProject.Shared.Models
         public DifficultyLevel Difficulty { get; set; }
 
         public DateTime DueDate { get; set; }
-        public DateTime Accepted { get; set; }
-        public DateTime Finished { get; set; }
-
-        public TimeSpan TimeSpent { get => Finished.Subtract(Accepted); }
+        public DateTime? Accepted { get; set; }
+        public DateTime? Finished { get; set; }
+        public TimeSpan? PlannedTime
+        {
+            get
+            {
+                if (Accepted != null)
+                {
+                    return DueDate - Accepted.Value;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
+        public TimeSpan? TimeSpent
+        {
+            get
+            {
+                if (Finished != null && Accepted != null)
+                {
+                    return Finished.Value.Subtract(Accepted.Value);
+                }
+                else
+                {
+                    return null;
+                }
+            }
+        }
 
         public List<Comment> Comments { get; set; } = new();
 
-        [Range(1, 5)]
-        public double Rating { get; set; }
-
         public List<string> Skills { get; set; } = new();
+
+        [Range(1, 5)]
+        public double? Rating { get; set; }
+
+        [Range(0, 1)]
+        public double? Engagement { get; set; }
 
         /*
         // Method to convert difficulty level to numeric value

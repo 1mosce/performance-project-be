@@ -29,23 +29,23 @@ namespace PeopleManagmentSystem_API.Services
 
         public async Task<User?> GetAsync(string id)
         {
-            return await _users.Find(u => u.SerializedId == id).FirstOrDefaultAsync();
+            return await _users.Find(u => u.Id.ToString() == id).FirstOrDefaultAsync();
         }
 
         public async Task<List<Company>> GetCompaniesAsync(string userId)
         {
-            return await _companies.Find(c => c.UserIds.Contains(userId)).ToListAsync();
+            return await _companies.Find(c => c.UserIds.Contains(userId)).ToListAsync(); //?
         }
 
         public async System.Threading.Tasks.Task RemoveAsync(string id)
         {
-            await _users.DeleteOneAsync(u => u.SerializedId == id);
+            await _users.DeleteOneAsync(u => u.Id.ToString() == id);
         }
 
         public async System.Threading.Tasks.Task UpdateAsync(string id, User user)
         {
-            user.Id = ObjectId.Parse(id);
-            await _users.ReplaceOneAsync(u => u.SerializedId == id, user);
+            user.Id = id;
+            await _users.ReplaceOneAsync(u => u.Id.ToString() == id, user);
         }
 
         public async System.Threading.Tasks.Task AddPositionAsync(string userId, Position position)
