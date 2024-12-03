@@ -13,12 +13,10 @@ namespace PeopleManagmentSystem_API.Services
         {
             _mlContext = new MLContext();
             modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../ML/productivity_model.zip");
-          //  modelPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../ML/ProductivityModel.mlnet");
-          //  testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../ML/ecommerce_test_data.csv");
             testDataPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../ML/test_productivity_data.csv");
         }
 
-        public float PredictProductivity(ProductivityData inputData)
+        public virtual float PredictProductivity(ProductivityData inputData)
         {
             if (!File.Exists(modelPath))
             {

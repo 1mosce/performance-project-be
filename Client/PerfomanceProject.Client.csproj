@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\CompanyService.cs" />
+    <Compile Remove="Services\ProjectService.cs" />
+    <Compile Remove="Services\TaskService.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Services\Swagger\nswag.json" />
     <Content Remove="Services\Swagger\swagger.json" />
   </ItemGroup>
 

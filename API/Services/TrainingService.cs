@@ -49,11 +49,6 @@ namespace PeopleManagmentSystem_API.Services
                 }))
                 .Append(_mlContext.Transforms.NormalizeMeanVariance("Features"));
 
-    //        var labels = _mlContext.Data.CreateEnumerable<ProductivityData>(dataView, reuseRowObject: false)
-    //.Select(d => d.Productivity);
-    //        Console.WriteLine($"Min: {labels.Min()}, Max: {labels.Max()}, Avg: {labels.Average()}");
-
-
             // Cross-validation
             var cvResults = _mlContext.Regression.CrossValidate(
                 data: dataView,

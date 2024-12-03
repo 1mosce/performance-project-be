@@ -1,6 +1,7 @@
 ﻿using PeopleManagmentSystem_API.Services;
 using PeopleManagmentSystem_API.Services.Interfaces;
 using PerformanceProject.Shared.Models;
+using PerformanceProject.Shared.Models.ML;
 using static PerfomanceProject.Shared.Models.ML.ProductivityModel;
 using TaskStatus = PerformanceProject.Shared.Models.TaskStatus;
 
@@ -33,6 +34,9 @@ namespace PerformanceProject.Services
 
         public double CalculateIndividualProductivity(List<Shared.Models.Task> tasks, ProductivityWeights weights)
         {
+            double minProductivity = 0;  
+            double maxProductivity = 9;
+
             double totalProductivity = 0;
             int completedTasksCount = 0;
 
@@ -58,7 +62,14 @@ namespace PerformanceProject.Services
                 }
             }
 
-            return completedTasksCount > 0 ? totalProductivity / completedTasksCount : 0;
+            double normalizedProductivity = Normalize((totalProductivity / completedTasksCount), minProductivity, maxProductivity, 0, 2.5);
+
+            return completedTasksCount > 0 ? normalizedProductivity : 0;
+        }
+
+        double Normalize(double value, double min, double max, double newMin, double newMax)
+        {
+            return (value - min) / (max - min) * (newMax - newMin) + newMin;
         }
 
         public double CalculateTeamProductivity(string projectId)
@@ -116,15 +127,16 @@ namespace PerformanceProject.Services
                 // Average ProductivityData
                 var inputData = new ProductivityData
                 {
-                    TaskDifficulty = (float)memberTasks.Average(t => (float)t.Difficulty),
-                    PlannedTime = (float)memberTasks.Sum(t => t.PlannedTime.Value.TotalHours),
-                    RealTime = (float)memberTasks.Sum(t => t.TimeSpent.Value.TotalHours),
-                    TaskRating = (float)memberTasks.Average(t => t.Rating),
-                    Engagement = (float)project.Weights.EngagementWeight,
+                    TaskDifficulty = (float)(memberTasks.Average(t => (float)t.Difficulty)),
+                    PlannedTime = (float)(memberTasks.Sum(t => t.PlannedTime.Value.TotalHours)),
+                    RealTime = (float)(memberTasks.Sum(t => t.TimeSpent.Value.TotalHours)),
+                    TaskRating = (float)(memberTasks.Average(t => t.Rating)),
+                    Engagement = (float)(project.Weights.EngagementWeight ),
                     TasksPerPeriod = memberTasks.Count
                 };
 
                 var predicted = _predictionService.PredictProductivity(inputData);
+
                 predictions.Add(member.UserId, predicted);
             }
 

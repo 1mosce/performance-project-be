@@ -1,5 +1,4 @@
-﻿using MongoDB.Bson;
-using PerformanceProject.Shared.Models;
+﻿using PerformanceProject.Shared.Models;
 using Task = System.Threading.Tasks.Task;
 
 namespace PeopleManagmentSystem_API.Services.Interfaces
@@ -33,10 +32,5 @@ namespace PeopleManagmentSystem_API.Services.Interfaces
 
         // Difficulty
         Task UpdateDifficultyAsync(string projectId, string taskId, DifficultyLevel difficulty);
-
-
-
-        //double GetProductivity(string id);
-        //string GetSkills(string title);
     }
 }

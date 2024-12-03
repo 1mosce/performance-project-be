@@ -6,6 +6,16 @@
     <RootNamespace>PeopleManagmentSystem_API</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="ML\TaskClassification.consumption.cs" />
+    <Compile Remove="ML\TaskClassification.evaluate.cs" />
+    <Compile Remove="ML\TaskClassification.training.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="ML\TaskClassification.mbconfig" />
+    <None Remove="ML\TaskClassification.mlnet" />
+    <None Remove="ML\taskSkillsModel.zip" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="AspNetCore.Identity.MongoDbCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.15" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />

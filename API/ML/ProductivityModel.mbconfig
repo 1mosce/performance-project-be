@@ -1,0 +1,370 @@
+﻿{
+  "Scenario": "Regression",
+  "DataSource": {
+    "Version": 3,
+    "EscapeCharacter": "\"",
+    "ReadMultiLines": false,
+    "KeepDiacritics": false,
+    "KeepPunctuations": false,
+    "AllowQuoting": false,
+    "Type": "TabularFile",
+    "FilePath": "C:\\Users\\Alyona\\source\\repos\\performance-project-be\\API\\ML\\Synthetic_Productivity_Data.csv",
+    "Delimiter": ",",
+    "DecimalMarker": ".",
+    "HasHeader": true,
+    "ColumnProperties": [
+      {
+        "ColumnName": "TaskDifficulty",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "TaskRating",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": true,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "PlannedTime",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "RealTime",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Engagement",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "TasksPerPeriod",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Label",
+        "ColumnPurpose": "Label",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      }
+    ]
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "RunHistory": {
+    "Version": 3,
+    "Type": "Result",
+    "Trials": [
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "LightGbmRegression",
+        "Score": 0.98709126502552336,
+        "RuntimeInSeconds": 22.463,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfLeaves": 4603,
+            "MinimumExampleCountPerLeaf": 26,
+            "LearningRate": 0.11723166455948349,
+            "NumberOfTrees": 3313,
+            "SubsampleFraction": 0.99999977667298645,
+            "MaximumBinCountPerFeature": 395,
+            "FeatureFraction": 0.90111936060825959,
+            "L1Regularization": 5.2322475852573852E-10,
+            "L2Regularization": 0.85911861289481128,
+            "LabelColumnName": "Label",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "LightGbmRegression",
+        "Score": 0.98695400485659746,
+        "RuntimeInSeconds": 28.153,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfLeaves": 4425,
+            "MinimumExampleCountPerLeaf": 21,
+            "LearningRate": 0.13418034402603757,
+            "NumberOfTrees": 3279,
+            "SubsampleFraction": 0.32067973936265071,
+            "MaximumBinCountPerFeature": 342,
+            "FeatureFraction": 0.91050013786166928,
+            "L1Regularization": 1.2081340859157168E-09,
+            "L2Regularization": 0.28638621336218573,
+            "LabelColumnName": "Label",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "LightGbmRegression",
+        "Score": 0.98652946459461521,
+        "RuntimeInSeconds": 10.926,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfLeaves": 3378,
+            "MinimumExampleCountPerLeaf": 24,
+            "LearningRate": 0.11258085287363045,
+            "NumberOfTrees": 1773,
+            "SubsampleFraction": 0.99999977667298645,
+            "MaximumBinCountPerFeature": 313,
+            "FeatureFraction": 0.86844311384061079,
+            "L1Regularization": 5.8517214155248564E-10,
+            "L2Regularization": 0.74533745567164622,
+            "LabelColumnName": "Label",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "LightGbmRegression",
+        "Score": 0.98645430068666329,
+        "RuntimeInSeconds": 33.926,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfLeaves": 4721,
+            "MinimumExampleCountPerLeaf": 24,
+            "LearningRate": 0.086401591358096774,
+            "NumberOfTrees": 3044,
+            "SubsampleFraction": 0.7342553648857596,
+            "MaximumBinCountPerFeature": 412,
+            "FeatureFraction": 0.88800162630924229,
+            "L1Regularization": 4.9120037344305411E-10,
+            "L2Regularization": 0.89760664946179125,
+            "LabelColumnName": "Label",
+            "FeatureColumnName": "Features"
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "LightGbmRegression",
+        "Score": 0.9858835117902387,
+        "RuntimeInSeconds": 34.075,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e4",
+          "e0": {
+            "OutputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ]
+          },
+          "e1": {
+            "InputColumnNames": [
+              "TaskDifficulty",
+              "TaskRating",
+              "PlannedTime",
+              "RealTime",
+              "Engagement",
+              "TasksPerPeriod"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "NumberOfLeaves": 3517,
+            "MinimumExampleCountPerLeaf": 23,
+            "LearningRate": 0.055375485231331623,
+            "NumberOfTrees": 3672,
+            "SubsampleFraction": 0.77185334616833967,
+            "MaximumBinCountPerFeature": 385,
+            "FeatureFraction": 0.9123634408613549,
+            "L1Regularization": 8.8953264881328259E-10,
+            "L2Regularization": 0.55496627239078766,
+            "LabelColumnName": "Label",
+            "FeatureColumnName": "Features"
+          }
+        }
+      }
+    ],
+    "Estimators": {
+      "e0": "ReplaceMissingValues",
+      "e1": "Concatenate",
+      "e2": "FastTreeRegression",
+      "e3": "FastForestRegression",
+      "e4": "LightGbmRegression",
+      "e5": "LbfgsPoissonRegressionRegression",
+      "e6": "SdcaRegression"
+    },
+    "Schema": "e0 * e1 * (e2 + e3 + e4 + e5 + e6)",
+    "MetricName": "RSquared",
+    "ModelFilePath": "C:\\Users\\Alyona\\source\\repos\\performance-project-be\\API\\ML\\ProductivityModel.mlnet"
+  },
+  "Type": "TrainingConfig",
+  "Version": 5,
+  "TrainingOption": {
+    "Version": 2,
+    "Subsampling": false,
+    "Type": "RegressionTrainingOption",
+    "TrainingTime": 600,
+    "LabelColumn": "Label",
+    "ValidationOption": {
+      "Version": 0,
+      "Type": "CrossValidationValidationOption",
+      "NumberOfFolds": 5
+    }
+  }
+}

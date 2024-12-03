@@ -1,11 +1,8 @@
-﻿using Microsoft.ML;
-using MongoDB.Bson;
+﻿using MongoDB.Bson;
 using MongoDB.Driver;
 using PerformanceProject.Shared.Models;
 using PerformanceProject.Shared.Models.Database;
-using PerformanceProject.Shared.Models.ML;
 using PeopleManagmentSystem_API.Services.Interfaces;
-using System.Text;
 using Task = PerformanceProject.Shared.Models.Task;
 
 namespace PeopleManagmentSystem_API.Services

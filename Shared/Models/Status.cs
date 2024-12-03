@@ -18,7 +18,7 @@
 
     public enum DifficultyLevel
     {
-        Low,
+        Low = 1,
         Medium,
         High,
         VeryHigh
